@@ -1,0 +1,11 @@
+# Source and Docs
+docs/
+src/
+
+# Temp
+temp/
+
+# Yarn excludes
+node_modules/
+yarn-error.log*
+yarn.lock

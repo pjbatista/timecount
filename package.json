@@ -1,0 +1,53 @@
+{
+    "name": "timecount",
+    "description": "Timer and stopwatch with nanosecond precision and easy usage.",
+    "keywords": [
+        "timer",
+        "stopwatch",
+        "nanosecond"
+    ],
+    "author": {
+        "email": "pedrobatista@myself.com",
+        "name": "Pedro Batista"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/pjbatista/timecount.git"
+    },
+    "bugs": {
+        "url": "https://github.com/pjbatista/timecount/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/pjbatista/timecount/blob/master/LICENSE"
+        }
+    ],
+    "engines": {
+        "node": ">=4.2.0"
+    },
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "typings": "build/index.d.ts",
+    "scripts": {
+        "build": "node_modules/.bin/tsc",
+        "compress-docs": "node_modules/.bin/jszip --config typedoc.jszip.json",
+        "document": "node_modules/.bin/typedoc src/ && npm run compress-docs",
+        "package": "npm run test && npm run build && npm run document",
+        "publish": "npm run package",
+        "test": "node_modules/.bin/mocha tests/**/*.test.ts -r ts-node/register"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/chai": "^4.0.4",
+        "@types/mocha": "^2.2.43",
+        "chai": "^4.1.2",
+        "jszip-cli": "^1.4.24",
+        "mocha": "^4.0.1",
+        "ts-node": "^3.3.0",
+        "tslint": "^5.7.0",
+        "typedoc": "^0.9.0",
+        "typescript": "^2.5.3"
+    },
+    "version": "0.0.1"
+}
