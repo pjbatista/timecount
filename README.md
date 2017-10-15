@@ -8,9 +8,13 @@ This module contains a nanosecond-precise timer and stopwatch that can easily be
 
 `npm install timecount --save`
 
+-or-
+
+`yarn add timecount`
+
 ## Usage
 
-For the full documentation, download [timecount-docs.zip](https://github.com/pjbatista/timecount/blob/master/timecount-docs.zip).
+For the full documentation, download [timecount-docs.zip](https://github.com/pjbatista/timecount/raw/master/timecount-docs.zip).
 
 ### Timer
 
@@ -65,18 +69,29 @@ stopwatch.start();
 var lap1 = stopwatch.endLap();
 console.log(lap1.toString()); // 1.10 s
 
+// Later...
+
 // Getting the next lap's result in a different format
 stopwatch.options.precision = 5;
 var lap2 = stopwatch.endLap();
 console.log(lap2.toString()); // 2.60212 s
 
-// Getting the final result in the default format
+// Later...
+
+// Getting the final results in the default format
 stopwatch.options.reset();
-var finalResult = stopwatch.end();
-console.log(finalResult.toString()); // 2.60212 s
+var total = stopwatch.end();
+var lastLap = stopwatch.lapResults[stopwatch.lapCount - 1];
+
+console.log(lastLap.toString()); // 1.00 s
+console.log(total.toString()); // 4.70301 s
 ```
 
 ## Changelog
+
+### Version 0.0.2 (2017-10-14)
+
+Minor updates to the README and package.
 
 ### Version 0.0.1 (2017-10-14)
 
@@ -88,5 +103,5 @@ First version of this module; contains a fully functional Timer and StopWatch.
 
 ## License
 
-Copyright (c) 2017 Pedro Batista
+Copyright (c) 2017 Pedro Batista <br />
 MIT License (see [License](https://github.com/pjbatista/timecount/blob/master/LICENSE)).

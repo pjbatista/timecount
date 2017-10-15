@@ -2,6 +2,8 @@
     "name": "timecount",
     "description": "Timer and stopwatch with nanosecond precision and easy usage.",
     "keywords": [
+        "count",
+        "time",
         "timer",
         "stopwatch",
         "nanosecond"
@@ -49,5 +51,5 @@
         "typedoc": "^0.9.0",
         "typescript": "^2.5.3"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }

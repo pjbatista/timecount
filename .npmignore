@@ -1,6 +1,8 @@
-# Source and Docs
-docs/
+# Source
 src/
+
+# Docs zip
+timecount-docs.zip
 
 # Temp
 temp/
