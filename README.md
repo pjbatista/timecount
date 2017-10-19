@@ -32,23 +32,23 @@ var result = timer.end();
 console.log(result.toNanoSeconds()); // 3150411554.00 ns
 
 // Changing decimal separator and printing microseconds
-timer.options.decimalSeparator = ",";
+result.output.decimalSeparator = ",";
 console.log(result.toMicroSeconds()); // 3150415,54 μs
 
 // Changing unit separation and printing miliseconds
-timer.options.separateUnitFromNumber = false;
+result.output.separateUnitFromNumber = false;
 console.log(result.toMiliSeconds()); // 3150,42ms
 
 // Resetting options to default and printing seconds
-timer.options.reset();
+result.output.reset();
 console.log(result.toSeconds()); // 3.15 s
 
 // Changing units to be verbose and printing minutes
-timer.options.verboseUnit = true;
+result.output.verboseUnit = true;
 console.log(result.toMinutes()); // 0.05 minutes
 
 // Changing number precision to 8 and printing hours
-timer.options.precision = 8;
+result.output.precision = 8;
 console.log(result.toHours()); // 0.00087498 hours
 
 // Resetting again and printing using toString (selects best unit)

@@ -13,7 +13,6 @@ import {Timer} from "../src/timer";
 describe("Timer", () => {
 
     it("should assign options to result correctly", () => {
-
         const timer = new Timer({
             autoStart: true,
             decimalSeparator: ",",
@@ -30,7 +29,6 @@ describe("Timer", () => {
     });
 
     it("should auto-start properly", () => {
-
         let timer = new Timer({ autoStart: false });
         expect(timer.started).to.equal(false);
 
@@ -42,7 +40,6 @@ describe("Timer", () => {
     });
 
     it("should pause and resume properly", done => {
-
         const timer1 = new Timer();
         const timer2 = new Timer();
 
@@ -63,7 +60,6 @@ describe("Timer", () => {
     });
 
     it("should time one second somewhat precisely", done => {
-
         const timer = new Timer({ precision: 0 });
         timer.start();
 
@@ -80,4 +76,20 @@ describe("Timer", () => {
         }, 1000);
     });
 
+    it("should time pauses correctly", done => {
+        const timer = new Timer();
+        timer.start();
+        timer.pause();
+
+        setTimeout(() => {
+            timer.resume();
+            timer.end();
+
+            const result = timer.result;
+            const resultWithPause = timer.getTimeIncludingPaused();
+
+            expect(result.value).to.lessThan(resultWithPause.value);
+            done();
+        }, 10);
+    });
 });

@@ -12,6 +12,19 @@ import {TimeOutputOptions, TimeSpan, TimeUtil} from "./time-utils";
  * start and end.
  *
  * For a more complete implementation, see {@link Timer}.
+ *
+ * @example **Timing an operation**
+ *
+ * ```typescript
+ * import {SimpleTimer} from "timecount";
+ *
+ * const timer = new SimpleTimer({ autoStart: true });
+ *
+ * // Operation code...
+ *
+ * timer.end();
+ * console.log(`It took ${timer.result.toString()} to do it.`);
+ * ```
  */
 export class SimpleTimer {
 
@@ -113,6 +126,38 @@ export interface TimerOptions extends TimeOutputOptions {
 /**
  * Represents a time counting object, that is able to determine temporal differences between start
  * and end, inclusing pauses.
+ *
+ * @example **Timing and pausing**
+ *
+ * ```typescript
+ * import {Timer} from "timecount";
+ *
+ * const timer = new Timer({ autoStart: true });
+ *
+ * // Operation code...
+ *
+ * timer.pause();
+ *
+ * // Do something while timer is paused (like reading CLI input)
+ *
+ * cli.read(response => {
+ *     // The time it takes for the user to enter is not logged
+ *     timer.resume();
+ *
+ *     // And later, pause to ask another input...
+ *     timer.pause();
+ *
+ *     cli.read(response2 => {
+ *         timer.end();
+ *
+ *         const result = timer.result;
+ *         const resultIncludingPaused = timer.getTimeIncludingPaused();
+ *
+ *         console.log(`Processing: ${result.toString()}`);
+ *         console.log(`Total: ${resultIncludingPaused.toString()}`);
+ *     });
+ * });
+ * ```
  */
 export class Timer extends SimpleTimer {
 
@@ -149,6 +194,10 @@ export class Timer extends SimpleTimer {
 
         super(options as TimeOutputOptions);
 
+        this._pauseEnd = NaN;
+        this._pauseStart = NaN;
+        this._totalPauseTime = 0;
+
         if (options && options.autoStart) {
             this.start();
         }
@@ -169,6 +218,20 @@ export class Timer extends SimpleTimer {
         this.setResult(result);
 
         return result;
+    }
+
+    /**
+     * Gets the timer total timespan, including the time it was paused.
+     *
+     * @return
+     *   A timespan object with the total time of the object.
+     */
+    public getTimeIncludingPaused() {
+        const time = this.result.value;
+
+        if (isNaN(time)) { return this.result; }
+
+        return new TimeSpan(time + this._totalPauseTime, this.options);
     }
 
     /**
@@ -201,7 +264,6 @@ export class Timer extends SimpleTimer {
         const pausedTime = this._pauseEnd - this._pauseStart;
         this._totalPauseTime += pausedTime;
 
-        this._pauseStart = NaN;
         return pausedTime;
     }
 

@@ -11,6 +11,27 @@ import {Timer, TimerOptions} from "./timer";
 /**
  * Represents an extension of the timer object that allows time divisions (laps) during the
  * counting.
+ *
+ * @example **Counting parcial times**
+ *
+ * ```typescript
+ * import {StopWatch} from "timecount";
+ *
+ * const sw = new StopWatch({ autoStart: true, precision: 4 });
+ *
+ * while (doingSomething) {
+ *     // Something that takes time
+ *     sw.endLap();
+ * }
+ *
+ * sw.end();
+ *
+ * for (const lap of sw.lapResults) {
+ *     console.log(`Lap parcial: ${lap.toString()}`);
+ * }
+ *
+ * console.log(`Total time: ${sw.result.toString()}`);
+ * ```
  */
 export class StopWatch extends Timer {
 

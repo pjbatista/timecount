@@ -10,6 +10,19 @@ import { TimeOutputOptions, TimeSpan } from "./time-utils";
  * start and end.
  *
  * For a more complete implementation, see {@link Timer}.
+ *
+ * @example **Timing an operation**
+ *
+ * ```typescript
+ * import {SimpleTimer} from "timecount";
+ *
+ * const timer = new SimpleTimer({ autoStart: true });
+ *
+ * // Operation code...
+ *
+ * timer.end();
+ * console.log(`It took ${timer.result.toString()} to do it.`);
+ * ```
  */
 export declare class SimpleTimer {
     private _end;
@@ -68,6 +81,38 @@ export interface TimerOptions extends TimeOutputOptions {
 /**
  * Represents a time counting object, that is able to determine temporal differences between start
  * and end, inclusing pauses.
+ *
+ * @example **Timing and pausing**
+ *
+ * ```typescript
+ * import {Timer} from "timecount";
+ *
+ * const timer = new Timer({ autoStart: true });
+ *
+ * // Operation code...
+ *
+ * timer.pause();
+ *
+ * // Do something while timer is paused (like reading CLI input)
+ *
+ * cli.read(response => {
+ *     // The time it takes for the user to enter is not logged
+ *     timer.resume();
+ *
+ *     // And later, pause to ask another input...
+ *     timer.pause();
+ *
+ *     cli.read(response2 => {
+ *         timer.end();
+ *
+ *         const result = timer.result;
+ *         const resultIncludingPaused = timer.getTimeIncludingPaused();
+ *
+ *         console.log(`Processing: ${result.toString()}`);
+ *         console.log(`Total: ${resultIncludingPaused.toString()}`);
+ *     });
+ * });
+ * ```
  */
 export declare class Timer extends SimpleTimer {
     private _pauseEnd;
@@ -100,6 +145,13 @@ export declare class Timer extends SimpleTimer {
      *   An object with the time span between start and end, minus the paused time.
      */
     end(): TimeSpan;
+    /**
+     * Gets the timer total timespan, including the time it was paused.
+     *
+     * @return
+     *   A timespan object with the total time of the object.
+     */
+    getTimeIncludingPaused(): TimeSpan;
     /**
      * Pauses the time counting.
      */

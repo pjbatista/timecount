@@ -1,6 +1,11 @@
 # timecount Changelog
 
-> Changes are classified by version number (and the publish date in ISO 8601 format)
+> Changes are classified by version number (and the publishing date in ISO 8601 format)
+
+## Version 0.1.2 (2017-10-19)
+
+- Added `getTimeIncludingPaused` to `Timer`;
+- Fixed examples on README and added a few to the documentation.
 
 ## Version 0.1.1 (2017-10-18)
 

@@ -962,6 +962,9 @@ img { max-width: 100%; }
 					<a href="timer.html#end" class="tsd-kind-icon">end</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="timer.html#gettimeincludingpaused" class="tsd-kind-icon">get<wbr>Time<wbr>Including<wbr>Paused</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="timer.html#pause" class="tsd-kind-icon">pause</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -1003,6 +1006,39 @@ img { max-width: 100%; }
 					<p>Represents a time counting object, that is able to determine temporal differences between start
 					and end, inclusing pauses.</p>
 				</div>
+				<dl class="tsd-comment-tags">
+					<dt>example</dt>
+					<dd><p><strong>Timing and pausing</strong></p>
+						<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Timer} <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+<span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> Timer({ autoStart: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// Operation code...</span>
+
+timer.pause();
+
+<span class="hljs-comment">// Do something while timer is paused (like reading CLI input)</span>
+
+cli.read(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+    <span class="hljs-comment">// The time it takes for the user to enter is not logged</span>
+    timer.resume();
+
+    <span class="hljs-comment">// And later, pause to ask another input...</span>
+    timer.pause();
+
+    cli.read(<span class="hljs-function"><span class="hljs-params">response2</span> =&gt;</span> {
+        timer.end();
+
+        <span class="hljs-keyword">const</span> result = timer.result;
+        <span class="hljs-keyword">const</span> resultIncludingPaused = timer.getTimeIncludingPaused();
+
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Processing: <span class="hljs-subst">${result.toString()}</span>`</span>);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Total: <span class="hljs-subst">${resultIncludingPaused.toString()}</span>`</span>);
+    });
+});
+</code></pre>
+					</dd>
+				</dl>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
@@ -1052,6 +1088,7 @@ img { max-width: 100%; }
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="timer.html#end" class="tsd-kind-icon">end</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timer.html#gettimeincludingpaused" class="tsd-kind-icon">get<wbr>Time<wbr>Including<wbr>Paused</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timer.html#pause" class="tsd-kind-icon">pause</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="timer.html#resume" class="tsd-kind-icon">resume</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="timer.html#setendtime" class="tsd-kind-icon">set<wbr>End<wbr>Time</a></li>
@@ -1076,7 +1113,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L139">timer.ts:139</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L184">timer.ts:184</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1110,7 +1147,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#elapsedtime">elapsedTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L127">timer.ts:127</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L172">timer.ts:172</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1126,7 +1163,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#endtime">endTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L27">timer.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L40">timer.ts:40</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1142,7 +1179,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#ended">ended</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L124">timer.ts:124</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L169">timer.ts:169</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1157,7 +1194,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">last<wbr>Resume<wbr>Time<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L130">timer.ts:130</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L175">timer.ts:175</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1173,7 +1210,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#options">options</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L33">timer.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L46">timer.ts:46</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1188,7 +1225,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">paused<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L133">timer.ts:133</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L178">timer.ts:178</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1204,7 +1241,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#result">result</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L36">timer.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L49">timer.ts:49</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1220,7 +1257,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#starttime">startTime</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L42">timer.ts:42</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L55">timer.ts:55</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1236,7 +1273,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#started">started</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L139">timer.ts:139</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L184">timer.ts:184</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1251,7 +1288,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">total<wbr>Pause<wbr>Time<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L136">timer.ts:136</a></li>
+						<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L181">timer.ts:181</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1274,7 +1311,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#end">end</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L163">timer.ts:163</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L208">timer.ts:208</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1288,6 +1325,29 @@ img { max-width: 100%; }
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="gettimeincludingpaused" class="tsd-anchor"></a>
+				<h3>get<wbr>Time<wbr>Including<wbr>Paused</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Time<wbr>Including<wbr>Paused<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="timespan.html" class="tsd-signature-type">TimeSpan</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L225">timer.ts:225</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Gets the timer total timespan, including the time it was paused.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="timespan.html" class="tsd-signature-type">TimeSpan</a></h4>
+						<p>  A timespan object with the total time of the object.</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="pause" class="tsd-anchor"></a>
 				<h3>pause</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1297,7 +1357,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L177">timer.ts:177</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L236">timer.ts:236</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1319,7 +1379,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L193">timer.ts:193</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L252">timer.ts:252</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1343,7 +1403,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#setendtime">setEndTime</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L83">timer.ts:83</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L96">timer.ts:96</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1372,7 +1432,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#setresult">setResult</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L86">timer.ts:86</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L99">timer.ts:99</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1401,7 +1461,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#setstarttime">setStartTime</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L89">timer.ts:89</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L102">timer.ts:102</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1430,7 +1490,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Overrides <a href="simpletimer.html">SimpleTimer</a>.<a href="simpletimer.html#start">start</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/94a7385/src/timer.ts#L211">timer.ts:211</a></li>
+								<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/9a89f5c/src/timer.ts#L270">timer.ts:270</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
