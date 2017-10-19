@@ -28,7 +28,7 @@
         "no-unnecessary-callback-wrapper": true,
         "no-unnecessary-initializer": true,
         "no-var-keyword": true,
-        "no-var-requires": false,
+        "only-arrow-functions": false,
         "prefer-for-of": false,
         "variable-name": [true,
             "allow-leading-underscore",

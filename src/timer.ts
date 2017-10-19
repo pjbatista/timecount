@@ -8,28 +8,17 @@ See the LICENSE file for more information.
 import {TimeOutputOptions, TimeSpan, TimeUtil} from "./time-utils";
 
 /**
- * Represents an object that is used to configure the timer object, as well the output of the
- * resulting time spans.
+ * Represents a simle time counting object, that is able to determine temporal differences between
+ * start and end.
+ *
+ * For a more complete implementation, see {@link Timer}.
  */
-export interface TimerOptions extends TimeOutputOptions {
-
-    /** Whether or not to start the timer at its creation. */
-    autoStart?: boolean;
-}
-
-/**
- * Represents a time counting object, that is able to determine temporal differences between start
- * and end, inclusing pauses.
- */
-export class Timer {
+export class SimpleTimer {
 
     private _end: number;
-    private _pauseEnd: number;
-    private _pauseStart: number;
-    private _options: TimerOptions | undefined;
+    private _options: TimeOutputOptions;
     private _result: TimeSpan;
     private _start: number;
-    private _totalPauseTime: number;
 
     /** Gets whether or not the time counting has ended. */
     public get ended() { return !isNaN(this._end); }
@@ -37,20 +26,14 @@ export class Timer {
     /** Gets a value representing the end time, in nanoseconds. */
     public get endTime() { return this._end; }
 
-    /** Gets a value representing the last time the object resumed from a pause, in nanoseconds. */
-    public get lastResumeTime() { return this._pauseEnd; }
+    /** Gets the time span with the elapsed time so far. */
+    public get elapsedTime() { return this._getElapsedTime(); }
 
     /** Gets the output options object used by this timer. */
-    public get options() { return this._options as TimeOutputOptions; }
-
-    /** Gets whether or not the time counting is paused. */
-    public get paused() { return !isNaN(this._pauseStart) && isNaN(this._pauseEnd); }
+    public get options() { return this._options; }
 
     /** Gets the result time span object from the time counting. */
     public get result() { return this._result; }
-
-    /** Gets a value representing the total paused time, in nanoseconds. */
-    public get totalPauseTime() { return this._totalPauseTime; }
 
     /** Gets whether or not the time counting has started. */
     public get started() { return !isNaN(this._start); }
@@ -65,27 +48,127 @@ export class Timer {
      * @param options
      *   An object with the options to configure the timer execution and output.
      */
-    public constructor(options?: TimerOptions) {
+    public constructor(options?: TimeOutputOptions) {
 
         this._end = NaN;
         this._result = new TimeSpan(NaN);
         this._start = NaN;
         this._options = options || {};
+    }
 
-        if (this._options.autoStart) {
+    /**
+     * Finishes the time counting, adjusting the time values and properties accordingly.
+     *
+     * @return
+     *   An object with the time span between start and end.
+     */
+    public end() {
+
+        this._end = TimeUtil.getPreciseTime();
+        this._result = new TimeSpan(this._end - this._start, this.options);
+
+        return this._result;
+    }
+
+    /**
+     * Starts the time counting.
+     */
+    public start() {
+
+        this._end = NaN;
+        this._start = TimeUtil.getPreciseTime();
+    }
+
+    /** Protected setter for the endTime property. */
+    protected setEndTime(value: number) { this._end = value; }
+
+    /** Protected setter for the result property. */
+    protected setResult(value: TimeSpan) { this._result = value; }
+
+    /** Protected setter for the startTime property. */
+    protected setStartTime(value: number) { this._start = value; }
+
+    // Gets the current elapsed time value
+    private _getElapsedTime() {
+
+        if (!this.started || this.ended) {
+            return this._result;
+        }
+
+        const elapsed = TimeUtil.getPreciseTime() - this._start;
+        return new TimeSpan(elapsed, this._options);
+    }
+}
+
+/**
+ * Represents an object that is used to configure the timer object, as well the output of the
+ * resulting time spans.
+ */
+export interface TimerOptions extends TimeOutputOptions {
+
+    /** Whether or not to start the timer at its creation. */
+    autoStart?: boolean;
+}
+
+/**
+ * Represents a time counting object, that is able to determine temporal differences between start
+ * and end, inclusing pauses.
+ */
+export class Timer extends SimpleTimer {
+
+    private _pauseEnd: number;
+    private _pauseStart: number;
+    private _totalPauseTime: number;
+
+    /** Gets whether or not the time counting has ended. */
+    public get ended() { return !isNaN(this.endTime); }
+
+    /** Gets the time span with the elapsed time so far, minus the paused time. */
+    public get elapsedTime() { return this._getElapsedTimeWithPauses(); }
+
+    /** Gets a value representing the last time the object resumed from a pause, in nanoseconds. */
+    public get lastResumeTime() { return this._pauseEnd; }
+
+    /** Gets whether or not the time counting is paused. */
+    public get paused() { return !isNaN(this._pauseStart) && isNaN(this._pauseEnd); }
+
+    /** Gets a value representing the total paused time, in nanoseconds. */
+    public get totalPauseTime() { return this._totalPauseTime; }
+
+    /** Gets whether or not the time counting has started. */
+    public get started() { return !isNaN(this.startTime); }
+
+    /**
+     * Initializes a new instance of the {@link Timer} class, optionally passing a configuration
+     * object as parameter.
+     *
+     * @param options
+     *   An object with the options to configure the timer execution and output.
+     */
+    public constructor(options?: TimerOptions) {
+
+        super(options as TimeOutputOptions);
+
+        if (options && options.autoStart) {
             this.start();
         }
     }
 
     /**
      * Finishes the time counting, adjusting the time values and properties accordingly.
+     *
+     * @return
+     *   An object with the time span between start and end, minus the paused time.
      */
     public end() {
 
-        this._end = this.paused ? this._pauseStart : TimeUtil.getPreciseTime();
-        this._result = new TimeSpan(this._end - this._start - this._totalPauseTime, this._options);
+        const endTime = this.paused ? this._pauseStart : TimeUtil.getPreciseTime();
+        const result = new TimeSpan(endTime - this.startTime - this._totalPauseTime, this.options);
 
-        return this._result;
+        this.setEndTime(endTime);
+        this.setResult(result);
+
+        return result;
     }
 
     /**
@@ -103,6 +186,9 @@ export class Timer {
 
     /**
      * Resumes the time counting from a paused state.
+     *
+     * @return
+     *   A number with the paused time, in nanoseconds.
      */
     public resume() {
 
@@ -123,12 +209,34 @@ export class Timer {
      * Starts the time counting.
      */
     public start() {
-
-        this._end = NaN;
         this._pauseEnd = NaN;
         this._pauseStart = NaN;
         this._totalPauseTime = 0;
 
-        this._start = TimeUtil.getPreciseTime();
+        super.start();
+    }
+
+    // Gets the elapsed time counting pauses
+    private _getElapsedTimeWithPauses() {
+
+        // If it is not paused and never have been
+        if (!this.paused && this._totalPauseTime === 0) {
+            return super.elapsedTime;
+        }
+
+        // If object is not running
+        if (!this.started || this.ended) {
+            return this.result;
+        }
+
+        // If it is running, it can be paused or not:
+
+        if (!this.paused) {
+            const elapsed = TimeUtil.getPreciseTime() - this.startTime - this._totalPauseTime;
+            return new TimeSpan(elapsed, this.options);
+        }
+
+        const elapsedWithPauses = this._pauseStart - this.startTime - this._totalPauseTime;
+        return new TimeSpan(elapsedWithPauses, this.options);
     }
 }

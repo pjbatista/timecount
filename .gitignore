@@ -56,6 +56,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# Documentation (it is published as zip)
-docs/

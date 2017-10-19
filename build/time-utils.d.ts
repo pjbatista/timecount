@@ -5,29 +5,6 @@ MIT License
 See the LICENSE file for more information.
 ***************************************************************************** */
 /**
- * Contains the available time formats, with enumeration value corresponding to nanosecond divisor
- * required to calculated that format.
- */
-export declare enum TimeDivisor {
-    Hours = 3600000000000,
-    MicroSeconds = 1000,
-    MiliSeconds = 1000000,
-    Minutes = 60000000000,
-    NanoSeconds = 1,
-    Seconds = 1000000000,
-}
-/**
- * Contains the available time formats, with enumeration value corresponding to their abbreviation.
- */
-export declare enum TimeFormat {
-    Hours = "h",
-    MicroSeconds = "\u03BCs",
-    MiliSeconds = "ms",
-    Minutes = "min",
-    NanoSeconds = "ns",
-    Seconds = "s",
-}
-/**
  * A class that contains the output configuration as well as utility methods.
  */
 export declare class TimeOutput implements TimeOutputOptions {
@@ -72,7 +49,7 @@ export interface TimeOutputOptions {
  * Represents a difference, or measurement of a time value, and has the ability to output that time
  * in many different formats.
  */
-export declare class TimeSpan implements TimeTransformer {
+export declare class TimeSpan implements TimeWriter {
     private _output;
     private _value;
     /** Gets the configurable output object for this object. */
@@ -141,9 +118,63 @@ export declare class TimeSpan implements TimeTransformer {
     private _formatOutput(calculatedValue, format);
 }
 /**
+ * A utility, static class containing methods that pertain to time counting.
+ */
+export declare class TimeUtil {
+    /**
+     * Gets the current time with nanosecond precision.
+     *
+     * @return
+     *   A numeric value that represents the current time, in nanoseconds.
+     */
+    static getPreciseTime(): number;
+    /**
+     * Gets the nanoseconds of a hour-formatted time.
+     *
+     * @return
+     *   A numeric value with the hours converted to nanoseconds.
+     */
+    fromHours(hours: number): number;
+    /**
+     * Gets the nanoseconds of a microsecond-formatted time.
+     *
+     * @return
+     *   A numeric value with the microseconds converted to nanoseconds.
+     */
+    fromMicroSeconds(microseconds: number): number;
+    /**
+     * Gets the nanoseconds of a milisecond-formatted time.
+     *
+     * @return
+     *   A numeric value with the miliseconds converted to nanoseconds.
+     */
+    fromMiliSeconds(miliseconds: number): number;
+    /**
+     * Gets the nanoseconds of a minute-formatted time.
+     *
+     * @return
+     *   A numeric value with the minutes converted to nanoseconds.
+     */
+    fromMinutes(minutes: number): number;
+    /**
+     * Gets the nanoseconds of a second-formatted time.
+     *
+     * @return
+     *   A numeric value with the seconds converted to nanoseconds.
+     */
+    fromSeconds(seconds: number): number;
+    private constructor();
+}
+/**
+ * Pre-0.1.0 name for the time writer interface.
+ *
+ * @deprecated To be removed on major release.
+ */
+export declare type TimeTransformer = TimeWriter;
+/**
  * Represents an object that is able to express a time value in a range of formats;
  */
-export interface TimeTransformer {
+export interface TimeWriter {
     /** Gets the time expressed in hours. */
     toHours(): string;
     /** Gets the time expressed in micro-seconds. */
@@ -158,17 +189,4 @@ export interface TimeTransformer {
     toSeconds(): string;
     /** Gets the time expressed with the most appropriate unit. */
     toString(): string;
-}
-/**
- * A utility, static class containing methods that pertain to time counting.
- */
-export declare class TimeUtil {
-    /**
-     * Gets the current time with nanosecond precision.
-     *
-     * @return
-     *   A numeric value that represents the current time, in nanoseconds.
-     */
-    static getPreciseTime(): number;
-    private constructor();
 }

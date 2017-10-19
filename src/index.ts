@@ -5,15 +5,6 @@ MIT License
 See the LICENSE file for more information.
 ***************************************************************************** */
 
-export {
-    TimeDivisor,
-    TimeFormat,
-    TimeOutput,
-    TimeOutputOptions,
-    TimeSpan,
-    TimeTransformer,
-    TimeUtil,
-} from "./time-utils";
-
 export {StopWatch} from "./stopwatch";
+export {TimeOutput, TimeOutputOptions, TimeWriter, TimeSpan, TimeUtil} from "./time-utils";
 export {Timer, TimerOptions} from "./timer";

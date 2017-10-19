@@ -19,7 +19,9 @@
         "excludeNotExported": true,
         "excludePrivate": true,
         "mode": "file",
-        "name": "API for \"timecount\"",
-        "out": "docs"
+        "name": "timecount API",
+        "out": "docs",
+        "readme": "API.md",
+        "theme": "minimal"
     }
 }

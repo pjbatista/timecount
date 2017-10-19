@@ -3,10 +3,10 @@
     "description": "Timer and stopwatch with nanosecond precision and easy usage.",
     "keywords": [
         "count",
-        "time",
-        "timer",
+        "nanosecond",
         "stopwatch",
-        "nanosecond"
+        "time",
+        "timer"
     ],
     "author": {
         "email": "pedrobatista@myself.com",
@@ -33,8 +33,7 @@
     "typings": "build/index.d.ts",
     "scripts": {
         "build": "node_modules/.bin/tsc",
-        "compress-docs": "node_modules/.bin/jszip --config typedoc.jszip.json",
-        "document": "node_modules/.bin/typedoc src/ && npm run compress-docs",
+        "document": "node_modules/.bin/typedoc src",
         "lint": "node_modules/.bin/tslint --project .",
         "package": "npm run test && npm run lint && npm run build && npm run document",
         "prepare": "npm run package",
@@ -45,12 +44,11 @@
         "@types/chai": "^4.0.4",
         "@types/mocha": "^2.2.43",
         "chai": "^4.1.2",
-        "jszip-cli": "^1.4.24",
         "mocha": "^4.0.1",
         "ts-node": "^3.3.0",
         "tslint": "^5.7.0",
         "typedoc": "^0.9.0",
         "typescript": "^2.5.3"
     },
-    "version": "0.0.4"
+    "version": "0.1.0"
 }
