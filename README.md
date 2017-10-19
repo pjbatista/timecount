@@ -14,7 +14,7 @@ This module contains a nanosecond-precise timer and stopwatch that can easily be
 
 ## Usage
 
-For the full API/documentation, visit [timecount Docs](https://pjbatista.github.io/timecount/).
+For the full API/documentation, visit [timecount API](https://pjbatista.github.io/timecount/).
 
 ### Timer
 

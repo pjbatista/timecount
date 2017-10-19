@@ -2,6 +2,10 @@
 
 > Changes are classified by version number (and the publishing date in ISO 8601 format)
 
+## Version 0.1.3 (2017-10-19)
+
+Fixed links on documentation.
+
 ## Version 0.1.2 (2017-10-19)
 
 - Added `getTimeIncludingPaused` to `Timer`;

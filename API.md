@@ -4,11 +4,11 @@ Welcome to the timecount [API documentation](https://pjbatista.github.io/timecou
 
 The main components for end-users of this module are:
 
-- [SimpleTimer](classes/SimpleTimer.html) -
+- [SimpleTimer](classes/simpletimer.html) -
   A basic time counting object;
-- [StopWatch](classes/StopWatch.html) -
+- [StopWatch](classes/stopwatch.html) -
   A time counting object with time division (laps) features;
-- [Timer](classes/Timer.html) -
+- [Timer](classes/timer.html) -
   An extension of `SimpleTimer` with pausing capabilities.
 
 Feel free to submit any issues, questions, or suggestions to https://github.com/pjbatista/timecount.
