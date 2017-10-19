@@ -1,8 +1,0 @@
-{
-    "entities": [
-        { "name": "./docs", "root": true }
-    ],
-    "options": {
-        "output": "timecount-docs.zip"
-    }
-}
