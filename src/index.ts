@@ -7,4 +7,4 @@ See the LICENSE file for more information.
 
 export {StopWatch} from "./stopwatch";
 export {TimeOutput, TimeOutputOptions, TimeWriter, TimeSpan, TimeUtil} from "./time-utils";
-export {Timer, TimerOptions} from "./timer";
+export {SimpleTimer, Timer, TimerOptions} from "./timer";

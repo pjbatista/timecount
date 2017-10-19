@@ -2,6 +2,10 @@
 
 > Changes are classified by version number (and the publish date in ISO 8601 format)
 
+## Version 0.1.1 (2017-10-18)
+
+Added `SimpleTimer` to index exports.
+
 ## Version 0.1.0 (2017-10-18)
 
 - Added from* (nanosecond conversion) methods to `TimeUtil`;
