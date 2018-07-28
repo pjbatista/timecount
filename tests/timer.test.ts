@@ -1,95 +1,138 @@
 /*! ****************************************************************************
-Copyright (c) 2017 Pedro Batista
+Copyright (c) 2017-2018 Pedro José Batista
 MIT License
 
 See the LICENSE file for more information.
 ***************************************************************************** */
+import { expect } from "chai";
+import { Suite } from "mocha";
+import { Time } from "../src";
+import { Timer, TimerError } from "../src/utils";
 
-import {expect} from "chai";
-import "mocha";
+const timeout = 66;
+const lowerBound = timeout - 20;
+const upperBound = timeout + 20;
 
-import {Timer} from "../src/timer";
+const testTimeout = (closure: (... args: any[]) => void) => setTimeout(closure, timeout);
 
-describe("Timer", () => {
+describe("Timer", function(this: Suite) {
 
-    it("should assign options to result correctly", () => {
-        const timer = new Timer({
-            autoStart: true,
-            decimalSeparator: ",",
-            precision: 0,
-            separateUnitFromNumber: false,
-            verboseUnit: true,
-        });
+    this.timeout(1000);
 
-        timer.end();
-        expect(timer.result.output.decimalSeparator).to.equal(",");
-        expect(timer.result.output.precision).to.equal(0);
-        expect(timer.result.output.separateUnitFromNumber).to.equal(false);
-        expect(timer.result.output.verboseUnit).to.equal(true);
-    });
-
-    it("should auto-start properly", () => {
-        let timer = new Timer({ autoStart: false });
-        expect(timer.started).to.equal(false);
-
-        timer = new Timer();
-        expect(timer.started).to.equal(false);
-
-        timer = new Timer({ autoStart: true });
-        expect(timer.started).to.equal(true);
-    });
-
-    it("should pause and resume properly", done => {
-        const timer1 = new Timer();
-        const timer2 = new Timer();
-
-        timer1.start();
-        timer2.start();
-
-        timer1.pause();
-
-        setTimeout(() => {
-            timer1.resume();
-
-            timer1.end();
-            timer2.end();
-
-            expect(timer2.result.value).to.be.greaterThan(timer1.result.value);
-            done();
-        }, 1);
-    });
-
-    it("should time one second somewhat precisely", done => {
-        const timer = new Timer({ precision: 0 });
+    it("should count time somewhat precisely", done => {
+        const timer = new Timer();
         timer.start();
 
-        setTimeout(() => {
-            timer.end();
+        testTimeout(() => {
+            const time = timer.stop().to("milisecond");
 
-            // Accept either "1 s" or "1000 ms", since values slight lesser than one second will
-            // approximate to the later
-
-            expect(timer.result.toString()).to.satisfy((result: string) => {
-                return result === "1 s" || result === "1000 ms";
-            });
+            expect(time).to.be.gte(lowerBound);
+            expect(time).to.be.lte(upperBound);
             done();
-        }, 1000);
+        });
     });
 
-    it("should time pauses correctly", done => {
+    it("should be created with and without auto-start", done => {
+        let timer = new Timer();
+        expect(timer.isRunning).to.equal(false);
+
+        timer.start();
+
+        testTimeout(() => {
+            let time = timer.stop().to("milisecond");
+            expect(time).to.be.gte(lowerBound);
+            expect(time).to.be.lte(upperBound);
+
+            timer = new Timer(true);
+            expect(timer.isRunning).to.equal(true);
+
+            testTimeout(() => {
+                time = timer.stop().to("milisecond");
+                expect(time).to.be.gte(lowerBound);
+                expect(time).to.be.lte(upperBound);
+
+                done();
+            });
+        });
+    });
+
+    it("should reset its state after stopping", done => {
+        const timer = new Timer();
+        timer.start();
+
+        testTimeout(() => {
+            timer.stop();
+            expect(timer.elapsedTime).to.equal(null);
+            expect(timer.isRunning).to.equal(false);
+
+            done();
+        });
+    });
+
+    it("should throw when trying to start after it already started", () => {
+        const timer = new Timer();
+        timer.start();
+
+        expect(() => { timer.start(); }).to.throw(TimerError, "The timer has already started");
+    });
+
+    it("should throw when trying to stop before it starts", () => {
+        const timer = new Timer();
+        expect(() => { timer.stop(); }).to.throw(TimerError, "The timer has not yet started");
+    });
+
+    it("should pause and account for paused time", done => {
+        const timer = new Timer(true);
+
+        testTimeout(() => {
+            timer.pause();
+            let time = (timer.elapsedTime as Time).to("milisecond");
+
+            expect(timer.isPaused).to.equal(true);
+            expect(time).to.be.gte(lowerBound);
+            expect(time).to.be.lte(upperBound);
+
+            testTimeout(() => {
+                time = (timer.elapsedTime as Time).to("milisecond");
+
+                expect(timer.isPaused).to.equal(true);
+                expect(time).to.be.gte(lowerBound);
+                expect(time).to.be.lte(upperBound);
+
+                timer.resume();
+                expect(timer.isPaused).to.equal(false);
+
+                testTimeout(() => {
+                    time = timer.stop().to("milisecond");
+
+                    expect(time).to.be.gte(lowerBound * 2);
+                    expect(time).to.be.lte(upperBound * 2);
+
+                    done();
+                });
+            });
+        });
+    });
+
+    it("should throw when trying to pause before it starts", () => {
+        const timer = new Timer();
+        expect(() => { timer.pause(); }).to.throw(TimerError, "The timer has not yet started");
+    });
+
+    it("should throw when trying to pause and it is already paused", () => {
         const timer = new Timer();
         timer.start();
         timer.pause();
 
-        setTimeout(() => {
-            timer.resume();
-            timer.end();
+        expect(() => { timer.pause(); }).to.throw(TimerError, "The timer is already paused");
+    });
 
-            const result = timer.result;
-            const resultWithPause = timer.getTimeIncludingPaused();
+    it("should throw when trying to resume before it is paused", () => {
+        const timer = new Timer();
 
-            expect(result.value).to.lessThan(resultWithPause.value);
-            done();
-        }, 10);
+        expect(() => { timer.resume(); }).to.throw(TimerError, "The timer is not paused");
+
+        timer.start();
+        expect(() => { timer.resume(); }).to.throw(TimerError, "The timer is not paused");
     });
 });

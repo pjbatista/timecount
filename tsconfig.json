@@ -4,24 +4,23 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "inlineSourceMap": true,
-        "lib": ["es6"],
         "module": "commonjs",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "outDir": "build",
         "strict": true,
-        "target": "es6",
-        "types": ["node"]
+        "target": "es2015"
     },
-    "include": ["src/**/*.ts"],
+    "files": ["gulpfile.ts"],
     "typedocOptions": {
-        "excludeExternals": true,
+        "exclude": "**/src/locales/**/*.ts",
         "excludeNotExported": true,
         "excludePrivate": true,
-        "mode": "file",
+        "includes": "src/docs",
+        "module": "commonjs",
         "name": "timecount API",
         "out": "docs",
-        "readme": "API.md",
-        "theme": "minimal"
+        "readme": "src/docs/main.md",
+        "target": "es2015"
     }
 }
