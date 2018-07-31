@@ -201,7 +201,14 @@ describe("TimeWriter", () => {
         timeWriter.settings.decimalSeparator = ".";
 
         expect(timeWriter.write(1.5, "tropicalYear")).to.equal("1.5 anos tropicais");
-
         expect(timeWriter.write(1.5, "tropicalYear", { decimalSeparator: "-" })).to.equal("1-5 anos tropicais");
+    });
+
+    it("should throw when trying to write using a invalid time unit", () => {
+        const timeWriter = new TimeWriter();
+
+        expect(() => { timeWriter.write(1, "invalidTimeUnit"); }).to.throw(Error, "Invalid time unit");
+        expect(() => { timeWriter.write(1, "second", "invalidTimeUnit"); }).to.throw(Error, "Invalid time unit");
+        expect(() => { timeWriter.write(1, "invalidTimeUnit", "second"); }).to.throw(Error, "Invalid time unit");
     });
 });

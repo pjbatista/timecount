@@ -13,6 +13,36 @@ import * as utils from "./utils";
 export { localization };
 export { utils };
 
+// Gets a time unit object from a time unit parameter
+function timeUnitFromParameter(parameter: TimeUnitParameter) {
+
+    if (typeof(parameter) === "object" && parameter.hasOwnProperty("factor")) {
+        return parameter;
+    }
+
+    if (typeof(parameter) === "string") {
+
+        if (timeUnits.hasOwnProperty(parameter)) {
+            return timeUnits[parameter as keyof TimeUnitDatabase];
+        }
+
+        // tslint:disable-next-line:curly
+        for (const name in timeUnits) if (timeUnits.hasOwnProperty(name)) {
+            const timeUnit = (timeUnits as any)[name] as TimeUnit;
+            const search = parameter.toLowerCase();
+
+            // Searching for case insensitive names and plurals
+            if (timeUnit.name.toLowerCase() === search || timeUnit.name.toLowerCase() + "s" === search ||
+                (typeof(timeUnit.customPlural) === "string" && timeUnit.customPlural.toLowerCase() === search)) {
+
+                return timeUnit;
+            }
+        }
+    }
+
+    throw new Error("Invalid time unit");
+}
+
 // Gets the decimal separator from an ECMA locale string
 function getLocalDecimalSeparator() {
     const value = 1.1;
@@ -229,10 +259,7 @@ export class Time implements NanosecondBasedTime {
      */
     public static from(value: number, timeUnit: TimeUnitParameter) {
 
-        if (typeof(timeUnit) === "string") {
-            timeUnit = timeUnits[timeUnit];
-        }
-
+        timeUnit = timeUnitFromParameter(timeUnit);
         return new Time(value * timeUnit.factor);
     }
 
@@ -338,10 +365,7 @@ export class Time implements NanosecondBasedTime {
      */
     public to(timeUnit: TimeUnitParameter) {
 
-        if (typeof(timeUnit) === "string") {
-            timeUnit = timeUnits[timeUnit];
-        }
-
+        timeUnit = timeUnitFromParameter(timeUnit);
         return this._value / timeUnit.factor;
     }
 
@@ -814,7 +838,7 @@ export interface TimeUnitDatabase<T extends BaseTimeUnit = BaseTimeUnit> {
  *
  * The accepted names are all the properties defined by [[TimeUnitDatabase]].
  */
-export type TimeUnitParameter = keyof TimeUnitDatabase | TimeUnit;
+export type TimeUnitParameter = keyof TimeUnitDatabase | TimeUnit | string;
 
 /**
  * **Time writers** are used to synthesize time values into strings.
@@ -922,7 +946,7 @@ export class TimeWriter {
         targetTimeUnit?: TimeUnitParameter | TimeWriterSettings, options?: TimeWriterSettings) {
 
         const isOptions = (parameter?: TimeUnitParameter | TimeWriterSettings) =>
-            typeof(parameter) !== "string" && (!!parameter && !parameter.hasOwnProperty("factor"));
+            typeof(parameter) !== "string" && (parameter && !parameter.hasOwnProperty("factor"));
 
         if (isOptions(targetTimeUnit)) {
             options = targetTimeUnit as TimeWriterSettings;
@@ -933,11 +957,10 @@ export class TimeWriter {
         }
 
         options = options || {};
-        this._writerSettingsCache = this._createWriterSettingsCache(options);
-        const writerSettings = this._writerSettingsCache;
+        const writerSettings = this._writerSettingsCache = this._createWriterSettingsCache(options);
 
-        originTimeUnit = (originTimeUnit as TimeUnitParameter) || (writerSettings.defaultTimeUnit as TimeUnitParameter);
-        targetTimeUnit = (targetTimeUnit as TimeUnitParameter) || originTimeUnit;
+        originTimeUnit = timeUnitFromParameter((originTimeUnit || writerSettings.defaultTimeUnit) as TimeUnitParameter);
+        targetTimeUnit = timeUnitFromParameter((targetTimeUnit as TimeUnitParameter) || originTimeUnit);
 
         if (typeof(time) === "number") {
             time = Time.from(time, originTimeUnit);
@@ -945,10 +968,6 @@ export class TimeWriter {
 
         if (!(time instanceof Time)) {
             time = new Time(time);
-        }
-
-        if (typeof(targetTimeUnit) === "string") {
-            targetTimeUnit = timeUnits[targetTimeUnit];
         }
 
         this._timeUnitSettingsCache = this._createTimeUnitSettingsCache(targetTimeUnit);

@@ -75,6 +75,6 @@ gulp.task("package", (callback: any) => {
 gulp.task("test", () => {
     return gulp.src("./tests/**/*.test.ts")
         .pipe(mocha({
-            compilers: "ts:ts-node/register",
+            require: "ts-node/register",
         } as any));
 });
