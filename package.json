@@ -58,6 +58,7 @@
         "@types/run-sequence": "0.0.30",
         "@types/systeminformation": "^3.23.0",
         "chai": "^4.1.2",
+        "glob": "^7.1.2",
         "gulp": "^3.9.1",
         "gulp-mocha": "^6.0.0",
         "gulp-sourcemaps": "^2.6.4",

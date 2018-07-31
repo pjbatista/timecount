@@ -14,7 +14,7 @@ export { localization };
 export { utils };
 
 // Gets a time unit object from a time unit parameter
-function timeUnitFromParameter(parameter: TimeUnitParameter) {
+function timeUnitFromParameter(parameter: TimeUnitParameter | string) {
 
     if (typeof(parameter) === "object" && parameter.hasOwnProperty("factor")) {
         return parameter;
@@ -838,7 +838,7 @@ export interface TimeUnitDatabase<T extends BaseTimeUnit = BaseTimeUnit> {
  *
  * The accepted names are all the properties defined by [[TimeUnitDatabase]].
  */
-export type TimeUnitParameter = keyof TimeUnitDatabase | TimeUnit | string;
+export type TimeUnitParameter = keyof TimeUnitDatabase | TimeUnit;
 
 /**
  * **Time writers** are used to synthesize time values into strings.

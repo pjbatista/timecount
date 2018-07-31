@@ -13,7 +13,10 @@
     },
     "files": ["gulpfile.ts"],
     "typedocOptions": {
-        "exclude": "**/src/locales/**/*.ts",
+        "exclude": [
+            "**/src/locales/**/*.ts",
+            "**/src/local-test.ts"
+        ],
         "excludeNotExported": true,
         "excludePrivate": true,
         "includes": "src/docs",
