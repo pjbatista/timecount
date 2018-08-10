@@ -70,18 +70,18 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This <em>static</em> class manages the localization of the module, which generates synthesized time outputs in languages
-						other than the default — English (US); the current locale can be changed via <a href="_localization_.locale.html#set">Locale.set</a>.</p>
+						<p>This class manages the internationalization of the module, altering the results synthesized by
+						<a href="_index_.timewriter.html">time writers</a>.</p>
 					</div>
-					<p>Translations are files that export the translated time units as well as configurations for the language (for example,
-					how plurals should be parsed).</p>
+					<p>Translations are stored in files located at <code>src/locales</code>. These files contain the transcription for time units and
+					linguistic configurations.</p>
 					<hr>
 					<p>See <a href="https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md#translating">Contributing: Translating</a> if
-					you wish to contribute with a new language or regional variation.</p>
+					you wish to contribute with a new translation for timecount.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">Locale</span>
@@ -89,7 +89,7 @@
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -123,17 +123,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L44">localization.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L47">localization.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the current locale identifier (e.g.: &quot;fr&quot; is French — represents the international translation for the
-										language as a whole; &quot;fr-ca&quot; is French (Canada) — represents a localized variation of the French language meant
-									for the country of Canada).</p>
+									<p>Gets the current locale identifier.</p>
 								</div>
-								<p>The default is &quot;en-us&quot;, which represents English (United States), a language built into the module (doesn&#39;t
-								require any translation file).</p>
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Since v1.1.0 - In favor of <code>get</code> (will be removed in v2).</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
@@ -149,12 +150,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L49">localization.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L50">localization.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the locale settings associated with the current locale, an object that contains all language overrides.</p>
+									<p>Gets the configuration for the current locale which represents the translation file currently loaded.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_localization_.localesettings.html" class="tsd-signature-type">LocaleSettings</a></h4>
@@ -174,13 +175,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L52">localization.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L60">localization.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This property is an alias to <a href="_localization_.locale.html#currentidentifier">currentIdentifier</a>.</p>
+									<p>Gets the current locale identifier (e.g.: &quot;fr&quot; represents French — the international translation for the language
+										as a whole; &quot;fr-ca&quot; is French (Canada) — represents a localized variation of the French language meant for
+									Canada).</p>
 								</div>
+								<p>The default is &quot;en-us&quot;, which represents English (United States), a language built into the module (doesn&#39;t
+								require any translation file).</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
@@ -196,7 +201,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L62">localization.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L70">localization.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -228,12 +233,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L83">localization.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L87">localization.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a list with all locale identifiers available to <code>timecount</code>.</p>
+									<p>Gets a list with all locale identifiers available to timecount.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -245,31 +250,39 @@
 					<a name="set" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>localeIdentifier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>localeIdentifier<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L99">localization.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L108">localization.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sets the current locale using the specified identifier.</p>
+									<p>Sets the current timecount language using the specified locale identifier (e.g.: &quot;pt&quot; represents Portuguese — the
+										international translation for the language as a whole; &quot;pt-br&quot; is Portuguese (Brazilian) — represents a localized
+									variation of the Portuguese language meant for Brazil).</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the locale identifier is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>localeIdentifier: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> localeIdentifier: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;en&quot;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>  A string with a 2 letter language identifier (&quot;en&quot;, &quot;es&quot;, &quot;pt&quot;, etc.) -or- a 5 letter language + region
-										identifier (&quot;en-ca&quot;, &quot;pt-ao&quot;).</p>
+										identifier (&quot;en-ca&quot;, &quot;pt-ao&quot;). This parameter is case-insensitive. If empty, it will reset the locale to &quot;en&quot;.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -398,7 +411,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

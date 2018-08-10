@@ -70,37 +70,42 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A <strong>time unit</strong> is a measurement of time.</p>
+						<p>A time unit is any particular time interval, used as a standard way of measuring or expressing duration.</p>
 					</div>
-					<p>Objects of this type store linguist-based properties from <a href="_index_.basetimeunit.html">BaseTimeUnit</a> and the correlation between the time unit
-					and nanoseconds (i.e. how many nanoseconds fit in one unit).</p>
+					<p>Extending from its precursor, <a href="_index_.basetimeunit.html">BaseTimeUnit</a>, an object of this type contains both the
+					mathematical and linguistic properties of the time unit it describes.</p>
 					<hr>
 					<p>See <a href="_index_.timeunitdatabase.html">TimeUnitDatabase</a> for more information about time units.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<a href="_index_.basetimeunit.html" class="tsd-signature-type">BaseTimeUnit</a>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">TimeUnit</span>
+								<ul class="tsd-hierarchy">
+									<li>
+										<a href="_index_.namedtimeunit.html" class="tsd-signature-type">NamedTimeUnit</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timeunit.html#approximated" class="tsd-kind-icon">approximated</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_index_.timeunit.html#customplural" class="tsd-kind-icon">custom<wbr>Plural</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timeunit.html#factor" class="tsd-kind-icon">factor</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timeunit.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_index_.timeunit.html#pluralize" class="tsd-kind-icon">pluralize</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_index_.timeunit.html#readablename" class="tsd-kind-icon">readable<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_index_.timeunit.html#symbol" class="tsd-kind-icon">symbol</a></li>
@@ -111,6 +116,21 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="approximated" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> approximated</h3>
+					<div class="tsd-signature tsd-kind-icon">approximated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L933">index.ts:933</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Determines whether this time unit is an approximation.</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="customplural" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> custom<wbr>Plural</h3>
@@ -118,44 +138,29 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#customplural">customPlural</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L185">index.ts:185</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L382">index.ts:382</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Defines a custom pluralized name for the time unit; it can be a string, used whenever the quantity of time is
-							greater than one -or- a function, able to retrieve different words according to said quantity.</p>
+							<p>Defines a custom pluralized name for the time unit; it can be a string — used whenever the quantity of time is
+							greater than one — or a function, able to retrieve different words according to a given quantity.</p>
 						</div>
-						<p>By default, words are pluralized by adding &quot;s&quot; to the end of the readable name.</p>
+						<p>By default, words are pluralized by adding an &quot;s&quot; to the end of their <a href="#readablename">readable name</a>.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="factor" class="tsd-anchor"></a>
 					<h3>factor</h3>
-					<div class="tsd-signature tsd-kind-icon">factor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">factor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L396">index.ts:396</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L936">index.ts:936</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A coefficient determining how many nanoseconds fit inside this time unit.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L399">index.ts:399</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Name of the time unit the same way it&#39;s declared on <a href="_index_.timeunitdatabase.html">TimeUnitDatabase</a> (used internally).</p>
+							<p>Multiplicative factor (coefficient) of this time unit in relation to a nanosecond.</p>
 						</div>
 					</div>
 				</section>
@@ -166,14 +171,16 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#pluralize">pluralize</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L191">index.ts:191</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L391">index.ts:391</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Determines whether the time unit should be pluralized, either by adding &quot;s&quot; to the end of the readable name or
-							using <a href="_index_.timeunit.html#customplural">customPlural</a>; the default is true.</p>
+							<p>Determines whether the time unit should be pluralized: by default, words are pluralized by adding an &quot;s&quot; to the
+							end of their <a href="#readablename">readable name</a>, but this can be changed via <a href="#customplural">customPlural</a>.</p>
 						</div>
+						<p>If set to false, this will prevent the time unit from ever being pluralized (unless this configuration is
+						overwritten).</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -183,7 +190,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#readablename">readableName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L205">index.ts:205</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L408">index.ts:408</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -191,10 +198,12 @@
 							<p>Name of the time unit presented in a human readable format.</p>
 						</div>
 						<p>For timecount&#39;s default language — English (US) — this is parsed from the name of the property that contains the
-							unit. For example, &quot;galaticYear&quot; is parsed as &quot;galatic year&quot;; however, in cases like &quot;planckTime&quot;, that would
-						render &quot;planck time&quot;, without the capitalization, so a <em>readableName</em> is used.</p>
+							time unit, taking advantage of its <a href="https://en.wikipedia.org/wiki/Camel_case">medial capitals</a> to separate
+						compound names (<code>galacticYear</code> parses as &quot;galactic year&quot;).</p>
+						<p>In some cases, however, a custom readable name is required even in English (US) (<code>planckTime</code>, for example, would
+						not be correctly capitalized as &quot;Planck time&quot;).</p>
 						<hr>
-						<p>If you wish to help timecount by translating it to a known language of yours, check out
+						<p>If you wish to help timecount with a translation, plese consult
 						<a href="https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md#translating">Contributing: Translating</a>.</p>
 					</div>
 				</section>
@@ -205,7 +214,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#symbol">symbol</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L208">index.ts:208</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L411">index.ts:411</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -235,6 +244,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_index_.roundingmode.html" class="tsd-kind-icon">Rounding<wbr>Mode</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_index_.time.html" class="tsd-kind-icon">Time</a>
 					</li>
@@ -245,6 +257,9 @@
 						<a href="_index_.basetimeunit.html" class="tsd-kind-icon">Base<wbr>Time<wbr>Unit</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_index_.namedtimeunit.html" class="tsd-kind-icon">Named<wbr>Time<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_index_.nanosecondbasedtime.html" class="tsd-kind-icon">Nanosecond<wbr>Based<wbr>Time</a>
 					</li>
 				</ul>
@@ -252,14 +267,14 @@
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_index_.timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timeunit.html#approximated" class="tsd-kind-icon">approximated</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_index_.timeunit.html#customplural" class="tsd-kind-icon">custom<wbr>Plural</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timeunit.html#factor" class="tsd-kind-icon">factor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_index_.timeunit.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_index_.timeunit.html#pluralize" class="tsd-kind-icon">pluralize</a>
@@ -289,8 +304,26 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunitparameter" class="tsd-kind-icon">Time<wbr>Unit<wbr>Parameter</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunitsource" class="tsd-kind-icon">Time<wbr>Unit<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timevaluesource" class="tsd-kind-icon">Time<wbr>Value<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeroman" class="tsd-kind-icon">write<wbr>Roman</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeromanfractions" class="tsd-kind-icon">write<wbr>Roman<wbr>Fractions</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timesegments" class="tsd-kind-icon">Time<wbr>Segments</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunits-1" class="tsd-kind-icon">Time<wbr>Units</a>
 					</li>
 				</ul>
 			</nav>
@@ -360,7 +393,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

@@ -1,56 +1,117 @@
-This guide contains information to help the development of timecount by multiple individuals and the assessment of pull requests within its repository.
+# Contributing to timecount
+
+This guide was designed in order to help developers understand and hopefully contribute to timecount. It details how to install the module for development, create a new translation and test.
 
 ## Summary
 
-- [Briefing](#briefing)
-- [Setting up the environment](#setting-up-the-environment)
+- [General Notes](#general-notes)
+- [Environment Setup](#environment-setup)
 - [Translating](#translating)
-- [Unit Tests](#unit-tests)
+- [Testing](#testing)
+- [Pull Requests](#pull-requests)
 
-## Briefing
+## General Notes
 
-Timecount relies on the _strictness_ of TypeScript+tslint for its stability, which means that types and code style are heavily enforced. Both the `tsconfig.json` and `tslint.json` have been fine tuned to minimize potential deviations.
+This [NodeJS](https://nodejs.org) module is written using [TypeScript](https://www.typescriptlang.org) and transpiled to the [Standard ECMA-262 (ES6)](https://www.ecma-international.org/ecma-262/6.0) specifications. The documentation is generated with the help of [TypeDoc](http://typedoc.org). The tests are performed via [Mocha](https://mochajs.org/) and [Chai](http://www.chaijs.com/). The build tool is [Gulp](https://gulpjs.com).
 
-This doesn't mean you can't `tslint:disable` a certain rule for a line or a few, when it makes sense doing so. With that said, feel free to give your commentaries about the code-style and configuration of the project.
+In order to take maximum advantage of TypeScript, timecount is written using all available configurations aimed at increasing its strictness. Alied with [tslint](https://palantir.github.io/tslint), this provides most of the **code styles** that should be followed while adding/updating code.
 
-## Setting up the environment
+This doesn't mean one should not `tslint:disable` a certain rule for a certain line, when it makes sense doing so.
+
+> 🧔 _I know that enforcing a 4-space indentation may not be very popular, but it's the way I've been coding since forever. It's too much of an ingrained habit for me to lose it. If you're the opposite of me, please replace the indentation with your desired of spacing and change it back before submitting a Pull Request. Sorry in advance._
+
+---
+
+[Back to top](#summary)
+
+## Environment Setup
 
 1. Download or clone the repository:
-    ```cmd
+    ```bash
     git clone https://github.com/pjbatista/timecount.git
     ```
-2. Enter the directory and install the package. Timecount will then be available for development and testing:
-    ```cmd
+2. Enter the directory and install the package, making timecount available for development and testing:
+    ```bash
     cd timecount
     npm install
     npm run test
     ```
 
+---
+
+[Back to top](#summary)
+
 ## Translating
 
-In order to create and submit a new translation of timecount, create a new localization file inside `src/locales`, naming it accordingly:
+Timecount internationalization is done through a series of abstractions that override default linguistic properties. Each language is stored in a file inside [`src/locales`](https://github.com/pjbatista/timecount/tree/master/src/locales).
 
-- If the **translation disregards regions**, name the file with its _two character language representation_ (e.g. `fr.ts` or `ru.ts`);
-- If the **translation is region-bound**, name it with the its _language-region representation_ (e.g. `fr-fr.ts`, `fr-ca.ts` or `ru-ru.ts`).
+### Step 1: Create a translation file
 
-The file **must** export a default object with the localized properties — when a configuration or time unit is omitted, timecount fallsback to English (US) for that specific thing.
+There are two types of translation file accepted by timecount:
 
-One may use [example.ts](https://github.com/pjbatista/timecount/blob/master/src/locales/example.ts), located inside `src/locales` as a guide to localization features. Also, it's important to consult the [API Documentation](https://pjbatista.github.io/timecount) while translating since timecount localization contains ways to customize the writting of numbers and time units.
+<details>
+<summary><strong>Region-independent translations (e.g. en, pt, ru)</strong></summary>
+Represents the language as a whole, disregarding regionalizations.
+<br />
+<strong>Pattern</strong>: <code>[a-z][a-z].ts</code>
+</details>
 
-**defaultOptions:**
+<br />
 
-A configuration that is applied to all time units of the language, by default; it may be used to set whether to `pluralize` verbose names or to define a `customPlural` function.
+<details>
+<summary><strong>Regionalized translations (e.g. en-gb, pt-ao, ru-ru)</strong></summary>
+Represents the language with its regional particularities.
+<br />
+<strong>Pattern</strong>: <code>[a-z][a-z]\-[a-z][a-z].ts</code>
+</details>
 
-**timeUnits:**
+<br />
 
-As one may infer from the name, contains time units translations; `readableName` should contain the verbose unit name translation and `customPlural` is used when adding an "s" to the end of the name yields the wrong output. If the time unit doesn't need pluralization, set `pluralize` to false.
+In order to add a language to timecount, create a new file on [`src/locales`](https://github.com/pjbatista/timecount/tree/master/src/locales) choosing one pattern from above.
 
-**writerOptions:**
+> 👉 **This file MUST export a `default` [LocaleSettings](https://pjbatista.github.io/timecount/interfaces/_localization_.localesettings.html) object.**
 
-Contains the default [TimeWriter](https://pjbatista.github.io/timecount/classes/_index_.timewriter.html) settings for the language. May be used to change the `decimalSeparator` used in a country, to configure `terms` for _Infinity_ and _NaN_, and [other things](https://pjbatista.github.io/timecount/interfaces/_index_.timewritersettings.html).
+```typescript
+// Translation file example:
+export default {
+    timeUnits: {
+        minute: { readableName: "meenoot", customPlural: "meenooties" },
+        year: { readableName: "yier" },
+        ...
+    },
+    writerOptions: {
+        decimalSeparator: ",",
+        termInfinite: "in-feenat",
+        ...
+    }
+}
+```
 
-## Unit Tests
+A complete translation example is available at [`src/locales/example.ts`](https://github.com/pjbatista/timecount/blob/master/src/locales/example.ts).
 
-Timecount uses mocha+chai for its tests, loaded via ts-node. All tests are located within the `tests` directory and each `.test.ts` file contains the assertions of a single class.
+> 💡 Don't forget to consult the [API Documentation](https://pjbatista.github.io/timecount) while translating since timecount localization contains ways to customize the writting of numeric values and time units.
+
+### Step 2: Testing
+
+After creating the translation file
+
+---
+
+[Back to top](#summary)
+
+## Testing
+
+The union of mocha and chai allows a concise and clean unit testing. There are a few **rules** when comes to unit testing:
+
+- Test files must be located within [`tests`](https://github.com/pjbatista/timecount/tree/master/tests)
+- Each class should have its own test file
+- The preferred assertion style is [expect](http://www.chaijs.com/guide/styles/#expect)
+- Understable name for test tasks
+
+All tests are located within the `tests` directory and each `.test.ts` file contains the assertions of a single class (when configurations are involved, separate assertion groups might be created).
 
 Before you submit a Pull Request with a fix, feature or translation, make sure that the existing tests don't break by running `npm run test`.
+
+---
+
+[Back to top](#summary)

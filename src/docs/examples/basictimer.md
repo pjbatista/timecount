@@ -1,49 +1,43 @@
 ### Examples
 
-#### 1. Using a single BasicTimer to perform consecutive countings
+1. Using a single BasicTimer to perform consecutive countings
+    ```javascript
+    import { BasicTimer } from "timecount/utils";
 
-```javascript
-const timecount = require("timecount");
-const timer = new timecount.utils.BasicTimer();
+    const timer = new BasicTimer();
 
-while (thereAreThingsToDo) {
+    while (thereAreThingsToDo) {
+        timer.start();
+
+        doTheThings();
+
+        timer.stop().to("second");
+        // 0.8956 s
+    }
+    ```
+2. Using a TimeWriter to write BasicTimer results
+    ```javascript
+    import { TimeWriter } from "timecount";
+    import { BasicTimer } from "timecount/utils";
+
+    const timer = new BasicTimer();
+    const writer = new TimeWriter({ verbose: true });
+
     timer.start();
 
-    doTheThings();
+    timeWriter.write(timer.elapsedTime, "milisecond");
+    // 0.54021 miliseconds
 
-    const time = timer.stop().to("second");
-    process.stdout.write(`Did thing in ${time} seconds`);
-}
-```
+    doSomething();
 
-#### 2. Using a TimeWriter to write BasicTimer results
+    const time = timer.stop();
 
-```javascript
-import { TimeWriter } from "timecount";
-import { BasicTimer } from "timecount/utils";
+    timeWriter.write(time, "milisecond");
+    // 10156.663207 miliseconds
 
-const timer = new BasicTimer();
-const writer = new TimeWriter({ verboseTimeUnit: true });
+    timeWriter.write(time, "second");
+    // 10.156663207 seconds
 
-timer.start();
-
-doSomething();
-
-const time = timer.end();
-
-console.log(writer.write(time, "milisecond"));
-// Result: 10156.663207 miliseconds
-
-console.log(writer.write(time, "second"));
-// Result: 10.156663207 seconds
-
-console.log(writer.write(time, "microsecond"));
-// Result: 10156663.207 microseconds
-
-console.log(writer.write(time));
-// Result: 10156663.207 nanoseconds
-
-console.log(writer.write(time, "minute"));
-// Result: 0.169277720116666668 minute
-
-```
+    timeWriter.write(time, "minute");
+    // 0.169277720116666668 minute
+    ```

@@ -70,40 +70,75 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This class represents a nanosecond-based time counting unit; instances of <a href="_utils_.timer.html">Timer</a> are able to:</p>
+						<p>Counts the duration of runtime operations, with pausing capabilities.</p>
 					</div>
-					<ul>
-						<li>Measure the span between the time they started and stopped;</li>
-						<li>Pause and account for the paused time.</li>
-					</ul>
-					<p>--</p>
-					<p>See <a href="_utils_.basictimer.html">BasicTimer</a> if you need a simple time counter and <a href="_utils_.stopwatch.html">StopWatch</a> for time segmentation.</p>
+					<p>An instance of <a href="#">Timer</a> is able to count the duration between its <a href="#start">start</a> and <a href="#stop">stop</a>, as well as
+						<a href="#pause">pausing</a>, which temporarily stops the time counting. Every start-stop cycle resets the object to its
+					default state.</p>
+					<p>See <a href="_utils_.basictimer.html">BasicTimer</a> for a simpler timer implentation (less overhead) and
+					<a href="_utils_.stopwatch.html">StopWatch</a> for time segmentation.</p>
+					<hr>
 					<h3 id="examples">Examples</h3>
-					<h4 id="using-a-timer-to-count-important-operation-bits">Using a Timer to count important operation bits</h4>
-					<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
+					<ol>
+						<li><p>Using a single Timer to perform consecutive countings</p>
+							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { Timer } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
 
-<span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> timecount.utils.Timer();
+ <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> Timer();
 
-notImportant();
+ <span class="hljs-keyword">while</span> (thereAreThingsToDo) {
+     timer.start();
 
-timer.start();
+     doTheThings();
 
-importantStuff();
-
-timer.pause();
-
-thisIsAlsoNotImportant();
-
-timer.resume();
-
-moreImportantStuff();
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Total time: <span class="hljs-subst">${timer.stop().to(<span class="hljs-string">"nanosecond"</span>)}</span> nanoseconds`</span>);
+     timer.stop().to(<span class="hljs-string">"second"</span>);
+     <span class="hljs-comment">// 0.960041 s</span>
+ }
 </code></pre>
+						</li>
+						<li><p>Using a TimeWriter to write Timer results</p>
+							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+ <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> Timer();
+ <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+
+ timer.start();
+
+ timeWriter.write(timer.elapsedTime, <span class="hljs-string">"milisecond"</span>);
+ <span class="hljs-comment">// 0.54021 miliseconds</span>
+
+ doSomething();
+
+ <span class="hljs-keyword">const</span> time = timer.stop();
+
+ timeWriter.write(time, <span class="hljs-string">"milisecond"</span>);
+ <span class="hljs-comment">// 10156.663207 miliseconds</span>
+
+ timeWriter.write(time, <span class="hljs-string">"second"</span>);
+ <span class="hljs-comment">// 10.156663207 seconds</span>
+
+ timeWriter.write(time, <span class="hljs-string">"minute"</span>);
+ <span class="hljs-comment">// 0.169277720116666668 minute</span>
+</code></pre>
+						</li>
+						<li><p>Pausing and resuming the timer</p>
+							<pre><code class="lang-javascript"> <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> Timer(<span class="hljs-literal">true</span>);
+
+ thingsYouWantMeasured(); <span class="hljs-comment">// Let's say this takes 5 seconds</span>
+
+ timer.pause();
+
+ thingsYouDontWantMeasured(); <span class="hljs-comment">// And this another 5 seconds</span>
+
+ timer.stop().to(<span class="hljs-string">"second"</span>);
+ <span class="hljs-comment">// 5 s (paused time is not counted)</span>
+
+</code></pre>
+						</li>
+					</ol>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<a href="_utils_.basictimer.html" class="tsd-signature-type">BasicTimer</a>
@@ -121,7 +156,7 @@ moreImportantStuff();
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-inherited">
@@ -130,18 +165,30 @@ moreImportantStuff();
 								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="_utils_.timer.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_utils_.timer.html#_pausestarttime" class="tsd-kind-icon">_pause<wbr>Start<wbr>Time</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_utils_.timer.html#_pausetimesum" class="tsd-kind-icon">_pause<wbr>Time<wbr>Sum</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_utils_.timer.html#_starttime" class="tsd-kind-icon">_start<wbr>Time</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.timer.html#elapsedpausetime" class="tsd-kind-icon">elapsed<wbr>Pause<wbr>Time</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_utils_.timer.html#elapsedtime" class="tsd-kind-icon">elapsed<wbr>Time</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.timer.html#ispaused" class="tsd-kind-icon">is<wbr>Paused</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_utils_.timer.html#isrunning" class="tsd-kind-icon">is<wbr>Running</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="_utils_.timer.html#starttime" class="tsd-kind-icon">start<wbr>Time</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="_utils_.timer.html#isrunning" class="tsd-kind-icon">is<wbr>Running</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_utils_.timer.html#timererrortype" class="tsd-kind-icon">timer<wbr>Error<wbr>Type</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.timer.html#totalpausetime" class="tsd-kind-icon">total<wbr>Pause<wbr>Time</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_utils_.timer.html#getelapsedtime" class="tsd-kind-icon">get<wbr>Elapsed<wbr>Time</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_utils_.timer.html#getisrunning" class="tsd-kind-icon">get<wbr>IsRunning</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_utils_.timer.html#pause" class="tsd-kind-icon">pause</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_utils_.timer.html#resume" class="tsd-kind-icon">resume</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_utils_.timer.html#start" class="tsd-kind-icon">start</a></li>
@@ -164,12 +211,12 @@ moreImportantStuff();
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L56">utils.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L52">utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initializes a new instance of the <a href="_utils_.basictimer.html">BasicTimer</a> class, with the ability to automatically start the timer.</p>
+									<p>Initializes a new instance of the <a href="#">BasicTimer</a> class, optionally auto-starting it.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -178,7 +225,7 @@ moreImportantStuff();
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> autoStart: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>  Determines whether or not the timer will immediately start; default is false.</p>
+											<p>  Determines whether the timer will immediately start; default is false.</p>
 										</div>
 									</div>
 								</li>
@@ -188,8 +235,79 @@ moreImportantStuff();
 					</ul>
 				</section>
 			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_pausestarttime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _pause<wbr>Start<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">_pause<wbr>Start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L148">utils.ts:148</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Protected field with the time value representing the moment the pausing started.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_pausetimesum" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _pause<wbr>Time<wbr>Sum</h3>
+					<div class="tsd-signature tsd-kind-icon">_pause<wbr>Time<wbr>Sum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span><span class="tsd-signature-symbol"> =&nbsp;new Decimal(0)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L151">utils.ts:151</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Protected field with the time value representing the sum of all previous pause times.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="_starttime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _start<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">_start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#_starttime">_startTime</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L38">utils.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Protected field with the time value representing the moment the timer started.</p>
+						</div>
+					</div>
+				</section>
+			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="elapsedpausetime" class="tsd-anchor"></a>
+					<h3>elapsed<wbr>Pause<wbr>Time</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> elapsedPauseTime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L154">utils.ts:154</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the time elapsed since the timer was <a href="#pause">paused</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 					<a name="elapsedtime" class="tsd-anchor"></a>
 					<h3>elapsed<wbr>Time</h3>
@@ -201,13 +319,14 @@ moreImportantStuff();
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#elapsedtime">elapsedTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L125">utils.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L173">utils.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the time elapsed since the start of the timer until now, or null if the timer is stopped.</p>
+									<p>Gets the time elapsed since the start of the timer until <em>now</em>.</p>
 								</div>
+								<p>The value of this time will remain unchanged when the timer is <a href="#stop">paused</a>.</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
 						</li>
@@ -223,7 +342,7 @@ moreImportantStuff();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L137">utils.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L193">utils.ts:193</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -235,46 +354,70 @@ moreImportantStuff();
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 					<a name="isrunning" class="tsd-anchor"></a>
 					<h3>is<wbr>Running</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isRunning<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#isrunning">isRunning</a></p>
+								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#isrunning">isRunning</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L46">utils.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L200">utils.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets whether the timer is running (<a href="_utils_.timer.html#start">start</a> was invoked).</p>
+									<p>Gets whether the timer is currently running (it was <a href="#start">started</a> and not yet <a href="#stop">stopped</a>).</p>
 								</div>
+								<p>This property is <strong>not influenced by <a href="#pause">pauses</a></strong>, i.e. it will return true even when paused.</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-					<a name="starttime" class="tsd-anchor"></a>
-					<h3>start<wbr>Time</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> startTime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="timererrortype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> timer<wbr>Error<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> timerErrorType<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#starttime">startTime</a></p>
+								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#timererrortype">timerErrorType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L49">utils.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L52">utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a time that represents the moment the timer started, or null if the timer is stopped.</p>
+									<p>A protected property useful when overriding the timers it changes the output of
+									<a href="_utils_.timererror.html">timer errors</a> in order to represent the specified name.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="totalpausetime" class="tsd-anchor"></a>
+					<h3>total<wbr>Pause<wbr>Time</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> totalPauseTime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L164">utils.ts:164</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the total amount of time the object spent <a href="#pause">paused</a> during the current start-stop cycle.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
@@ -284,31 +427,79 @@ moreImportantStuff();
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="getelapsedtime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Elapsed<wbr>Time</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Elapsed<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#getelapsedtime">getElapsedTime</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L108">utils.ts:108</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Protected alias to <a href="#elapsedtime">elapsedTime</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="getisrunning" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>IsRunning</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>IsRunning<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#getisrunning">getIsRunning</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L120">utils.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Protected alias to <a href="#isRunning">isRunning</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="pause" class="tsd-anchor"></a>
 					<h3>pause</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">pause<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">pause<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L145">utils.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L211">utils.ts:211</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Pauses the timer, preventing time from being counted until it&#39;s <a href="#resume">resumed</a>.</p>
+									<p>Prevents the object from counting the time until it is <a href="#resume">resumed</a>.</p>
 								</div>
+								<p>Both the <a href="#elapsedtime">elapsed time</a> and the time resulting from <a href="#stop">stop</a> won&#39;t change during the pause,
+								but <a href="#pausedtime">pausedTime</a> and <a href="#totalpausedtime">totalPauseTime</a> will.</p>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
 									<dd><p>TimerError
-										When the timer is already paused.</p>
+										When the timer has not yet started -or- it is already paused.</p>
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -322,21 +513,22 @@ moreImportantStuff();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L164">utils.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L233">utils.ts:233</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Resumes the timer, recovering the time counting from a <a href="#pause">paused</a> state.</p>
+									<p>Resumes the time counting, recovering the object from a <a href="#pause">paused</a> state.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
 									<dd><p>TimerError
-										When the timer is not paused.</p>
+										When the timer has not yet started -or- it is not paused.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  The amount of time the timer spent paused.</p>
 						</li>
 					</ul>
 				</section>
@@ -344,19 +536,19 @@ moreImportantStuff();
 					<a name="start" class="tsd-anchor"></a>
 					<h3>start</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#start">start</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L77">utils.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L75">utils.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Starts the timer, configuring its starting time to now.</p>
+									<p>Begins to count time, setting the <a href="#starttime">start time</a> to a value equivalent to <em>now</em>.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
@@ -365,7 +557,8 @@ moreImportantStuff();
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+							<p>  Time that represents <em>now</em> (or better yet, the moment the timer has started).</p>
 						</li>
 					</ul>
 				</section>
@@ -380,23 +573,23 @@ moreImportantStuff();
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#stop">stop</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L186">utils.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L260">utils.ts:260</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Stops the timer, resetting this instance to its initial state and retrieving the amount of time spent. If the
-									timer is paused, it will be resumed before stopping.</p>
+									<p>Ends the time counting, returning the total elapsed time and resetting the object to its default state.</p>
 								</div>
+								<p>If the timer is <a href="#pause">paused</a>, there <strong>is no need</strong> to <a href="#resume">resume</a> before calling this method.</p>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
 									<dd><p>TimerError
-										When the timer is already stopped.</p>
+										When the timer has not yet started.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  The time span from when the timer started until now.</p>
+							<p>  A time with the total amount of nanoseconds spent between <a href="#start">start</a> and <em>now</em>.</p>
 						</li>
 					</ul>
 				</section>
@@ -435,17 +628,38 @@ moreImportantStuff();
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="_utils_.timer.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.timer.html#_pausestarttime" class="tsd-kind-icon">_pause<wbr>Start<wbr>Time</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.timer.html#_pausetimesum" class="tsd-kind-icon">_pause<wbr>Time<wbr>Sum</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_utils_.timer.html#_starttime" class="tsd-kind-icon">_start<wbr>Time</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_utils_.timer.html#elapsedpausetime" class="tsd-kind-icon">elapsed<wbr>Pause<wbr>Time</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_utils_.timer.html#elapsedtime" class="tsd-kind-icon">elapsed<wbr>Time</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_utils_.timer.html#ispaused" class="tsd-kind-icon">is<wbr>Paused</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_utils_.timer.html#isrunning" class="tsd-kind-icon">is<wbr>Running</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="_utils_.timer.html#starttime" class="tsd-kind-icon">start<wbr>Time</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_utils_.timer.html#timererrortype" class="tsd-kind-icon">timer<wbr>Error<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_utils_.timer.html#totalpausetime" class="tsd-kind-icon">total<wbr>Pause<wbr>Time</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_utils_.timer.html#getelapsedtime" class="tsd-kind-icon">get<wbr>Elapsed<wbr>Time</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_utils_.timer.html#getisrunning" class="tsd-kind-icon">get<wbr>IsRunning</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_utils_.timer.html#pause" class="tsd-kind-icon">pause</a>
@@ -465,6 +679,9 @@ moreImportantStuff();
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_utils_.timererror.html" class="tsd-kind-icon">Timer<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a>
@@ -537,7 +754,7 @@ moreImportantStuff();
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

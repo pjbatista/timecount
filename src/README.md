@@ -1,7 +1,11 @@
-This directory contains the source files of timecount.
+This directory contains the source code of timecount.
 
-The `docs` folder contains markdown files used by [TypeDoc](https://typedoc.org) and the `locales` folder contains translations of lexical configurations and time units.
+<dl>
+    <dt>Sub-directories</dt>
+    <dd><code>docs:</code> Markdown used by typedoc as a complement to doc-comments</dd>
+    <dd><code>locales:</code> Translations of time writer properties</dd>
+</dl>
 
 ---
 
-See [Contributing](https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md) if you wish to submit a fix, feature or new translation. I will appreciate it dearly!
+See [Contributing](https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md) if you wish to submit a fix, feature or new translation.

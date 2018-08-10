@@ -70,16 +70,40 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p><strong>Time writers</strong> are used to synthesize time values into strings.</p>
+						<p>Time writers are objects used to synthesize time values into strings, i.e. write times using different lexical and
+							numerical configurations. <strong><a href="#write">Write</a></strong> is used to express a single time value, using a single time unit;
+						<strong><a href="#countdown">countdown</a></strong> is used to classify time values by segmenting them into parts with different time units.</p>
 					</div>
-					<p>In order to maximize usability, instances of <a href="_index_.timewriter.html">TimeWriter</a> have multiple configuration points, which, in order, are:</p>
+					<p>These configurations are loaded in the following order:</p>
 					<ul>
 						<li>Defaults — hardcoded for English (US);</li>
 						<li>Options from the current <a href="_localization_.locale.html">Locale</a>;</li>
-						<li>Options from the instance <a href="_index_.timewriter.html#settings">settings</a>;</li>
-						<li>Options given as a parameter to <a href="_index_.timewriter.html#write">write</a>.</li>
+						<li>Options from the instance <a href="#settings">settings</a>;</li>
+						<li>Options given as a parameter to a method.</li>
 					</ul>
+					<hr>
 					<h3 id="examples">Examples</h3>
+					<h4 id="writting-time-using-different-units">Writting time using different units</h4>
+					<p>First, import and initialize the appropriate objects:</p>
+					<ul>
+						<li><p>EcmaScript 6:</p>
+							<pre><code class="lang-javascript">  <span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+  <span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> Time(<span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
+</code></pre>
+						</li>
+						<li><p>Older EcmaScripts:</p>
+							<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
+
+  <span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> timecount.Time(<span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">var</span> timeWriter = <span class="hljs-keyword">new</span> timecount.TimeWriter();
+</code></pre>
+						</li>
+					</ul>
+					<p>Next, use the hypothetical <code>log</code> function to receive time outputs:</p>
+					<pre><code class="lang-javascript">
+</code></pre>
 					<h4 id="1-writing-multiple-time-values">1. Writing multiple time values</h4>
 					<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
 
@@ -110,12 +134,12 @@
 					</ol>
 					<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
 
-<span class="hljs-keyword">const</span> tw = <span class="hljs-keyword">new</span> TimeWriter({ verboseTimeUnit: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> tw = <span class="hljs-keyword">new</span> TimeWriter({ verbose: <span class="hljs-literal">true</span> });
 
 tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>);
 <span class="hljs-comment">// Result: 10 seconds</span>
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>, { spaceTimeUnit: <span class="hljs-literal">false</span>, verboseTimeUnit: <span class="hljs-literal">false</span> });
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>, { spaceTimeUnit: <span class="hljs-literal">false</span>, verbose: <span class="hljs-literal">false</span> });
 <span class="hljs-comment">// Result: 10s</span>
 
 tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"day"</span>);
@@ -126,7 +150,7 @@ Locale.set(<span class="hljs-string">"es"</span>);
 tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"day"</span>);
 <span class="hljs-comment">// Result: 10 días</span>
 
-tw.settings.verboseTimeUnit = <span class="hljs-literal">false</span>;
+tw.settings.verbose = <span class="hljs-literal">false</span>;
 
 tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>);
 <span class="hljs-comment">// Result: 10 s</span>
@@ -134,7 +158,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">TimeWriter</span>
@@ -142,7 +166,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -152,14 +176,15 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_index_.timewriter.html#settings" class="tsd-kind-icon">settings</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_index_.timewriter.html#settings" class="tsd-kind-icon">settings</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.timewriter.html#countdown" class="tsd-kind-icon">countdown</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.timewriter.html#write" class="tsd-kind-icon">write</a></li>
 							</ul>
 						</section>
@@ -178,12 +203,12 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L861">index.ts:861</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1836">index.ts:1836</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initializes a new instance of the <a href="_index_.timewriter.html">TimeWriter</a> class optionally using the specified <code>settings</code>.</p>
+									<p>Initializes a new instance of the <a href="#">TimeWriter</a> class optionally using the given configurations.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -192,7 +217,9 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> settings: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>  An object containing the <a href="../interfaces/_index_.timewritersettings.html">TimeWriterSettings</a> used to configure the behavior of this time writer.</p>
+											<p>  Configurations pertaining to this instance, overriding those of the
+												<a href="_localization_.locale.html#writerOptions">locale</a>. May be overriden via parameter of <a href="#write">write</a> or
+											<a href="#countdown">countdown</a>.</p>
 										</div>
 									</div>
 								</li>
@@ -203,213 +230,656 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="settings" class="tsd-anchor"></a>
 					<h3>settings</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L861">index.ts:861</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Gets or sets the object containing the <a href="../interfaces/_index_.timewritersettings.html">TimeWriterSettings</a> of this time writer.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1846">index.ts:1846</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>  Configurations pertaining to this instance, overriding those of the
+								<a href="_localization_.locale.html#writerOptions">locale</a>. May be overriden via parameter of <a href="#write">write</a> or
+							<a href="#countdown">countdown</a>.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="write" class="tsd-anchor"></a>
-					<h3>write</h3>
+					<a name="countdown" class="tsd-anchor"></a>
+					<h3>countdown</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, originTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a>, targetTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a>, targetTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">countdown<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L887">index.ts:887</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1868">index.ts:1868</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synthesizes a string representing the given <code>timeValue</code>.</p>
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
 								</div>
-								<p>This time is measured with <code>originTimeUnit</code>, then converted and written with <code>targetTimeUnit</code>.</p>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
+								<p>This &quot;overload&quot; will always use <a href="../modules/_index_.html#time_segments_common">TIME_SEGMENTS_COMMON</a> as source
+								for its time unit conversions.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>timeValue: <span class="tsd-signature-type">number</span></h5>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A time value which will be measured using the given the origin time unit.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> originTimeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>  Unit of time to be designated to the time value.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> targetTimeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>  Unit of time in which the time value will be written.</p>
+										<p>  An encapsulated nanosecond-based time.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  An optional set of configurations overwriting the values from both this object and the <a href="_localization_.locale.html">Locale</a>.</p>
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>countdown</code>. It does not change the object in any way whatsoever.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L902">index.ts:902</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1884">index.ts:1884</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synthesizes a string representing the given <code>timeValue</code>.</p>
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
 								</div>
-								<p>This time is measured and written with <code>timeUnit</code>.</p>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>timeValue: <span class="tsd-signature-type">number</span></h5>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A time value which will be measured using the given the time unit.</p>
+										<p>  An encapsulated nanosecond-based time.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  Unit of time to be designated to and in which the time value will be written.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>  An optional set of configurations overwriting the values from both this object and the <a href="_localization_.locale.html">Locale</a>.</p>
+										<p>  Accepts any number of time units or array of time units (if repetitions are given, they will be singled out).</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L915">index.ts:915</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1900">index.ts:1900</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synthesizes a string representing the given <code>timeValue</code>.</p>
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
 								</div>
-								<p>This time is measured and written using <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">TimeWriterSettings.defaultTimeUnit</a>, which by itself defaults to
-								&quot;nanoseconds&quot;.</p>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>timeValue: <span class="tsd-signature-type">number</span></h5>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A time value which will be measured using a default time unit.</p>
+										<p>  An encapsulated nanosecond-based time.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  An optional set of configurations overwriting the values from both this object and the <a href="_localization_.locale.html">Locale</a>.</p>
+										<p>  Accepts any number of time units or array of time units (if repetitions are given, they will be singled out).</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L929">index.ts:929</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1919">index.ts:1919</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synthesizes a string representing the given <code>time</code>.</p>
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
 								</div>
-								<p>This time is measured in nanoseconds, then converted and written with <code>targetTimeUnit</code>.</p>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time: <a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a></h5>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A nanosecond-based time object.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> targetTimeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>  Unit of time in which the time value will be written.</p>
+										<p>  An encapsulated nanosecond-based time.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  An optional set of configurations overwriting the values from both this object and the <a href="_localization_.locale.html">Locale</a>.</p>
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>countdown</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Accepts any number of time units or array of time units (if repetitions are given, they will be singled out).</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L942">index.ts:942</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1939">index.ts:1939</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Synthesizes a string representing the given <code>time</code>.</p>
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
 								</div>
-								<p>This time is measured in nanoseconds, then converted and written <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">TimeWriterSettings.defaultTimeUnit</a>, which by
-								itself defaults to &quot;nanoseconds&quot;.</p>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time: <a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a></h5>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A nanosecond-based time object.</p>
+										<p>  An encapsulated nanosecond-based time.</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  An optional set of configurations overwriting the values from both this object and the <a href="_localization_.locale.html">Locale</a>.</p>
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>countdown</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Accepts any number of time units or array of time units (if repetitions are given, they will be singled out).</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L1959">index.ts:1959</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time length segmented into multiple units using a <a href="_index_.time.html">Time</a> object and, optionally,
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
+								</div>
+								<p>This will produce explanations of time lengths much easier to understand than arbitrary fractions.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  An encapsulated nanosecond-based time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol"> | </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>countdown</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Accepts any number of time units or array of time units (if repetitions are given, they will be singled out).</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time through the use of multiple units of time.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="write" class="tsd-anchor"></a>
+					<h3>write</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>time<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, timeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, fromTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, fromTimeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, fromTimeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>timeValue<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, fromTimeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, toTimeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2028">index.ts:2028</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, configurations that may override
+									those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the duration of the method.</p>
+								</div>
+								<p>This will use the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> (which falls
+								back to &quot;nanoseconds&quot;) as both input (when time is numeric) and output time unit.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>time: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value -or- an encapsulated nanosecond-based time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2047">index.ts:2047</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  An encapsulated nanosecond-based time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2066">index.ts:2066</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration of the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>time: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  An encapsulated nanosecond-based time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2085">index.ts:2085</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2104">index.ts:2104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2127">index.ts:2127</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fromTimeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2151">index.ts:2151</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fromTimeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2175">index.ts:2175</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fromTimeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2199">index.ts:2199</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Writes a time value using a <a href="_index_.time.html">Time</a> object and, optionally, a time unit to transform it and
+										configurations that may override those of the <a href="_localization_.locale.html">Locale</a> and the instance, for the
+									duration the method.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeValue: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A numeric representation of a time value.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fromTimeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit from which the given time value will be converted. If this parameter is not passed, it fallbacks to
+											the <a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> toTimeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit to which the given time will be converted. If this parameter is not passed, it fallbacks to the
+											<a href="../interfaces/_index_.timewritersettings.html#defaulttimeunit">default time unit</a> and ultimately to
+										&quot;nanoseconds&quot;. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  When given, these configurations will override the those of the <a href="_localization_.locale.html">Locale</a> and the
+										instance, for this specific <code>write</code>. It does not change the object in any way whatsoever.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>  A string containing a synthetic representation of the given time.</p>
 						</li>
 					</ul>
 				</section>
@@ -434,6 +904,9 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_index_.roundingmode.html" class="tsd-kind-icon">Rounding<wbr>Mode</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_index_.time.html" class="tsd-kind-icon">Time</a>
 					</li>
@@ -445,8 +918,11 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_index_.timewriter.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_index_.timewriter.html#settings" class="tsd-kind-icon">settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.timewriter.html#countdown" class="tsd-kind-icon">countdown</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.timewriter.html#write" class="tsd-kind-icon">write</a>
@@ -457,6 +933,9 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_index_.basetimeunit.html" class="tsd-kind-icon">Base<wbr>Time<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_index_.namedtimeunit.html" class="tsd-kind-icon">Named<wbr>Time<wbr>Unit</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-kind-icon">Nanosecond<wbr>Based<wbr>Time</a>
@@ -479,8 +958,26 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunitparameter" class="tsd-kind-icon">Time<wbr>Unit<wbr>Parameter</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunitsource" class="tsd-kind-icon">Time<wbr>Unit<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timevaluesource" class="tsd-kind-icon">Time<wbr>Value<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeroman" class="tsd-kind-icon">write<wbr>Roman</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeromanfractions" class="tsd-kind-icon">write<wbr>Roman<wbr>Fractions</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timesegments" class="tsd-kind-icon">Time<wbr>Segments</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunits-1" class="tsd-kind-icon">Time<wbr>Units</a>
 					</li>
 				</ul>
 			</nav>
@@ -550,7 +1047,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

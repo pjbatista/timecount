@@ -70,13 +70,18 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This interface extends from <a href="_index_.basetimeunit.html">BaseTimeUnit</a> with the only difference being that it enforces <a href="_localization_.localizedtimeunit.html#readablename">readableName</a> to be
-						not-optional, in order to better characterize a parsed time unit object.</p>
+						<p>This interface extends from <a href="_index_.basetimeunit.html">BaseTimeUnit</a> with the only difference being that it enforces
+						its <a href="#readablename">readable name</a> to be not-optional, in order to better characterize a parsed time unit object.</p>
 					</div>
+					<dl class="tsd-comment-tags">
+						<dt>deprecated</dt>
+						<dd><p>Since v1.1.0 - Unnecessary interface (will be removed in v2).</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<a href="_index_.basetimeunit.html" class="tsd-signature-type">BaseTimeUnit</a>
@@ -89,7 +94,7 @@
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -113,15 +118,15 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#customplural">customPlural</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L185">index.ts:185</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L382">index.ts:382</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Defines a custom pluralized name for the time unit; it can be a string, used whenever the quantity of time is
-							greater than one -or- a function, able to retrieve different words according to said quantity.</p>
+							<p>Defines a custom pluralized name for the time unit; it can be a string — used whenever the quantity of time is
+							greater than one — or a function, able to retrieve different words according to a given quantity.</p>
 						</div>
-						<p>By default, words are pluralized by adding &quot;s&quot; to the end of the readable name.</p>
+						<p>By default, words are pluralized by adding an &quot;s&quot; to the end of their <a href="#readablename">readable name</a>.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -131,14 +136,16 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#pluralize">pluralize</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L191">index.ts:191</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L391">index.ts:391</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Determines whether the time unit should be pluralized, either by adding &quot;s&quot; to the end of the readable name or
-							using <a href="_localization_.localizedtimeunit.html#customplural">customPlural</a>; the default is true.</p>
+							<p>Determines whether the time unit should be pluralized: by default, words are pluralized by adding an &quot;s&quot; to the
+							end of their <a href="#readablename">readable name</a>, but this can be changed via <a href="#customplural">customPlural</a>.</p>
 						</div>
+						<p>If set to false, this will prevent the time unit from ever being pluralized (unless this configuration is
+						overwritten).</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
@@ -148,7 +155,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#readablename">readableName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L188">localization.ts:188</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L241">localization.ts:241</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,7 +171,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_index_.basetimeunit.html">BaseTimeUnit</a>.<a href="_index_.basetimeunit.html#symbol">symbol</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L208">index.ts:208</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L411">index.ts:411</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +299,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

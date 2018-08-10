@@ -1,30 +1,59 @@
+# Timecount Changelog
+
 This document contains the details for each version of timelog, chronologically, including eventual deprecations and changes in project.
 
 Versions are listed from most recent to oldest and dates are formatted according to [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
 
 ## Summary
 
-- [Versions 1.0.*](#version-1.0.)
-  - [1.0.0](#1.0.0)
-- [Versions 0.1.*](#version-0.1.)
-  - [0.1.3](#0.1.3)
-  - [0.1.2](#0.1.2)
-  - [0.1.1](#0.1.1)
-  - [0.1.0](#0.1.0)
-- [Versions 0.0.*](#version-0.0.)
-  - [0.0.3](#0.0.3)
-  - [0.0.2](#0.0.2)
-  - [0.0.1](#0.0.1)
+- [Versions 1.1.*](#versions-11)
+    - [1.1.0](#110)
+- [Versions 1.0.*](#versions-10)
+    - [1.0.0](#100)
+- [Versions 0.1.*](#versions-01)
+    - [0.1.3](#013)
+    - [0.1.2](#012)
+    - [0.1.1](#011)
+    - [0.1.0](#010)
+- [Versions 0.0.*](#versions-00)
+    - [0.0.3](#003)
+    - [0.0.2](#002)
+    - [0.0.1](#001)
+
+---
+
+## Versions 1.1.*
+
+Despite the big changes of v1.0.0, some core mechanics and type definitions were still far from what I desired. This version aims to fix this.
+
+### 1.1.0
+
+> Publish date: 2018-08-03
+
+- **Added `TimeWriter.countdown`**;
+- Added bundled version for browsers;
+- Fixed several time unit inconsistencies, like typos and coefficients (making v1.1.0 _very slightly_ incompatible with 1.0.0);
+- Deprecated types, specially in `TimeWriterSettings`;
+- Changed the entire mathematical foundation to [decimal.js](https://mikemcl.github.io/decimal.js);
+- Removed the necessity for a harcoded time unit `name` property;
+- Added the ability to use variations of a time unit string (case-insensitive and plurals);
+- Once again, made various improvements to the documentation;
+- Changed doc-comments to be more IDE-friendly and included more markdown examples;
+- Improved testing.
+
+---
+
+[Back to top](#summary)
 
 ---
 
 ## Versions 1.0.*
 
+This version is a **major code overhaul**, with improved logic, naming and organization. Its a refocus of the project towards a better time-handling implementation.
+
 ### 1.0.0
 
 > Publish date: 2018-07-28
-
-This version is a **major code overhaul**, with improved logic, naming and organization. Its a refocus of the project towards a better time-handling implementation.
 
 This version is **not** backwards-compatible.
 
@@ -37,13 +66,17 @@ This version is **not** backwards-compatible.
 - Renamed `CHANGES.md` to `CHANGELOG.md` and `API.md` to `src/typedoc.md`;
 - Restructured main codebase within `index.ts` (no more unnecessary re-exporting);
 - Reorganized module by category:
-  - `index` (main module) - time operations;
-  - `localization` - internationalization;
-  - `utils` - timers and stopwatch;
+    - `index` (main module) - time operations;
+    - `localization` - internationalization;
+    - `utils` - timers and stopwatch;
 - Restructured tests to a class per test file;
 - Updated `tsconfig.json` (now it has only necessary fields);
 - Removed a few entries from `tslint.json` to better match tslint recommendations;
 - Updates dependencies in `package.json`;
+
+---
+
+[Back to top](#summary)
 
 ---
 
@@ -81,6 +114,10 @@ Added `SimpleTimer` to index exports.
 
 ---
 
+[Back to top](#summary)
+
+---
+
 ## Versions 0.0.*
 
 ### 0.0.4
@@ -111,3 +148,7 @@ Minor updates to the README and package.
 > Publish date: 2017-10-14
 
 First version of this module; contains a fully functional `Timer` and `StopWatch`.
+
+---
+
+[Back to top](#summary)

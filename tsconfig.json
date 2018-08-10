@@ -7,7 +7,7 @@
         "module": "commonjs",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "outDir": "build",
+        "outDir": "build/local",
         "strict": true,
         "target": "es2015"
     },

@@ -68,7 +68,18 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>This module implements an interface for the internationalization of timecount. It allows users to easily change the language of <a href="../classes/_index_.timewriter.html">time writers</a> based on <a href="https://github.com/pjbatista/timecount/tree/master/src/locales">translation files</a>.</p>
-						<h3 id="current-supported-languages">Current supported languages</h3>
+						<p>Employ one of the following snippets to use it in your project:</p>
+						<ul>
+							<li>EcmaScript 6 or equivalent:<pre><code class="lang-javascript">  <span class="hljs-keyword">import</span> { Locale } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/localization"</span>;
+</code></pre>
+							</li>
+							<li>Older EcmaScripts:<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> localization = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>).localization;
+  <span class="hljs-comment">// -or</span>
+  <span class="hljs-keyword">var</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount/localization"</span>);
+</code></pre>
+							</li>
+						</ul>
+						<h3 id="currently-supported-languages">Currently supported languages</h3>
 						<ul>
 							<li>🇺🇸 English (US) — Native, hardcoded</li>
 							<li>🇧🇷 Portuguese (Brazil)</li>
@@ -81,7 +92,7 @@
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -201,7 +212,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

@@ -1,5 +1,30 @@
 ### Examples
 
+#### Writting time using different units
+
+First, import and initialize the appropriate objects:
+
+- EcmaScript 6:
+    ```javascript
+    import { Time, TimeWriter } from "timecount";
+
+    var time = new Time(1000);
+    const timeWriter = new TimeWriter();
+    ```
+- Older EcmaScripts:
+    ```javascript
+    var timecount = require("timecount");
+
+    var time = new timecount.Time(1000);
+    var timeWriter = new timecount.TimeWriter();
+    ```
+
+Next, use the hypothetical `log` function to receive time outputs:
+
+```javascript
+
+```
+
 #### 1. Writing multiple time values
 
 ```javascript
@@ -35,12 +60,12 @@ There are three places where the output of a time writer ([[TimeWriterSettings]]
 ```typescript
 const timecount = require("timecount");
 
-const tw = new TimeWriter({ verboseTimeUnit: true });
+const tw = new TimeWriter({ verbose: true });
 
 tw.write(10, "second");
 // Result: 10 seconds
 
-tw.write(10, "second", { spaceTimeUnit: false, verboseTimeUnit: false });
+tw.write(10, "second", { spaceTimeUnit: false, verbose: false });
 // Result: 10s
 
 tw.write(10, "day");
@@ -51,7 +76,7 @@ Locale.set("es");
 tw.write(10, "day");
 // Result: 10 días
 
-tw.settings.verboseTimeUnit = false;
+tw.settings.verbose = false;
 
 tw.write(10, "second");
 // Result: 10 s

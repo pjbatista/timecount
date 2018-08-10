@@ -1,4 +1,5 @@
 {
     "extends": "../tsconfig",
+    "files": ["helper.ts"],
     "include": ["**/*.test.ts"]
 }

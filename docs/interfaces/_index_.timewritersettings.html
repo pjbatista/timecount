@@ -70,13 +70,14 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Contains configurations for <a href="../classes/_index_.timewriter.html">TimeWriter</a>.</p>
+						<p>Objects of this type are used to configure the behavior of <a href="../classes/_index_.timewriter.html">time writers</a>.</p>
 					</div>
-					<p>Objects of this type may be assigned</p>
+					<p>Using these objects it is possible to change the lexical and numerical output to fit many different scenarios. See
+					the documentation for each property for more information.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">TimeWriterSettings</span>
@@ -84,20 +85,34 @@
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#decimalplaces" class="tsd-kind-icon">decimal<wbr>Places</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#decimalseparator" class="tsd-kind-icon">decimal<wbr>Separator</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#defaulttimeunit" class="tsd-kind-icon">default<wbr>Time<wbr>Unit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#fractiondigits" class="tsd-kind-icon">fraction<wbr>Digits</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#hidetimeunit" class="tsd-kind-icon">hide<wbr>Time<wbr>Unit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#hidezerosegments" class="tsd-kind-icon">hide<wbr>Zero<wbr>Segments</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#numericnotation" class="tsd-kind-icon">numeric<wbr>Notation</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#numericwriter" class="tsd-kind-icon">numeric<wbr>Writer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#roundingmode" class="tsd-kind-icon">rounding<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#segmentseparator" class="tsd-kind-icon">segment<wbr>Separator</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#significantdigits" class="tsd-kind-icon">significant<wbr>Digits</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#spacetimeunit" class="tsd-kind-icon">space<wbr>Time<wbr>Unit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#symbolapproximately" class="tsd-kind-icon">symbol<wbr>Approximately</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#symbolinfinite" class="tsd-kind-icon">symbol<wbr>Infinite</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#symbolnan" class="tsd-kind-icon">symbol<wbr>NaN</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#termapproximately" class="tsd-kind-icon">term<wbr>Approximately</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#terminfinite" class="tsd-kind-icon">term<wbr>Infinite</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#termnan" class="tsd-kind-icon">term<wbr>NaN</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#terms" class="tsd-kind-icon">terms</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#thousandsseparator" class="tsd-kind-icon">thousands<wbr>Separator</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#timeunitseparator" class="tsd-kind-icon">time<wbr>Unit<wbr>Separator</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#verbose" class="tsd-kind-icon">verbose</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_index_.timewritersettings.html#verbosetimeunit" class="tsd-kind-icon">verbose<wbr>Time<wbr>Unit</a></li>
 							</ul>
 						</section>
@@ -107,33 +122,106 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="decimalplaces" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> decimal<wbr>Places</h3>
+					<div class="tsd-signature tsd-kind-icon">decimal<wbr>Places<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2455">index.ts:2455</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Numer of decimal places resulting from time conversions. Used in conjunction with [roundingMode] to write numeric
+							values</p>
+						</div>
+						<p>Default: <code>undefined</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>);
+<span class="hljs-comment">// 3.1415926536 s</span>
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span> });
+<span class="hljs-comment">// 3.1416 s</span>
+
+timeWriter.write(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span> });
+<span class="hljs-comment">// 1.0000 y</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-string">"2"</span>, <span class="hljs-string">"siderealMonth"</span>), [<span class="hljs-string">"minute"</span>, <span class="hljs-string">"second"</span>, <span class="hljs-string">"milisecond"</span>])
+<span class="hljs-comment">// ≈78686 min, 22 s, 848 ms</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-string">"2"</span>, <span class="hljs-string">"siderealMonth"</span>), { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span> }, [<span class="hljs-string">"minute"</span>, <span class="hljs-string">"second"</span>, <span class="hljs-string">"milisecond"</span>])
+<span class="hljs-comment">// ≈78686.0000 min, 22.0000 s, 848.0000 ms</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="decimalseparator" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> decimal<wbr>Separator</h3>
 					<div class="tsd-signature tsd-kind-icon">decimal<wbr>Separator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1181">index.ts:1181</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2468">index.ts:2468</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Specifies the string used as decimal separator.</p>
+							<p>String used as decimal separator, specially useful when translating to languages and regions where the &quot;dot&quot;
+							notation is not standard.</p>
 						</div>
+						<p>If not set, time writers will first try to parse the decimal separator for the locale of the machine where the
+						script is running and will ultimately fallback to <code>&quot;.&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(<span class="hljs-number">3.5</span>, <span class="hljs-string">"megasecond"</span>);
+<span class="hljs-comment">// 3.5 Ms</span>
+
+timeWriter.write(<span class="hljs-number">3.5</span>, <span class="hljs-string">"megasecond"</span>, { <span class="hljs-attr">decimalSeparator</span>: <span class="hljs-string">","</span> });
+<span class="hljs-comment">// 3,5 Ms</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">500</span>, <span class="hljs-string">"day"</span>), [<span class="hljs-string">"year"</span>, <span class="hljs-string">"month"</span>, <span class="hljs-string">"day"</span>, <span class="hljs-string">"hour"</span>]);
+<span class="hljs-comment">// 1 y, 4 m, 13 d, 2.18 h</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">500</span>, <span class="hljs-string">"day"</span>), { <span class="hljs-attr">decimalSeparator</span>: <span class="hljs-string">"point"</span> }, [<span class="hljs-string">"year"</span>, <span class="hljs-string">"month"</span>, <span class="hljs-string">"day"</span>, <span class="hljs-string">"hour"</span>]);
+<span class="hljs-comment">// 1 y, 4 m, 13 d, 2point18 h</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="defaulttimeunit" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Time<wbr>Unit</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></div>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1184">index.ts:1184</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2479">index.ts:2479</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Specifies the default unit to convert to when writing time values.</p>
 						</div>
+						<p>Default is <a href="_index_.timeunitdatabase.html#nanosecond">nanosecond</a>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
+
+timeWriter.write(<span class="hljs-number">100</span>);
+<span class="hljs-comment">// 100 ns</span>
+
+timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">defaultTimeUnit</span>: <span class="hljs-string">"microsecond"</span> });
+
+timeWriter.write(<span class="hljs-number">100</span>);
+<span class="hljs-comment">// 100 µs</span>
+
+timeWriter.write(<span class="hljs-number">100</span>, { <span class="hljs-attr">defaultTimeUnit</span>: <span class="hljs-string">"second"</span> });
+<span class="hljs-comment">// 100 s</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -142,13 +230,18 @@
 					<div class="tsd-signature tsd-kind-icon">fraction<wbr>Digits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1187">index.ts:1187</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2486">index.ts:2486</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Specifies the amount of fraction digits to be synthesized.</p>
+							<p><strong>This property is no longer supported!</strong> When given, this will be used as the fixed number of decimal digits.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Since v1.1.0 - In favor of <code>significantDigits</code> (will be removed in v2).</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -157,13 +250,57 @@
 					<div class="tsd-signature tsd-kind-icon">hide<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1190">index.ts:1190</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2498">index.ts:2498</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>When enabled, time units will not be written.</p>
+							<p>When this property is set to true, it will prevent the time writer from writting any form of time unit, be it
+							plural, symbol or verbose. It will also prevent the output of the <a href="#timeunitseparator">time unit separator</a>.</p>
 						</div>
+						<p>Default is <code>false</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(<span class="hljs-number">100</span>);
+<span class="hljs-comment">// 100 ns</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">5.123456789</span>, <span class="hljs-string">"second"</span>), TimeSegments.baseTen);
+<span class="hljs-comment">// 5 s, 123 ms, 456 µs, 789 ns</span>
+
+timeWriter.write(<span class="hljs-number">100</span>, { <span class="hljs-attr">hideTimeUnit</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// 100</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">5.123456789</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">hideTimeUnit</span>: <span class="hljs-literal">true</span> }, TimeSegments.baseTen);
+<span class="hljs-comment">// 5, 123, 456, 789</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="hidezerosegments" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> hide<wbr>Zero<wbr>Segments</h3>
+					<div class="tsd-signature tsd-kind-icon">hide<wbr>Zero<wbr>Segments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2509">index.ts:2509</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to hide <a href="../classes/_index.timewriter.html#countdown">countdown</a> segments with a value of 0 (zero).</p>
+						</div>
+						<p>Default is <code>true</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TimeSegments } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+timeWriter.countdown(Time.from(<span class="hljs-number">5.123456789</span>, <span class="hljs-string">"second"</span>), TimeSegments.baseTen);
+<span class="hljs-comment">// 5 s, 123 ms, 456 µs, 789 ns</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">5.123456789</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">hideZeroSegments</span>: <span class="hljs-literal">false</span> }, TimeSegments.baseTen);
+<span class="hljs-comment">// 0 Ys, 0 Zs, 0 Es, 0 Ps, 0 Ts, 0 Gs, 0 Ms, 0 Ks, 5 s, 123 ms, 456 µs, 789 ns, 0 ps, 0 fs, 0 as, 0 zs, 0 ys</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -172,13 +309,45 @@
 					<div class="tsd-signature tsd-kind-icon">numeric<wbr>Notation<span class="tsd-signature-symbol">:</span> <a href="../modules/_index_.html#numericnotation" class="tsd-signature-type">NumericNotation</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1193">index.ts:1193</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2525">index.ts:2525</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Numeric system used when writing time values; defaults to <code>&quot;decimal&quot;</code>.</p>
+							<p>Numeric notation used to write time values. Accepted values are:</p>
+							<ul>
+								<li><strong>&quot;decimal&quot;:</strong> standard <em>Hindu–Arabic numeral system</em> using base ten;</li>
+								<li><strong>&quot;roman&quot;:</strong> <em>Ancient Rome</em> numeral system, ignoring fractions;</li>
+								<li><strong>&quot;roman-fractions&quot;:</strong> <em>Ancient Rome</em> numeral system, using
+								<a href="https://en.wikipedia.org/wiki/Roman_numerals#Fractions">common fractions</a>;</li>
+								<li><strong>&quot;scientific&quot;:</strong> Exponent notation; writes very small and very large numbers using powers of 10.</li>
+							</ul>
 						</div>
+						<p>Default is <code>&quot;decimal&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(<span class="hljs-number">12345.0125</span>);
+<span class="hljs-comment">// 12345.0125 ns</span>
+
+timeWriter.write(<span class="hljs-number">12345.0125</span>, { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"decimal"</span> });
+<span class="hljs-comment">// 12345.0125 ns</span>
+
+timeWriter.write(<span class="hljs-number">12345.0125</span>, { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"scientific"</span> });
+<span class="hljs-comment">// 1.23450125e+4 ns</span>
+
+timeWriter.write(<span class="hljs-number">12345.0125</span>, { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"roman"</span> });
+<span class="hljs-comment">// X̅MMCCCXLV ns</span>
+
+timeWriter.write(<span class="hljs-number">12345.0125</span>, { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"roman-fractions"</span> });
+<span class="hljs-comment">// X̅MMCCCXLVƧ ns</span>
+
+timeWriter.countdown(<span class="hljs-keyword">new</span> Time(<span class="hljs-number">9.065e16</span>), { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"scientific"</span> }, [<span class="hljs-string">"year"</span>, <span class="hljs-string">"day"</span>, <span class="hljs-string">"hour"</span>, <span class="hljs-string">"minute"</span>, <span class="hljs-string">"second"</span>]);
+<span class="hljs-comment">// 2e+0 y, 3.18e+2 d, 1.6e+1 h, 5.4e+1 min, 5.6e+1 s</span>
+
+timeWriter.countdown(<span class="hljs-keyword">new</span> Time(<span class="hljs-number">9.065e16</span>), { <span class="hljs-attr">numericNotation</span>: <span class="hljs-string">"roman-fractions"</span> }, [<span class="hljs-string">"year"</span>, <span class="hljs-string">"day"</span>, <span class="hljs-string">"hour"</span>, <span class="hljs-string">"minute"</span>, <span class="hljs-string">"second"</span>]);
+<span class="hljs-comment">// II y, CCCXVIII d, XVI h, LIV min, LVS:·: s</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -187,14 +356,146 @@
 					<div class="tsd-signature tsd-kind-icon">numeric<wbr>Writer<span class="tsd-signature-symbol">:</span> <a href="../modules/_index_.html#numericwriter" class="tsd-signature-type">NumericWriter</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1199">index.ts:1199</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2540">index.ts:2540</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A custom function that provides a way to write time values in any format desired. When provided, <a href="../classes/_index_.timewriter.html">TimeWriter</a>
-							will ignore <a href="_index_.timewritersettings.html#numericnotation">numericNotation</a> and use this instead.</p>
+							<p>This can be set to a function that will replace all other forms of numeric writting, ignoring the
+							<a href="#numericnotation">numeric notation</a> and other mathematical properties.</p>
 						</div>
+						<p>This function may receive two parameters: a number and an optional
+						<a href="https://www.npmjs.com/package/decimal.js">big decimal</a>.</p>
+						<p>Default is <code>undefined</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myWriter</span>(<span class="hljs-params">value: number</span>) </span>{
+    <span class="hljs-keyword">switch</span> (value) {
+        <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">"three"</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">"four"</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">"five"</span>;
+    }
+
+    <span class="hljs-keyword">return</span> value.toString();
+}
+
+timeWriter.countdown(Time.from(<span class="hljs-number">11045</span>, <span class="hljs-string">"second"</span>));
+<span class="hljs-comment">// 3 h, 4 min, 5 s</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">11045</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">numericWriter</span>: myWriter });
+<span class="hljs-comment">// three h, four min, five s</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">11045</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">numericWriter</span>: myWriter, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// three hours, four minutes, five seconds</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="roundingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> rounding<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">rounding<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/_index_.roundingmode.html" class="tsd-signature-type">RoundingMode</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2551">index.ts:2551</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Numeric <a href="../enums/_index_.roundingmode.html">rounding mode</a> used by the writer.</p>
+						</div>
+						<p>Default is <code>RoundingMode.RoundHalfUp</code> or <code>4</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>);
+<span class="hljs-comment">// 3.1415926536 s</span>
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span> });
+<span class="hljs-comment">// 3.1416 s</span>
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">roundindMode</span>: RoundingMode.RoundDown });
+<span class="hljs-comment">// 3.1415 s</span>
+
+timeWriter.write(<span class="hljs-built_in">Math</span>.PI, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">roundindMode</span>: <span class="hljs-number">2</span> });
+<span class="hljs-comment">// 3.1416 s</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="segmentseparator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> segment<wbr>Separator</h3>
+					<div class="tsd-signature tsd-kind-icon">segment<wbr>Separator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2562">index.ts:2562</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A string used to separate <a href="../classes/_index.timewriter.html#countdown">countdown</a> segments.</p>
+						</div>
+						<p>Default is <code>&quot;, &quot;</code> (comma and space).</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TimeSegments } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+timeWriter.countdown(Time.from(<span class="hljs-number">2.10066102</span>, <span class="hljs-string">"second"</span>), <span class="hljs-string">"second"</span>, <span class="hljs-string">"milisecond"</span>, <span class="hljs-string">"microsecond"</span>);
+<span class="hljs-comment">// 2 s, 100 ms, 661.20 µs</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">2.10066102</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">segmentSeparator</span>: <span class="hljs-string">"; "</span> }, <span class="hljs-string">"second"</span>, <span class="hljs-string">"milisecond"</span>, <span class="hljs-string">"microsecond"</span>);
+<span class="hljs-comment">// 2 s; 100 ms; 661.20 µs</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">2.10066102</span>, <span class="hljs-string">"second"</span>), TimeSegments.baseTen);
+<span class="hljs-comment">// 2 s, 100 ms, 661 µs, 20 ns</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">2.10066102</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">segmentSeparator</span>: <span class="hljs-string">" + "</span> }, TimeSegments.baseTen);
+<span class="hljs-comment">// 2 s + 100 ms + 661 µs + 20 ns</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">2.10066102</span>, <span class="hljs-string">"second"</span>), { <span class="hljs-attr">hideZeroSegments</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">segmentSeparator</span>: <span class="hljs-string">" + "</span> }, TimeSegments.baseTen);
+<span class="hljs-comment">// 0 Ys + 0 Zs + 0 Es + 0 Ps + 0 Ts + 0 Gs + 0 Ms + 0 Ks + 2 s + 100 ms + 661 µs + 20 ns + 0 ps + 0 fs + 0 as + 0 zs + 0 ys</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="significantdigits" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> significant<wbr>Digits</h3>
+					<div class="tsd-signature tsd-kind-icon">significant<wbr>Digits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2584">index.ts:2584</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Number of significant digits of the decimal part of numeric values, intended to minimize the quantity of written
+							numbers for very large conversions.</p>
+						</div>
+						<p>It will enforce a precision of the specified magnitude, but only for the decimal part of the number, unlike
+						<a href="https://mikemcl.github.io/decimal.js/#sd">decimal.js precision</a>. It doesn&#39;t apply to leading zeros.</p>
+						<p>Default: <code>10</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Decimal } <span class="hljs-keyword">from</span> <span class="hljs-string">"decimal.js"</span>;
+
+<span class="hljs-keyword">const</span> pi = Decimal.acos(<span class="hljs-number">-1</span>);
+<span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">significantDigits</span>: <span class="hljs-number">99</span> });
+
+timeWriter.write(pi, <span class="hljs-string">"second"</span>);
+<span class="hljs-comment">// 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 s</span>
+
+timeWriter.write(pi, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">significantDigits</span>: <span class="hljs-number">4</span> });
+<span class="hljs-comment">// 3.1416 s</span>
+
+timeWriter.write(pi, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">decimalPlaces</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">significantDigits</span>: <span class="hljs-number">4</span> });
+<span class="hljs-comment">// 3.1416000000 s</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -203,13 +504,208 @@
 					<div class="tsd-signature tsd-kind-icon">space<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1202">index.ts:1202</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2569">index.ts:2569</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Whether or not to space numbers and time units.</p>
+							<p><strong>This property is no longer supported!</strong> Whether to separate the numeric value from the time unit.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Since v1.1.0 - In favor of <code>timeUnitSeparator</code> (will be removed in v2).</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="symbolapproximately" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> symbol<wbr>Approximately</h3>
+					<div class="tsd-signature tsd-kind-icon">symbol<wbr>Approximately<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2597">index.ts:2597</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values or units which based on approximations, this symbol will be added before the number to
+								demonstrate the approximation, when <a href="#verbose">verbose</a> is disabled. Otherwise, its <a href="#termapproximately">term</a> is
+							used instead.</p>
+						</div>
+						<p>Default: <code>&quot;≈&quot;</code> (<em>almost equal to</em> symbol).</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"tropicalYear"</span>);
+<span class="hljs-comment">// ≈1.000000697152733 tropical years</span>
+
+timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"tropicalYear"</span>, { <span class="hljs-attr">symbolApproximately</span>: <span class="hljs-string">"~"</span> });
+<span class="hljs-comment">// ~1.000000697152733 tropical years</span>
+
+timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"tropicalYear"</span>, { <span class="hljs-attr">symbolApproximately</span>: <span class="hljs-string">"~"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// approximately 1.000000697152733 tropical years</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="symbolinfinite" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> symbol<wbr>Infinite</h3>
+					<div class="tsd-signature tsd-kind-icon">symbol<wbr>Infinite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2609">index.ts:2609</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values that represent an <em>Infinity</em>, this symbol will be used to express it, when
+							<a href="#verbose">verbose</a> is disabled. Otherwise, its <a href="#terminfinite">term</a> is used instead.</p>
+						</div>
+						<p>Default: <code>&quot;∞&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(Time.from(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"year"</span>));
+<span class="hljs-comment">// ∞ y</span>
+
+timeWriter.write(Time.from(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"year"</span>), { <span class="hljs-attr">symbolInfinite</span>: <span class="hljs-string">"&lt;INF&gt;"</span> });
+<span class="hljs-comment">// &lt;INF&gt; y</span>
+
+timeWriter.write(Time.from(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"year"</span>).approximate(), { <span class="hljs-attr">symbolInfinite</span>: <span class="hljs-string">"&lt;INF&gt;"</span> });
+<span class="hljs-comment">// ≈&lt;INF&gt; y</span>
+
+timeWriter.write(Time.from(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"year"</span>), { <span class="hljs-attr">symbolInfinite</span>: <span class="hljs-string">"&lt;INF&gt;"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// infinite years</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="symbolnan" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> symbol<wbr>NaN</h3>
+					<div class="tsd-signature tsd-kind-icon">symbol<wbr>NaN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2621">index.ts:2621</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values that represent a <em>NaN</em> (not a number), this symbol will be used to express it, when
+							<a href="#verbose">verbose</a> is disabled. Otherwise, its <a href="#termnan">term</a> is used instead.</p>
+						</div>
+						<p>Default: <code>&quot;NaN&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript">timeWriter.write(Time.from(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"cosmicYear"</span>));
+<span class="hljs-comment">// ≈NaN cosmic years</span>
+
+timeWriter.write(Time.from(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"cosmicYear"</span>), { <span class="hljs-attr">symbolNaN</span>: <span class="hljs-string">"ɳɑɲ"</span> });
+<span class="hljs-comment">// ≈ɳɑɲ cosmic years</span>
+
+timeWriter.write(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"second"</span>, { <span class="hljs-attr">symbolNaN</span>: <span class="hljs-string">"ɳɑɲ"</span> });
+<span class="hljs-comment">// ɳɑɲ s</span>
+
+timeWriter.write(Time.from(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"cosmicYear"</span>), { <span class="hljs-attr">symbolNaN</span>: <span class="hljs-string">"ɳɑɲ"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// invalid number of cosmic years</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="termapproximately" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> term<wbr>Approximately</h3>
+					<div class="tsd-signature tsd-kind-icon">term<wbr>Approximately<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2634">index.ts:2634</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values or units which based on approximations, this string will be added before the number to
+								demonstrate the approximation, when <a href="#verbose">verbose</a> is enabled. Otherwise, its <a href="#symbolapproximately">symbol</a>
+							is used instead.</p>
+						</div>
+						<p>Default for English (US): <code>&quot;approximately&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+
+timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"draconicMonth"</span>);
+<span class="hljs-comment">// approximately 13.422003056 draconic months</span>
+
+timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"draconicMonth"</span>, { <span class="hljs-attr">termApproximately</span>: <span class="hljs-string">"more or less"</span> });
+<span class="hljs-comment">// more or less 13.422003056 draconic months</span>
+
+timeWriter.write(Time.from(<span class="hljs-number">1</span>, <span class="hljs-string">"year"</span>), <span class="hljs-string">"draconicMonth"</span>, { <span class="hljs-attr">termApproximately</span>: <span class="hljs-string">"more or less"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// ≈13.422003056 draconic months</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="terminfinite" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> term<wbr>Infinite</h3>
+					<div class="tsd-signature tsd-kind-icon">term<wbr>Infinite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2646">index.ts:2646</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values that represent an <em>Infinity</em>, this string will be used to express it, when
+							<a href="#verbose">verbose</a> is enabled. Otherwise, its <a href="#symbolinfinite">symbol</a> is used instead.</p>
+						</div>
+						<p>Default for English (US): <code>&quot;infinite&quot;</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+
+timeWriter.write(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"month"</span>);
+<span class="hljs-comment">// infinite months</span>
+
+timeWriter.write(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"month"</span>, { <span class="hljs-attr">termInfinite</span>: <span class="hljs-string">"infinite number of"</span> });
+<span class="hljs-comment">// infinite number of months</span>
+
+timeWriter.write(<span class="hljs-literal">Infinity</span>, <span class="hljs-string">"month"</span>, { <span class="hljs-attr">termInfinite</span>: <span class="hljs-string">"infinite number of"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// ∞ m</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="termnan" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> term<wbr>NaN</h3>
+					<div class="tsd-signature tsd-kind-icon">term<wbr>NaN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2656">index.ts:2656</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When writting time values that represent a <em>NaN</em> (not a number), this string will be used to express it, when
+							<a href="#verbose">verbose</a> is enabled. Otherwise, its <a href="#symbolnan">symbol</a> is used instead.</p>
+						</div>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+
+timeWriter.write(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"day"</span>);
+<span class="hljs-comment">// invalid number of days</span>
+
+timeWriter.write(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"day"</span>, { <span class="hljs-attr">termNaN</span>: <span class="hljs-string">"not a number of"</span> });
+<span class="hljs-comment">// not a number of days</span>
+
+timeWriter.write(<span class="hljs-literal">NaN</span>, <span class="hljs-string">"day"</span>, { <span class="hljs-attr">termNaN</span>: <span class="hljs-string">"not a number of"</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// NaN d</span>
+
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -218,14 +714,18 @@
 					<div class="tsd-signature tsd-kind-icon">terms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1209">index.ts:1209</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2663">index.ts:2663</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>This property may be used to set the terminology used to represent a few special numeric values.</p>
+							<p><strong>This property is no longer supported!</strong> This was used to define a few special numeric terms.</p>
 						</div>
-						<p>Specifying a <a href="_index_.timewritersettings.html#numericwriter">numericWriter</a> will override the usage of these terms.</p>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Since v1.1.0 - In favor of <code>verbose</code> (will be removed in v2).</p>
+							</dd>
+						</dl>
 					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
@@ -234,18 +734,95 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="thousandsseparator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> thousands<wbr>Separator</h3>
+					<div class="tsd-signature tsd-kind-icon">thousands<wbr>Separator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2678">index.ts:2678</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A string used as the thousands separator when using decimal <a href="#numericnotation">numeric notations</a>.</p>
+						</div>
+						<p>Default is <code>undefined</code>.</p>
+						<hr>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="timeunitseparator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> time<wbr>Unit<wbr>Separator</h3>
+					<div class="tsd-signature tsd-kind-icon">time<wbr>Unit<wbr>Separator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2689">index.ts:2689</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A string that separates the numeric value from the time unit.</p>
+						</div>
+						<p>Default is <code>&quot; &quot;</code> (space).</p>
+						<hr>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="verbose" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> verbose</h3>
+					<div class="tsd-signature tsd-kind-icon">verbose<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2703">index.ts:2703</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to write more sentences to describe a time value instead of using symbols. Setting this to true enforce
+							descriptive text for time units</p>
+						</div>
+						<p>All time units without a symbol are already written in verbose mode.</p>
+						<p>Default is <code>false</code>.</p>
+						<hr>
+						<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TimeSegments } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+
+<span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+
+timeWriter.countdown(Time.from(<span class="hljs-number">1.4e+3</span>, <span class="hljs-string">"month"</span>));
+<span class="hljs-comment">// 116 years, 7 months, 2 days, 6 hours, 52 minutes, 48 seconds</span>
+
+timeWriter.countdown(Time.from(<span class="hljs-number">1.4e+3</span>, <span class="hljs-string">"month"</span>), { <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// 116 y, 7 m, 2 d, 6 h, 52 m, 48 s</span>
+
+timeWriter.write(<span class="hljs-keyword">new</span> Time(<span class="hljs-literal">Infinity</span>, <span class="hljs-literal">true</span>), <span class="hljs-string">"biennium"</span>);
+<span class="hljs-comment">// approximately infinite biennia</span>
+
+timeWriter.write(<span class="hljs-keyword">new</span> Time(<span class="hljs-literal">Infinity</span>, <span class="hljs-literal">true</span>), <span class="hljs-string">"biennium"</span>, { <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// ≈∞ biennia</span>
+</code></pre>
+						<hr>
+						<p><a href="_index_.timewritersettings.html#index">Back to top</a></p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="verbosetimeunit" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> verbose<wbr>Time<wbr>Unit</h3>
 					<div class="tsd-signature tsd-kind-icon">verbose<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L1219">index.ts:1219</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L2711">index.ts:2711</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Whether or not to write down the full unit readable name, instead of its symbol.</p>
+							<p><strong>This property is no longer supported!</strong> Whether or not to write down the full unit readable name, instead of
+							its symbol.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Since v1.1.0 - In favor of <code>verbose</code> (will be removed in v2).</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 			</section>
@@ -269,6 +846,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_index_.roundingmode.html" class="tsd-kind-icon">Rounding<wbr>Mode</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_index_.time.html" class="tsd-kind-icon">Time</a>
 					</li>
@@ -277,6 +857,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_index_.basetimeunit.html" class="tsd-kind-icon">Base<wbr>Time<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_index_.namedtimeunit.html" class="tsd-kind-icon">Named<wbr>Time<wbr>Unit</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_index_.nanosecondbasedtime.html" class="tsd-kind-icon">Nanosecond<wbr>Based<wbr>Time</a>
@@ -293,6 +876,9 @@
 						<a href="_index_.timewritersettings.html" class="tsd-kind-icon">Time<wbr>Writer<wbr>Settings</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#decimalplaces" class="tsd-kind-icon">decimal<wbr>Places</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#decimalseparator" class="tsd-kind-icon">decimal<wbr>Separator</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -305,16 +891,55 @@
 								<a href="_index_.timewritersettings.html#hidetimeunit" class="tsd-kind-icon">hide<wbr>Time<wbr>Unit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#hidezerosegments" class="tsd-kind-icon">hide<wbr>Zero<wbr>Segments</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#numericnotation" class="tsd-kind-icon">numeric<wbr>Notation</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#numericwriter" class="tsd-kind-icon">numeric<wbr>Writer</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#roundingmode" class="tsd-kind-icon">rounding<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#segmentseparator" class="tsd-kind-icon">segment<wbr>Separator</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#significantdigits" class="tsd-kind-icon">significant<wbr>Digits</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#spacetimeunit" class="tsd-kind-icon">space<wbr>Time<wbr>Unit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#symbolapproximately" class="tsd-kind-icon">symbol<wbr>Approximately</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#symbolinfinite" class="tsd-kind-icon">symbol<wbr>Infinite</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#symbolnan" class="tsd-kind-icon">symbol<wbr>NaN</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#termapproximately" class="tsd-kind-icon">term<wbr>Approximately</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#terminfinite" class="tsd-kind-icon">term<wbr>Infinite</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#termnan" class="tsd-kind-icon">term<wbr>NaN</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#terms" class="tsd-kind-icon">terms</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#thousandsseparator" class="tsd-kind-icon">thousands<wbr>Separator</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#timeunitseparator" class="tsd-kind-icon">time<wbr>Unit<wbr>Separator</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_index_.timewritersettings.html#verbose" class="tsd-kind-icon">verbose</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_index_.timewritersettings.html#verbosetimeunit" class="tsd-kind-icon">verbose<wbr>Time<wbr>Unit</a>
@@ -332,8 +957,26 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunitparameter" class="tsd-kind-icon">Time<wbr>Unit<wbr>Parameter</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunitsource" class="tsd-kind-icon">Time<wbr>Unit<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timevaluesource" class="tsd-kind-icon">Time<wbr>Value<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeroman" class="tsd-kind-icon">write<wbr>Roman</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeromanfractions" class="tsd-kind-icon">write<wbr>Roman<wbr>Fractions</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timesegments" class="tsd-kind-icon">Time<wbr>Segments</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunits-1" class="tsd-kind-icon">Time<wbr>Units</a>
 					</li>
 				</ul>
 			</nav>
@@ -403,7 +1046,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

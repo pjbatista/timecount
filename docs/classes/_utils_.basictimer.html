@@ -70,58 +70,61 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This class represents a simple nanosecond-based time counter; instances of <a href="_utils_.basictimer.html">BasicTimer</a> are able to measure the
-						span between the time they started and stopped.</p>
+						<p>Counts the duration of runtime operations.</p>
 					</div>
+					<p>An instance of <a href="#">BasicTimer</a> is able to count the duration between its <a href="#start">start</a> and <a href="#stop">stop</a>.
+					Every start-stop cycle resets the object to its default state.</p>
+					<p>See <a href="_utils_.timer.html">Timer</a> if you need pausing and <a href="_utils_.stopwatch.html">StopWatch</a> for time segmentation
+					(laps).</p>
 					<hr>
-					<p>See <a href="_utils_.timer.html">Timer</a> if you need pausing and <a href="_utils_.stopwatch.html">StopWatch</a> for time segmentation (laps).</p>
 					<h3 id="examples">Examples</h3>
-					<h4 id="1-using-a-single-basictimer-to-perform-consecutive-countings">1. Using a single BasicTimer to perform consecutive countings</h4>
-					<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
-<span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> timecount.utils.BasicTimer();
+					<ol>
+						<li><p>Using a single BasicTimer to perform consecutive countings</p>
+							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { BasicTimer } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
 
-<span class="hljs-keyword">while</span> (thereAreThingsToDo) {
-    timer.start();
+ <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> BasicTimer();
 
-    doTheThings();
+ <span class="hljs-keyword">while</span> (thereAreThingsToDo) {
+     timer.start();
 
-    <span class="hljs-keyword">const</span> time = timer.stop().to(<span class="hljs-string">"second"</span>);
-    process.stdout.write(<span class="hljs-string">`Did thing in <span class="hljs-subst">${time}</span> seconds`</span>);
-}
+     doTheThings();
+
+     timer.stop().to(<span class="hljs-string">"second"</span>);
+     <span class="hljs-comment">// 0.8956 s</span>
+ }
 </code></pre>
-					<h4 id="2-using-a-timewriter-to-write-basictimer-results">2. Using a TimeWriter to write BasicTimer results</h4>
-					<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
-<span class="hljs-keyword">import</span> { BasicTimer } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
+						</li>
+						<li><p>Using a TimeWriter to write BasicTimer results</p>
+							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+ <span class="hljs-keyword">import</span> { BasicTimer } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
 
-<span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> BasicTimer();
-<span class="hljs-keyword">const</span> writer = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verboseTimeUnit</span>: <span class="hljs-literal">true</span> });
+ <span class="hljs-keyword">const</span> timer = <span class="hljs-keyword">new</span> BasicTimer();
+ <span class="hljs-keyword">const</span> writer = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
 
-timer.start();
+ timer.start();
 
-doSomething();
+ timeWriter.write(timer.elapsedTime, <span class="hljs-string">"milisecond"</span>);
+ <span class="hljs-comment">// 0.54021 miliseconds</span>
 
-<span class="hljs-keyword">const</span> time = timer.end();
+ doSomething();
 
-<span class="hljs-built_in">console</span>.log(writer.write(time, <span class="hljs-string">"milisecond"</span>));
-<span class="hljs-comment">// Result: 10156.663207 miliseconds</span>
+ <span class="hljs-keyword">const</span> time = timer.stop();
 
-<span class="hljs-built_in">console</span>.log(writer.write(time, <span class="hljs-string">"second"</span>));
-<span class="hljs-comment">// Result: 10.156663207 seconds</span>
+ timeWriter.write(time, <span class="hljs-string">"milisecond"</span>);
+ <span class="hljs-comment">// 10156.663207 miliseconds</span>
 
-<span class="hljs-built_in">console</span>.log(writer.write(time, <span class="hljs-string">"microsecond"</span>));
-<span class="hljs-comment">// Result: 10156663.207 microseconds</span>
+ timeWriter.write(time, <span class="hljs-string">"second"</span>);
+ <span class="hljs-comment">// 10.156663207 seconds</span>
 
-<span class="hljs-built_in">console</span>.log(writer.write(time));
-<span class="hljs-comment">// Result: 10156663.207 nanoseconds</span>
-
-<span class="hljs-built_in">console</span>.log(writer.write(time, <span class="hljs-string">"minute"</span>));
-<span class="hljs-comment">// Result: 0.169277720116666668 minute</span>
-
+ timeWriter.write(time, <span class="hljs-string">"minute"</span>);
+ <span class="hljs-comment">// 0.169277720116666668 minute</span>
 </code></pre>
+						</li>
+					</ol>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">BasicTimer</span>
@@ -134,7 +137,7 @@ doSomething();
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -143,17 +146,25 @@ doSomething();
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_utils_.basictimer.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="_utils_.basictimer.html#_starttime" class="tsd-kind-icon">_start<wbr>Time</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.basictimer.html#elapsedtime" class="tsd-kind-icon">elapsed<wbr>Time</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.basictimer.html#isrunning" class="tsd-kind-icon">is<wbr>Running</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_utils_.basictimer.html#starttime" class="tsd-kind-icon">start<wbr>Time</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected"><a href="_utils_.basictimer.html#timererrortype" class="tsd-kind-icon">timer<wbr>Error<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_utils_.basictimer.html#getelapsedtime" class="tsd-kind-icon">get<wbr>Elapsed<wbr>Time</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_utils_.basictimer.html#getisrunning" class="tsd-kind-icon">get<wbr>IsRunning</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_utils_.basictimer.html#start" class="tsd-kind-icon">start</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_utils_.basictimer.html#stop" class="tsd-kind-icon">stop</a></li>
 							</ul>
@@ -173,12 +184,12 @@ doSomething();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L56">utils.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L52">utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initializes a new instance of the <a href="_utils_.basictimer.html">BasicTimer</a> class, with the ability to automatically start the timer.</p>
+									<p>Initializes a new instance of the <a href="#">BasicTimer</a> class, optionally auto-starting it.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -187,7 +198,7 @@ doSomething();
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> autoStart: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>  Determines whether or not the timer will immediately start; default is false.</p>
+											<p>  Determines whether the timer will immediately start; default is false.</p>
 										</div>
 									</div>
 								</li>
@@ -195,6 +206,24 @@ doSomething();
 							<h4 class="tsd-returns-title">Returns <a href="_utils_.basictimer.html" class="tsd-signature-type">BasicTimer</a></h4>
 						</li>
 					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_starttime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _start<wbr>Time</h3>
+					<div class="tsd-signature tsd-kind-icon">_start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L38">utils.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Protected field with the time value representing the moment the timer started.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -209,12 +238,12 @@ doSomething();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L36">utils.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L41">utils.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the time elapsed since the start of the timer until now, or null if the timer is stopped.</p>
+									<p>Gets the time elapsed since the start of the timer until <em>now</em>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
@@ -231,59 +260,104 @@ doSomething();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L46">utils.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L46">utils.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets whether the timer is running (<a href="_utils_.basictimer.html#start">start</a> was invoked).</p>
+									<p>Gets whether the timer is currently running (it was <a href="#start">started</a> and not yet <a href="#stop">stopped</a>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="starttime" class="tsd-anchor"></a>
-					<h3>start<wbr>Time</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> startTime<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+					<a name="timererrortype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> timer<wbr>Error<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> timerErrorType<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L49">utils.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L52">utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a time that represents the moment the timer started, or null if the timer is stopped.</p>
+									<p>A protected property useful when overriding the timers it changes the output of
+									<a href="_utils_.timererror.html">timer errors</a> in order to represent the specified name.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="start" class="tsd-anchor"></a>
-					<h3>start</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="getelapsedtime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>Elapsed<wbr>Time</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Elapsed<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L77">utils.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L108">utils.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Starts the timer, configuring its starting time to now.</p>
+									<p>Protected alias to <a href="#elapsedtime">elapsedTime</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="getisrunning" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> get<wbr>IsRunning</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>IsRunning<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L120">utils.ts:120</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Protected alias to <a href="#isRunning">isRunning</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="start" class="tsd-anchor"></a>
+					<h3>start</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L75">utils.ts:75</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Begins to count time, setting the <a href="#starttime">start time</a> to a value equivalent to <em>now</em>.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
@@ -292,7 +366,8 @@ doSomething();
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+							<p>  Time that represents <em>now</em> (or better yet, the moment the timer has started).</p>
 						</li>
 					</ul>
 				</section>
@@ -306,22 +381,22 @@ doSomething();
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L94">utils.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L93">utils.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Stops the timer, resetting this instance to its initial state and retrieving the amount of time spent.</p>
+									<p>Ends the time counting, returning the total elapsed time and resetting the object to its default state.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
 									<dd><p>TimerError
-										When the timer is already stopped.</p>
+										When the timer has not yet started.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  The time span from when the timer started until now.</p>
+							<p>  A time with the total amount of nanoseconds spent between <a href="#start">start</a> and <em>now</em>.</p>
 						</li>
 					</ul>
 				</section>
@@ -354,14 +429,23 @@ doSomething();
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_utils_.basictimer.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.basictimer.html#_starttime" class="tsd-kind-icon">_start<wbr>Time</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_utils_.basictimer.html#elapsedtime" class="tsd-kind-icon">elapsed<wbr>Time</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_utils_.basictimer.html#isrunning" class="tsd-kind-icon">is<wbr>Running</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_utils_.basictimer.html#starttime" class="tsd-kind-icon">start<wbr>Time</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.basictimer.html#timererrortype" class="tsd-kind-icon">timer<wbr>Error<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.basictimer.html#getelapsedtime" class="tsd-kind-icon">get<wbr>Elapsed<wbr>Time</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="_utils_.basictimer.html#getisrunning" class="tsd-kind-icon">get<wbr>IsRunning</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_utils_.basictimer.html#start" class="tsd-kind-icon">start</a>
@@ -381,6 +465,9 @@ doSomething();
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_utils_.timererror.html" class="tsd-kind-icon">Timer<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a>
@@ -453,7 +540,7 @@ doSomething();
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

@@ -1,6 +1,19 @@
 This module implements an interface for the internationalization of timecount. It allows users to easily change the language of [time writers](../classes/_index_.timewriter.html) based on [translation files](https://github.com/pjbatista/timecount/tree/master/src/locales).
 
-### Current supported languages
+Employ one of the following snippets to use it in your project:
+
+- EcmaScript 6 or equivalent:
+    ```javascript
+    import { Locale } from "timecount/localization";
+    ```
+- Older EcmaScripts:
+    ```javascript
+    var localization = require("timecount").localization;
+    // -or
+    var timecount = require("timecount/localization");
+    ```
+
+### Currently supported languages
 
 - 🇺🇸 English (US) — Native, hardcoded
 - 🇧🇷 Portuguese (Brazil)

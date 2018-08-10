@@ -1,25 +1,56 @@
 ### Examples
 
-#### Using a Timer to count important operation bits
+1. Using a single Timer to perform consecutive countings
+    ```javascript
+    import { Timer } from "timecount/utils";
 
-```javascript
-import timecount = require("timecount");
+    const timer = new Timer();
 
-const timer = new timecount.utils.Timer();
+    while (thereAreThingsToDo) {
+        timer.start();
 
-notImportant();
+        doTheThings();
 
-timer.start();
+        timer.stop().to("second");
+        // 0.960041 s
+    }
+    ```
+2. Using a TimeWriter to write Timer results
+    ```javascript
+    import { TimeWriter } from "timecount";
 
-importantStuff();
+    const timer = new Timer();
+    const timeWriter = new TimeWriter({ verbose: true });
 
-timer.pause();
+    timer.start();
 
-thisIsAlsoNotImportant();
+    timeWriter.write(timer.elapsedTime, "milisecond");
+    // 0.54021 miliseconds
 
-timer.resume();
+    doSomething();
 
-moreImportantStuff();
+    const time = timer.stop();
 
-console.log(`Total time: ${timer.stop().to("nanosecond")} nanoseconds`);
-```
+    timeWriter.write(time, "milisecond");
+    // 10156.663207 miliseconds
+
+    timeWriter.write(time, "second");
+    // 10.156663207 seconds
+
+    timeWriter.write(time, "minute");
+    // 0.169277720116666668 minute
+    ```
+3. Pausing and resuming the timer
+    ```javascript
+    const timer = new Timer(true);
+
+    thingsYouWantMeasured(); // Let's say this takes 5 seconds
+
+    timer.pause();
+
+    thingsYouDontWantMeasured(); // And this another 5 seconds
+
+    timer.stop().to("second");
+    // 5 s (paused time is not counted)
+
+    ```

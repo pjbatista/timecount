@@ -70,29 +70,27 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Encapsulates a time value, implementing a <a href="../interfaces/_index_.nanosecondbasedtime.html">NanosecondBasedTime</a> capable of basic arithmetics and conversions (with
-						the help of <a href="../interfaces/_index_.timeunit.html">time units</a>).</p>
+						<p>Encapsulates a nanosecond-based time value.</p>
 					</div>
-					<p>To create a <a href="_index_.time.html">Time</a> instance from any time unit, use <a href="_index_.time.html#from">Time.from</a>; to convert the value from any Time instance, use
-					<a href="_index_.time.html#to">to</a>.</p>
+					<p>Instances of this class are capable of being converted <a href="#from">from</a> and <a href="#to">to</a> / <a href="#toBig">to big decimal</a> other
+					<a href="../interfaces/_index_.timeunitdatabase.html">time units</a> and also perform basic arithmetics.</p>
+					<p>Times can also be <a href="#isApproximated">approximated</a>, and operations deriving from their use will also be approximated.
+						This doesn&#39;t affect the time object value in any way, but is used by <a href="_index_.timewriter.html">TimeWriter</a> to
+					demonstrate approximations.</p>
+					<p>All instances are <em>immutable</em>, thus not affected by methods (new instances are always created instead). Also, all
+					time values are necessarily positive (negative times are not a thing).</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">Time</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a></li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -104,17 +102,22 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_index_.time.html#bigvalue" class="tsd-kind-icon">big<wbr>Value</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_index_.time.html#isapproximated" class="tsd-kind-icon">is<wbr>Approximated</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_index_.time.html#nanoseconds" class="tsd-kind-icon">nanoseconds</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_index_.time.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#approximate" class="tsd-kind-icon">approximate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#divide" class="tsd-kind-icon">divide</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#multiply" class="tsd-kind-icon">multiply</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#subtract" class="tsd-kind-icon">subtract</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#to" class="tsd-kind-icon">to</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#tobig" class="tsd-kind-icon">to<wbr>Big</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.time.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_index_.time.html#from" class="tsd-kind-icon">from</a></li>
 							</ul>
@@ -128,27 +131,75 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Time<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Time<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, approximated<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Time<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L269">index.ts:269</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L530">index.ts:530</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Initializes a new instance of the <a href="_index_.time.html">Time</a> class, using the specified time in nanoSeconds.</p>
+									<p>Initializes a new instance of the <a href="_index_.time.html">Time</a> class using the given time value parameter.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-signature-type">NanosecondBasedTime</a></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>  Amount of nanoseconds that represent the desired point in time.</p>
+											<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em>.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> approximated: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>  Whether the given is an approximation or not. The result of any arithmetic operations involving this time will
+											also be approximated.</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L544">index.ts:544</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Initializes a new instance of the <a href="_index_.time.html">Time</a> class using the given time value parameter.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em>.</p>
 										</div>
 									</div>
 								</li>
@@ -161,6 +212,52 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="bigvalue" class="tsd-anchor"></a>
+					<h3>big<wbr>Value</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> bigValue<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L512">index.ts:512</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> representation of the time length, in
+									nanoseconds.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="isapproximated" class="tsd-anchor"></a>
+					<h3>is<wbr>Approximated</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isApproximated<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L518">index.ts:518</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets whether the value of this is an approximation. This is determined at construction and it remains in all
+									operations with that this time is involved.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="nanoseconds" class="tsd-anchor"></a>
 					<h3>nanoseconds</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
@@ -170,12 +267,39 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L269">index.ts:269</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L525">index.ts:525</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the time value in the same format it is stored, nanoseconds.</p>
+									<p>Gets the numeric representation of the time length in nanoseconds.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd><p>Since v1.1.0 - In favor of <code>bigValue</code> and <code>value</code> (will be removed in v2).</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="value" class="tsd-anchor"></a>
+					<h3>value</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L530">index.ts:530</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the numeric representation of the time length, in nanoseconds.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -189,31 +313,110 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>time2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L294">index.ts:294</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L639">index.ts:639</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds the value of this time with the value of another time.</p>
+									<p>Adds the value of this time with the value of another time. If either are <a href="#isApproximated">approximations</a>, the
+									result will also be.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time2: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A number -or- a <a href="_index_.time.html">Time</a> to be added to this time.</p>
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be added to this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  A new <a href="_index_.time.html">Time</a> object with the resulting time.</p>
+							<p>  A <a href="_index_.time.html">Time</a> object with the values of both times added to each other.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L657">index.ts:657</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds the value of this time with the value of another time. If either are <a href="#isApproximated">approximations</a>, the
+									result will also be.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be added to this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  A <a href="_index_.time.html">Time</a> object with the values of both times added to each other.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="approximate" class="tsd-anchor"></a>
+					<h3>approximate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">approximate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L683">index.ts:683</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates and returns a new time object that contains the value of this time, however with the approximated flag.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  Approximated time in relation to this time.</p>
 						</li>
 					</ul>
 				</section>
@@ -221,31 +424,87 @@
 					<a name="divide" class="tsd-anchor"></a>
 					<h3>divide</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>time2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L311">index.ts:311</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L703">index.ts:703</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Divides the value of this time by the value of another time.</p>
+									<p>Divides the value of this time by the value of another time. If either are <a href="#isApproximated">approximations</a>, the
+									result will also be.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time2: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A number -or- a <a href="_index_.time.html">Time</a> which will divide this time.</p>
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to divide this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  A new <a href="_index_.time.html">Time</a> object with the resulting time.</p>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of this time divided by the value of the other time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L721">index.ts:721</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Divides the value of this time by the value of another time. If either are <a href="#isApproximated">approximations</a>, the
+									result will also be.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to divide this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of this time divided by the value of the other time.</p>
 						</li>
 					</ul>
 				</section>
@@ -253,31 +512,87 @@
 					<a name="multiply" class="tsd-anchor"></a>
 					<h3>multiply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">multiply<span class="tsd-signature-symbol">(</span>time2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">multiply<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">multiply<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L332">index.ts:332</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L757">index.ts:757</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Multiplies the value of this time with the value of another time.</p>
+									<p>Multiplies the value of this time with the value of another time. If either are
+									<a href="#isApproximated">approximations</a>, the result will also be.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time2: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A number -or- a <a href="_index_.time.html">Time</a> to be multiplied by this time.</p>
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be multiplied by this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  A new <a href="_index_.time.html">Time</a> object with the resulting time.</p>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of both times multiplied by each other.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L775">index.ts:775</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Multiplies the value of this time with the value of another time. If either are
+									<a href="#isApproximated">approximations</a>, the result will also be.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be multiplied by this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of both times multiplied by each other.</p>
 						</li>
 					</ul>
 				</section>
@@ -285,31 +600,87 @@
 					<a name="subtract" class="tsd-anchor"></a>
 					<h3>subtract</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">subtract<span class="tsd-signature-symbol">(</span>time2<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">subtract<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">subtract<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a>, timeUnit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L349">index.ts:349</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L811">index.ts:811</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Subtracts the value of another time from the value of this time.</p>
+									<p>Subtracts the value of another time from the value of this time. If either are <a href="#isApproximated">approximations</a>,
+									the result will also be.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>time2: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  A number -or- a <a href="_index_.time.html">Time</a> to be subtracted to this time.</p>
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be subtracted from this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  A new <a href="_index_.time.html">Time</a> object with the resulting time.</p>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of this time divided by the value of the other time.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L829">index.ts:829</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Subtracts the value of another time from the value of this time. If either are <a href="#isApproximated">approximations</a>,
+									the result will also be.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a><span class="tsd-signature-symbol"> | </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+											&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em> -or- another
+										<a href="_index_.time.html">Time</a> instance used to be subtracted from this time.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion of <code>value</code>. This defaults to &quot;nanosecond&quot; and is ignored when a
+										<a href="_index_.time.html">Time</a> object is provided. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  A <a href="_index_.time.html">Time</a> object with the value of this time divided by the value of the other time.</p>
 						</li>
 					</ul>
 				</section>
@@ -317,31 +688,117 @@
 					<a name="to" class="tsd-anchor"></a>
 					<h3>to</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">(</span>timeUnit<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">(</span>timeUnit<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">(</span>timeUnit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L366">index.ts:366</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L859">index.ts:859</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Converts the value of the current <a href="_index_.time.html">Time</a> instance to the quantity corresponding to the given time unit.</p>
+									<p>Converts the value of this nanosecond-based time into any other time unit.</p>
+								</div>
+								<p>For the <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> representation, see <a href="#tobig">toBig</a>.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as target for the conversion.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>  Numeric representation of the converted time, measured using the given time unit.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L871">index.ts:871</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts the value of this nanosecond-based time into any other time unit.</p>
+								</div>
+								<p>For the <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> representation, see <a href="#tobig">toBig</a>.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as target for the conversion. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>  Numeric representation of the converted time, measured using the given time unit.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tobig" class="tsd-anchor"></a>
+					<h3>to<wbr>Big</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Big<span class="tsd-signature-symbol">(</span>timeUnit<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Big<span class="tsd-signature-symbol">(</span>timeUnit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L888">index.ts:888</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts the value of this nanosecond-based time into any other time unit, using
+									<a href="https://www.npmjs.com/package/decimal.js">big decimals</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>timeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
+									<h5>timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  The unit of time used to convert from this nanosecond-based value.</p>
+										<p>  Time unit used as target for the conversion.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-							<p>  A number which represents the same measurement as this time value, converted to the given time unit.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+							<p>  <a href="https://www.npmjs.com/package/decimal.js">Big decimal</a> representation of the converted time, measured using
+							the   given time unit.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L900">index.ts:900</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts the value of this nanosecond-based time into any other time unit, using
+									<a href="https://www.npmjs.com/package/decimal.js">big decimals</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as target for the conversion. Accepts plurals and care variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+							<p>  <a href="https://www.npmjs.com/package/decimal.js">Big decimal</a> representation of the converted time, measured using
+							the   given time unit.</p>
 						</li>
 					</ul>
 				</section>
@@ -355,16 +812,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L378">index.ts:378</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L915">index.ts:915</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a string representing the of value of this <a href="_index_.time.html">Time</a> in nanoseconds.</p>
+									<p>Gets a string representing the of value of this time, in nanoseconds.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>  Number of nanoseconds followed by the symbol &quot;ns&quot;.</p>
+							<p>  Numeric representation of the time length plus the symbol &quot;ns&quot;.</p>
 						</li>
 					</ul>
 				</section>
@@ -372,38 +829,83 @@
 					<a name="from" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeUnit<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, timeUnit<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a>, timeUnit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.time.html" class="tsd-signature-type">Time</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/index.ts#L260">index.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L590">index.ts:590</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Converts a time value measured using the specifid unit of time to a nanosecond-based time, creating and returning
-									a new instance of the <a href="_index_.time.html">Time</a> class.</p>
+									<p>Converts a time value, measuring it with the specified time unit, and creates a new
+									<a href="../classes/_index_.time.html">Time</a> instance with an equivalent length of time, but measured in nanoseconds.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <span class="tsd-signature-type">number</span></h5>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  Numeric value quantifying the time by the given unit.</p>
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+										&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em>.</p>
 									</div>
 								</li>
 								<li>
-									<h5>timeUnit: <a href="../modules/_index_.html#timeunitparameter" class="tsd-signature-type">TimeUnitParameter</a></h5>
+									<h5>timeUnit: <a href="../modules/_index_.html#timeunitsource" class="tsd-signature-type">TimeUnitSource</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>  Unit of time that qualifies the given time value.</p>
+										<p>  Time unit used as source for the conversion.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
-							<p>  A new <a href="_index_.time.html">Time</a> instance with the appropriate amount of nanoseconds.</p>
+							<p>  A nanosecond-based time obtained from the conversion of the given parameters.</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/index.ts#L606">index.ts:606</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts a time value, measuring it with the specified time unit, and creates a new
+									<a href="../classes/_index_.time.html">Time</a> instance with an equivalent length of time, but measured in nanoseconds.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>Error
+										When the value is invalid -or- the time unit is invalid.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../modules/_index_.html#timevaluesource" class="tsd-signature-type">TimeValueSource</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  A value representing the length of time, accepted as a <em>string</em> that parses to a number (e.g. &quot;1000&quot; or
+										&quot;1e-10&quot;), a <a href="https://www.npmjs.com/package/decimal.js">big decimal</a> or a <em>number</em>.</p>
+									</div>
+								</li>
+								<li>
+									<h5>timeUnit: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_index_.timeunit.html" class="tsd-signature-type">TimeUnit</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>  Time unit used as source for the conversion. Accepts plurals and case variations.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.time.html" class="tsd-signature-type">Time</a></h4>
+							<p>  A nanosecond-based time obtained from the conversion of the given parameters.</p>
 						</li>
 					</ul>
 				</section>
@@ -428,6 +930,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_index_.roundingmode.html" class="tsd-kind-icon">Rounding<wbr>Mode</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
@@ -437,10 +942,22 @@
 								<a href="_index_.time.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_index_.time.html#bigvalue" class="tsd-kind-icon">big<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_index_.time.html#isapproximated" class="tsd-kind-icon">is<wbr>Approximated</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_index_.time.html#nanoseconds" class="tsd-kind-icon">nanoseconds</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_index_.time.html#value" class="tsd-kind-icon">value</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.time.html#add" class="tsd-kind-icon">add</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.time.html#approximate" class="tsd-kind-icon">approximate</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.time.html#divide" class="tsd-kind-icon">divide</a>
@@ -453,6 +970,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.time.html#to" class="tsd-kind-icon">to</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.time.html#tobig" class="tsd-kind-icon">to<wbr>Big</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.time.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
@@ -469,6 +989,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_index_.basetimeunit.html" class="tsd-kind-icon">Base<wbr>Time<wbr>Unit</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_index_.namedtimeunit.html" class="tsd-kind-icon">Named<wbr>Time<wbr>Unit</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-kind-icon">Nanosecond<wbr>Based<wbr>Time</a>
@@ -491,8 +1014,26 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunitparameter" class="tsd-kind-icon">Time<wbr>Unit<wbr>Parameter</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunitsource" class="tsd-kind-icon">Time<wbr>Unit<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timevaluesource" class="tsd-kind-icon">Time<wbr>Value<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="../modules/_index_.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeroman" class="tsd-kind-icon">write<wbr>Roman</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#writeromanfractions" class="tsd-kind-icon">write<wbr>Roman<wbr>Fractions</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timesegments" class="tsd-kind-icon">Time<wbr>Segments</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_index_.html#timeunits-1" class="tsd-kind-icon">Time<wbr>Units</a>
 					</li>
 				</ul>
 			</nav>
@@ -562,7 +1103,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

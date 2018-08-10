@@ -1,23 +1,32 @@
-These documents were created in order to contribute to the maintainance and understanding of timecount's source code.
+**Welcome!** This documentation was created in order to contribute to the maintainance and understanding of the source code of timecount.
 
 ### Introduction
 
-This NodeJS module is written using [TypeScript 2.9.2](https://www.typescriptlang.org) and compiled to the [Standard ECMA-262](https://www.ecma-international.org/ecma-262/6.0/) specifications. The documentation is generated with the help of [TypeDoc 0.11.1](http://typedoc.org). The build tool is [Gulp 3.9.1](https://gulpjs.com).
-
-At the right box, there are all timecount modules. Clicking on a module will reveal more information about it as well and display a list of all its exported members.
+This [NodeJS](https://nodejs.org) module is written using [TypeScript](https://www.typescriptlang.org) and transpiled to the [Standard ECMA-262 (ES6)](https://www.ecma-international.org/ecma-262/6.0) specifications. The documentation is generated with the help of [TypeDoc](http://typedoc.org). The tests are performed via [Mocha](https://mochajs.org/) and [Chai](http://www.chaijs.com/). The build tool is [Gulp](https://gulpjs.com).
 
 ### Explore the API
 
-- [Time](classes/_index_.time.html) - A nanosecond-based encapsulation of a time value
-- [TimeWriter](classes/_index_.timewriter.html) - Write time values using multiple time units
-- [Locale](classes/_localization_.locale.html) - Translations for time units and writes
-- [Timer](classes/_utils_.timer.html) - Time counting object with pausing ability
-- [StopWatch](classes/_utils_.timer.html) - Time counting object with time segmentation (laps)
+> 👉🏻 **The right panel** contains links to timecount modules. Clicking on a module will reveal more information about it as well and display a list of all its exported members (variables, types, functions, classes and interfaces).
+
+The following classes are what provide most of the module's functionality:
+
+- [**Time**](classes/_index_.time.html): nanosecond-based encapsulation of time lengths;
+- [**TimeWriter**](classes/_index_.timewriter.html): synthesize strings describing times;
+- [localization.**Locale**](classes/_localization_.locale.html): translate synthesized strings;
+- [utils.**BasicTimer**](classes/_utils_.basictimer.html): count the duration of your operations;
+- [utils.**Timer**](classes/_utils_.timer.html): basic timer plus pausing;
+- [utils.**StopWatch**](classes/_utils_.timer.html): timer plus time segmentation (laps).
 
 ### Links
 
-- [Repository](https://github.com/pjbatista/timecount)
-- [NpmJS](https://npmjs.org/package/timecount)
+- [GitHub Repository](https://github.com/pjbatista/timecount)
+- [NpmJS Package](https://npmjs.org/package/timecount)
+- [Contributing to timecount](https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md)
+- **[Translating timecount](https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md#translating)**
 - [Issues, suggestions and questions](https://github.com/pjbatista/timecount/issues)
-- [Contributing to timecount](https://github.com/pjbatista/timecount/master/blob/CONTRIBUTING.md)
-- **[Interested in helping with a translation?](https://github.com/pjbatista/timecount/master/blob/CONTRIBUTING.md#translating)**
+- [Contributors](https://github.com/pjbatista/timecount/blob/master/AUTHORS.md)
+- [Project Changelog](https://github.com/pjbatista/timecount/blob/master/CHANGELOG.md)
+
+---
+
+_Thanks for your interest in learning more about timecount!_

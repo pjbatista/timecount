@@ -1,7 +1,7 @@
 {
     "name": "timecount",
     "description": "Measures, converts and writes time using different units. Includes timers and stopwatches with nanosecond precision.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "private": true,
     "keywords": [
         "nanosecond",
@@ -33,45 +33,55 @@
     "engines": {
         "node": ">=4.2.0"
     },
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
-    "typings": "build/index.d.ts",
+    "main": "build/local/index.js",
+    "types": "build/local/index.d.ts",
+    "typings": "build/local/index.d.ts",
     "scripts": {
+        "bundle": "node_modules/.bin/gulp bundle",
         "build": "node_modules/.bin/gulp build",
         "document": "node_modules/.bin/gulp document",
-        "lint": "node_modules/.bin/tslint --project .",
+        "lint": "node_modules/.bin/gulp lint",
         "package": "node_modules/.bin/gulp package",
         "test": "node_modules/.bin/gulp test"
     },
     "dependencies": {
-        "big.js": "^5.1.2"
+        "decimal.js": "^10.0.1"
     },
     "devDependencies": {
         "@types/big.js": "^4.0.5",
+        "@types/browserify": "^12.0.33",
         "@types/chai": "^4.1.4",
         "@types/gulp": "^4.0.5",
         "@types/gulp-mocha": "0.0.32",
         "@types/gulp-sourcemaps": "0.0.32",
+        "@types/gulp-uglify": "^3.0.5",
         "@types/merge2": "^1.1.4",
         "@types/mocha": "^5.2.4",
         "@types/rimraf": "^2.0.2",
         "@types/run-sequence": "0.0.30",
         "@types/systeminformation": "^3.23.0",
+        "@types/vinyl-buffer": "^1.0.0",
+        "@types/vinyl-source-stream": "0.0.30",
+        "browserify": "^16.2.2",
         "chai": "^4.1.2",
         "glob": "^7.1.2",
         "gulp": "^3.9.1",
         "gulp-mocha": "^6.0.0",
         "gulp-sourcemaps": "^2.6.4",
+        "gulp-tslint": "^8.1.3",
         "gulp-typedoc": "^2.2.0",
         "gulp-typescript": "^5.0.0-alpha.3",
+        "gulp-uglify": "^3.0.1",
         "merge2": "^1.2.2",
         "mocha": "^5.2.0",
         "rimraf": "^2.6.2",
         "run-sequence": "^2.2.1",
-        "systeminformation": "^3.42.4",
         "ts-node": "^7.0.0",
+        "tsify": "^4.0.0",
         "tslint": "^5.11.0",
         "typedoc": "^0.11.1",
-        "typescript": "^2.9.2"
+        "typescript": "^2.9.2",
+        "vinyl-buffer": "^1.0.1",
+        "vinyl-source-stream": "^2.0.0"
     }
 }

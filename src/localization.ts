@@ -1,10 +1,10 @@
-/** [[include:localization.md]] */ /** */
 /*! ****************************************************************************
 Copyright (c) 2017-2018 Pedro José Batista
 MIT License
 
 See the LICENSE file for more information.
 ***************************************************************************** */
+/** [[include:localization.md]] */ /** */
 import fs = require("fs");
 import path = require("path");
 import { BaseTimeUnit, TimeUnitDatabase, TimeWriterSettings } from ".";
@@ -20,41 +20,49 @@ export interface Dictionary<T = string> {
 }
 
 /**
- * This _static_ class manages the localization of the module, which generates synthesized time outputs in languages
- * other than the default — English (US); the current locale can be changed via [[Locale.set]].
+ * This class manages the internationalization of the module, altering the results synthesized by
+ * [time writers](_index_.timewriter.html).
  *
- * Translations are files that export the translated time units as well as configurations for the language (for example,
- * how plurals should be parsed).
+ * Translations are stored in files located at `src/locales`. These files contain the transcription for time units and
+ * linguistic configurations.
  *
  * ---
  *
  * See [Contributing: Translating](https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md#translating) if
- * you wish to contribute with a new language or regional variation.
+ * you wish to contribute with a new translation for timecount.
  */
 export class Locale {
 
+    private static _availableFiles: Dictionary;
+    private static _availableIdentifiers: string[];
+    private static _availableLanguages: Dictionary;
+    private static _currentIdentifier = "en-us";
+    private static _settings: LocaleSettings = {};
+
     /**
-     * Gets the current locale identifier (e.g.: "fr" is French — represents the international translation for the
-     * language as a whole; "fr-ca" is French (Canada) — represents a localized variation of the French language meant
-     * for the country of Canada).
+     * Gets the current locale identifier.
+     *
+     * @deprecated Since v1.1.0 - In favor of `get` (will be removed in v2).
+     */
+    public static get currentIdentifier() { return Locale._currentIdentifier; }
+
+    /** Gets the configuration for the current locale which represents the translation file currently loaded. */
+    public static get settings() { return Locale._settings; }
+
+    /**
+     * Gets the current locale identifier (e.g.: "fr" represents French — the international translation for the language
+     * as a whole; "fr-ca" is French (Canada) — represents a localized variation of the French language meant for
+     * Canada).
      *
      * The default is "en-us", which represents English (United States), a language built into the module (doesn't
      * require any translation file).
      */
-    public static get currentIdentifier() { return Locale._currentIdentifier; }
-
-    /**
-     * Gets the locale settings associated with the current locale, an object that contains all language overrides.
-     */
-    public static get settings() { return Locale._settings; }
-
-    /** This property is an alias to [[currentIdentifier]]. */
     public static get() { return Locale._currentIdentifier; }
 
     /**
      * Gets whether the given locale identifier is available to `timecount`.
      *
-     * @param {string} localeIdentifier
+     * @param localeIdentifier
      *   A language / region locale specifier (e.g. "en-au", "pt-br").
      * @return
      *   True if a valid locale was provided; false otherwise.
@@ -67,15 +75,11 @@ export class Locale {
 
         localeIdentifier = localeIdentifier.toLocaleLowerCase();
 
-        if (localeIdentifier.length === 2) {
-            return localeIdentifier === "en" || Locale._availableLanguages.hasOwnProperty(localeIdentifier);
-        }
-
-        return localeIdentifier === "en-us" || Locale._availableIdentifiers.indexOf(localeIdentifier) > -1;
+        return Locale.listAvailable().indexOf(localeIdentifier) > -1;
     }
 
     /**
-     * Gets a list with all locale identifiers available to `timecount`.
+     * Gets a list with all locale identifiers available to timecount.
      *
      * @return
      *   An array with all available locale identifiers.
@@ -86,27 +90,35 @@ export class Locale {
             Locale._initialize();
         }
 
-        return Locale._availableIdentifiers;
+        const languages = Object.keys(this._availableLanguages);
+        return Locale._availableIdentifiers.concat(["en", "en-us"], languages).sort();
     }
 
     /**
-     * Sets the current locale using the specified identifier.
+     * Sets the current timecount language using the specified locale identifier (e.g.: "pt" represents Portuguese — the
+     * international translation for the language as a whole; "pt-br" is Portuguese (Brazilian) — represents a localized
+     * variation of the Portuguese language meant for Brazil).
      *
      * @param localeIdentifier
      *   A string with a 2 letter language identifier ("en", "es", "pt", etc.) -or- a 5 letter language + region
-     *   identifier ("en-ca", "pt-ao").
+     *   identifier ("en-ca", "pt-ao"). This parameter is case-insensitive. If empty, it will reset the locale to "en".
+     * @throws Error
+     *   When the locale identifier is invalid.
      */
-    public static set(localeIdentifier: string) {
+    public static set(localeIdentifier: string = "en") {
+
         localeIdentifier = localeIdentifier.toLocaleLowerCase();
 
+        // English (US) is hardcoded; no translation file required
         if (localeIdentifier === "en" || localeIdentifier === "en-us") {
             Locale._currentIdentifier = "en-us";
             Locale._settings = {};
-            return true;
+            return;
         }
 
+        // isAvailable already calls _initialize
         if (!Locale.isAvailable(localeIdentifier)) {
-            return false;
+            throw new Error("Invalid locale identifier");
         }
 
         if (localeIdentifier.length === 2 && Locale._availableLanguages.hasOwnProperty(localeIdentifier)) {
@@ -116,16 +128,26 @@ export class Locale {
         const pathToLocaleFile = Locale._availableFiles[localeIdentifier];
 
         Locale._currentIdentifier = localeIdentifier;
-        Locale._settings = require(`./locales/${pathToLocaleFile}`).default;
+        const settings: LocaleSettings = require(`./locales/${pathToLocaleFile}`).default;
+        Locale._settings = settings;
 
-        return true;
+        // Parsing deprecated properties
+        settings.defaultTimeUnit = settings.defaultTimeUnit || settings.defaultOptions;
+
+        if (!settings.timeUnits) {
+            return;
+        }
+
+        // tslint:disable-next-line:curly
+        for (const timeUnitName in settings.timeUnits) if (settings.timeUnits.hasOwnProperty(timeUnitName)) {
+
+            // Fixes the plurals when translating: nulls are not parsed like undefineds
+            const timeUnit = settings.timeUnits[timeUnitName as keyof TimeUnitDatabase];
+            timeUnit.customPlural = timeUnit.customPlural || null as any;
+        }
+
+        return;
     }
-
-    private static _availableFiles: Dictionary;
-    private static _availableIdentifiers: string[];
-    private static _availableLanguages: Dictionary;
-    private static _currentIdentifier = "en-us";
-    private static _settings: LocaleSettings = {};
 
     private static _initialize() {
         const availableFiles: Dictionary = {};
@@ -138,14 +160,15 @@ export class Locale {
             const localeIdentifier = localeFile.toLocaleLowerCase();
 
             // Splits the file path into 3 groups: path, language and region (which is optional)
-            const localeParser = /(.*?|^)([a-z]{2})-?(|[a-z]{2})\.ts/.exec(localeIdentifier);
+            const localeParser = /^([a-z]{2})-?(|[a-z]{2})\.ts/.exec(localeIdentifier);
 
             if (localeParser === null) {
                 continue;
             }
 
-            const language = localeParser[2];
-            const region = localeParser[3];
+            // Separating regionless languages and regionalizations
+            const language = localeParser[1];
+            const region = localeParser[2];
             const identifier = `${language}-${region.length === 2 ? region : ""}`;
 
             if (!availableLanguages.hasOwnProperty(language)) {
@@ -160,27 +183,57 @@ export class Locale {
         Locale._availableIdentifiers = availableIdentifiers;
         Locale._availableLanguages = availableLanguages;
     }
+
+    private constructor() { throw new Error("Cannot initialize static class Locale"); }
 }
 
 /**
- * This interface describes objects used to configure the overrides of a specific locale. This type represent the files
- * located on `/locales`.
+ * Objects of this class represent the configurations of translation files.
+ *
+ * After a translation has been [set](../classes/_localization_.locale.html#set), these configurations will be available
+ * at [Locale.settings](../classes/_localization_.locale.html#settings) to be used by interested objects (such as
+ * [time writers](../classes/_index_.timewriter.html)).
  */
 export interface LocaleSettings {
 
-    /** These options allow for default linguistic configuration for the time units of the locale. */
+    /**
+     * These options allow for default linguistic configuration for the time units of the locale.
+     *
+     * @deprecated Since v1.1.0 - In favor of `defaultTimeUnit` (will be removed in v2).
+     */
     defaultOptions?: BaseTimeUnit;
 
-    /** Using this property, each time unit can be individually translated. */
-    timeUnits?: TimeUnitDatabase<LocalizedTimeUnit>;
+    /**
+     * An object able to override the default linguistic parsing of time units.
+     *
+     * It may be used to set a [custom plural function](_index_.basetimeunit.html#customplural) or prevent time units
+     * from being [pluralized](_index_.basetimeunit.html#pluralize) by default.
+     */
+    defaultTimeUnit?: BaseTimeUnit;
 
-    /** General configurations applying to the language. */
+    /**
+     * Database of time unit translations.
+     *
+     * Gives the ability to set [readable names](_index_.basetimeunit.html#readablename) and
+     * [plurals](_index_.basetimeunit.html#customplural) of translations.
+     */
+    timeUnits?: TimeUnitDatabase<BaseTimeUnit>;
+
+    /**
+     * Configurations assigned to [time writers](../classes/_index_.timewriter.html).
+     *
+     * Contains linguistic and mathematical properties applied to all
+     * [countdown](../classes/_index_.timewriter.html#countdown) and [write](../classes/_index_.timewriter.html#write)
+     * calls (unless overriden by the object or method).
+     */
     writerOptions?: TimeWriterSettings;
 }
 
 /**
- * This interface extends from [[BaseTimeUnit]] with the only difference being that it enforces [[readableName]] to be
- * not-optional, in order to better characterize a parsed time unit object.
+ * This interface extends from [BaseTimeUnit](_index_.basetimeunit.html) with the only difference being that it enforces
+ * its [readable name](#readablename) to be not-optional, in order to better characterize a parsed time unit object.
+ *
+ * @deprecated Since v1.1.0 - Unnecessary interface (will be removed in v2).
  */
 export interface LocalizedTimeUnit extends BaseTimeUnit {
 

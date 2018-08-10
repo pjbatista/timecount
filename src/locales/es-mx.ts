@@ -1,14 +1,24 @@
-export default {
+/*! ****************************************************************************
+Copyright (c) 2017-2018 Pedro José Batista
+MIT License
+
+See the LICENSE file for more information.
+***************************************************************************** */
+import { LocaleSettings } from "../localization";
+
+const translation: LocaleSettings = {
     timeUnits: {
-        anomalistcMonth: { readableName: "mes anómalo", customPlural: "meses anómalos" },
-        anomalistcYear: { readableName: "año anómalo", customPlural: "años anómalos" },
+        anomalisticMonth: { readableName: "mes anómalo", customPlural: "meses anómalos" },
+        anomalisticYear: { readableName: "año anómalo", customPlural: "años anómalos" },
         attosecond: { readableName: "attosegundo" },
         biennium: { readableName: "bienio" },
         century: { readableName: "siglo" },
+        cosmicYear: { readableName: "año cósmico", customPlural: "años cósmicos" },
         day: { readableName: "día" },
         decade: { readableName: "década" },
         draconicMonth: { readableName: "mes draconico", customPlural: "meses draconicos" },
         draconicYear: { readableName: "año draconico", customPlural: "años draconicos" },
+        eclipticYear: { readableName: "año eclíptico", customPlural: "años eclípticos" },
         exasecond: { readableName: "exasegundo" },
         exbisecond: { readableName: "exbisegundo" },
         femtosecond: { readableName: "femtosegundo" },
@@ -16,12 +26,14 @@ export default {
         galacticYear: { readableName: "año galáctico", customPlural: "años galácticos" },
         gibisecond: { readableName: "gibisegundo" },
         gigasecond: { readableName: "gigasegundo" },
+        gregorianYear: { readableName: "año Gregoriano", customPlural: "años Gregorianos" },
         hour: { readableName: "hora" },
         jiffy: { readableName: "instante" },
         julianYear: { readableName: "año Juliano", customPlural: "años Julianos" },
         kibisecond: { readableName: "kibisegundo" },
         kilosecond: { readableName: "kilosegundo" },
-        leapYear: { readableName: "año bissexto", customPlural: "años bissextos" },
+        kiloyear: { readableName: "kiloaño" },
+        leapYear: { readableName: "año bisiesto", customPlural: "años bisiestos" },
         lustrum: { readableName: "lustro" },
         mebisecond: { readableName: "mebisegundo" },
         megasecond: { readableName: "megasegundo" },
@@ -31,9 +43,11 @@ export default {
         minute: { readableName: "minuto" },
         month: { readableName: "mes", customPlural: "meses" },
         nanosecond: { readableName: "nanosegundo" },
+        nodicalMonth: { readableName: "mes nodical", customPlural: "meses nodicos" },
+        nonLeapYear: { readableName: "año no bisiesto", customPlural: "años no bisiestos" },
         novennium: { readableName: "novenio" },
         octennium: { readableName: "octenio" },
-        pepisecond: { readableName: "pepisegundo" },
+        pebisecond: { readableName: "pepisegundo" },
         petasecond: { readableName: "pepasegundo" },
         picosecond: { readableName: "picosegundo" },
         planckTime: { readableName: "tiempo de Planck", customPlural: "tiempos de Planck" },
@@ -45,10 +59,12 @@ export default {
         shake: {},
         siderealDay: { readableName: "día sidéreo", customPlural: "días sidéreos" },
         siderealHour: { readableName: "hora sideral", customPlural: "horas siderales" },
-        siderealMinute:  { readableName: "minuto sideral", customPlural: "minutos siderales" },
+        siderealMinute: { readableName: "minuto sideral", customPlural: "minutos siderales" },
         siderealMonth: { readableName: "mes sideral", customPlural: "meses siderales" },
-        siderealSecond:  { readableName: "segundo sideral", customPlural: "segundos siderales" },
+        siderealSecond: { readableName: "segundo sideral", customPlural: "segundos siderales" },
         siderealYear: { readableName: "año sideral", customPlural: "años siderales" },
+        solarDay: { readableName: "día solar", customPlural: "días solares" },
+        solarYear: { readableName: "año solar", customPlural: "año solares" },
         svedberg: {},
         synodicMonth: { readableName: "mes sinódico", customPlural: "meses sinódicos" },
         tebisecond: { readableName: "tebisegundo" },
@@ -65,9 +81,10 @@ export default {
         zettasecond: { readableName: "zettasegundo" },
     },
     writerOptions: {
-        terms: {
-            infinite: "infinitos",
-            nan: "no-es-un-número",
-        },
+        termApproximately: "aproximadamente",
+        termInfinite: "infinitos",
+        termNaN: "número inválido de",
     },
 };
+
+export default translation;

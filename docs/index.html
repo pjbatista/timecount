@@ -62,26 +62,34 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p>These documents were created in order to contribute to the maintainance and understanding of timecount&#39;s source code.</p>
+				<p><strong>Welcome!</strong> This documentation was created in order to contribute to the maintainance and understanding of the source code of timecount.</p>
 				<h3 id="introduction">Introduction</h3>
-				<p>This NodeJS module is written using <a href="https://www.typescriptlang.org">TypeScript 2.9.2</a> and compiled to the <a href="https://www.ecma-international.org/ecma-262/6.0/">Standard ECMA-262</a> specifications. The documentation is generated with the help of <a href="http://typedoc.org">TypeDoc 0.11.1</a>. The build tool is <a href="https://gulpjs.com">Gulp 3.9.1</a>.</p>
-				<p>At the right box, there are all timecount modules. Clicking on a module will reveal more information about it as well and display a list of all its exported members.</p>
+				<p>This <a href="https://nodejs.org">NodeJS</a> module is written using <a href="https://www.typescriptlang.org">TypeScript</a> and transpiled to the <a href="https://www.ecma-international.org/ecma-262/6.0">Standard ECMA-262 (ES6)</a> specifications. The documentation is generated with the help of <a href="http://typedoc.org">TypeDoc</a>. The tests are performed via <a href="https://mochajs.org/">Mocha</a> and <a href="http://www.chaijs.com/">Chai</a>. The build tool is <a href="https://gulpjs.com">Gulp</a>.</p>
 				<h3 id="explore-the-api">Explore the API</h3>
+				<blockquote>
+					<p>👉🏻 <strong>The right panel</strong> contains links to timecount modules. Clicking on a module will reveal more information about it as well and display a list of all its exported members (variables, types, functions, classes and interfaces).</p>
+				</blockquote>
+				<p>The following classes are what provide most of the module&#39;s functionality:</p>
 				<ul>
-					<li><a href="classes/_index_.time.html">Time</a> - A nanosecond-based encapsulation of a time value</li>
-					<li><a href="classes/_index_.timewriter.html">TimeWriter</a> - Write time values using multiple time units</li>
-					<li><a href="classes/_localization_.locale.html">Locale</a> - Translations for time units and writes</li>
-					<li><a href="classes/_utils_.timer.html">Timer</a> - Time counting object with pausing ability</li>
-					<li><a href="classes/_utils_.timer.html">StopWatch</a> - Time counting object with time segmentation (laps)</li>
+					<li><a href="classes/_index_.time.html"><strong>Time</strong></a>: nanosecond-based encapsulation of time lengths;</li>
+					<li><a href="classes/_index_.timewriter.html"><strong>TimeWriter</strong></a>: synthesize strings describing times;</li>
+					<li><a href="classes/_localization_.locale.html">localization.<strong>Locale</strong></a>: translate synthesized strings;</li>
+					<li><a href="classes/_utils_.basictimer.html">utils.<strong>BasicTimer</strong></a>: count the duration of your operations;</li>
+					<li><a href="classes/_utils_.timer.html">utils.<strong>Timer</strong></a>: basic timer plus pausing;</li>
+					<li><a href="classes/_utils_.timer.html">utils.<strong>StopWatch</strong></a>: timer plus time segmentation (laps).</li>
 				</ul>
 				<h3 id="links">Links</h3>
 				<ul>
-					<li><a href="https://github.com/pjbatista/timecount">Repository</a></li>
-					<li><a href="https://npmjs.org/package/timecount">NpmJS</a></li>
+					<li><a href="https://github.com/pjbatista/timecount">GitHub Repository</a></li>
+					<li><a href="https://npmjs.org/package/timecount">NpmJS Package</a></li>
+					<li><a href="https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md">Contributing to timecount</a></li>
+					<li><strong><a href="https://github.com/pjbatista/timecount/blob/master/CONTRIBUTING.md#translating">Translating timecount</a></strong></li>
 					<li><a href="https://github.com/pjbatista/timecount/issues">Issues, suggestions and questions</a></li>
-					<li><a href="https://github.com/pjbatista/timecount/master/blob/CONTRIBUTING.md">Contributing to timecount</a></li>
-					<li><strong><a href="https://github.com/pjbatista/timecount/master/blob/CONTRIBUTING.md#translating">Interested in helping with a translation?</a></strong></li>
+					<li><a href="https://github.com/pjbatista/timecount/blob/master/AUTHORS.md">Contributors</a></li>
+					<li><a href="https://github.com/pjbatista/timecount/blob/master/CHANGELOG.md">Project Changelog</a></li>
 				</ul>
+				<hr>
+				<p><em>Thanks for your interest in learning more about timecount!</em></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -171,7 +179,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

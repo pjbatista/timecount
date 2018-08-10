@@ -70,14 +70,14 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This class represents errors that occur during the operation of <a href="../classes/_index_.simpletimer.html">simple timers</a>,
-							<a href="../classes/_index_.timer.html">timers</a> and <a href="../classes/_index_.stopwatch.html">stopwatches</a>. It has static methods
-						able to create <a href="_utils_.timererror.html">TimerError</a> instances with default error messages.</p>
+						<p>This class represents errors that occur during the operation of <a href="../classes/_index_.basictimer.html">basic timers</a>,
+						<a href="../classes/_index_.timer.html">timers</a> and <a href="../classes/_index_.stopwatch.html">stopwatches</a>.</p>
 					</div>
+					<p>It has static methods able to create <a href="#">TimerError</a> instances with generic error messages.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="tsd-signature-type">Error</span>
@@ -90,7 +90,7 @@
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -111,10 +111,10 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timerhasalreadystarted" class="tsd-kind-icon">timer<wbr>Has<wbr>Already<wbr>Started</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timerhasnotstarted" class="tsd-kind-icon">timer<wbr>Has<wbr>Not<wbr>Started</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timerisalreadypaused" class="tsd-kind-icon">timer<wbr>IsAlready<wbr>Paused</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timerisnotpaused" class="tsd-kind-icon">timer<wbr>IsNot<wbr>Paused</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timeralreadypaused" class="tsd-kind-icon">timer<wbr>Already<wbr>Paused</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timeralreadystarted" class="tsd-kind-icon">timer<wbr>Already<wbr>Started</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timernotpaused" class="tsd-kind-icon">timer<wbr>Not<wbr>Paused</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_utils_.timererror.html#timernotstarted" class="tsd-kind-icon">timer<wbr>Not<wbr>Started</a></li>
 							</ul>
 						</section>
 					</div>
@@ -179,12 +179,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L357">utils.ts:357</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L457">utils.ts:457</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets a string representation of the [[TimeError]] class, used by the built-in <code>Object.prototype.toString</code>.</p>
+									<p>Gets a string representation of the <a href="#">TimerError</a> class, used by the built-in <code>Object.prototype.toString</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -195,89 +195,113 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="timerhasalreadystarted" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Has<wbr>Already<wbr>Started</h3>
+					<a name="timeralreadypaused" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Already<wbr>Paused</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">timer<wbr>Has<wbr>Already<wbr>Started<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
+						<li class="tsd-signature tsd-kind-icon">timer<wbr>Already<wbr>Paused<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L337">utils.ts:337</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L437">utils.ts:437</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates and returns a new <a href="_utils_.timererror.html">TimerError</a> instance for when the timer has already started.</p>
+									<p>Creates and returns a new <a href="#">TimerError</a> instance for when the timer is already paused.</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;timer&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="timerhasnotstarted" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Has<wbr>Not<wbr>Started</h3>
+					<a name="timeralreadystarted" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Already<wbr>Started</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">timer<wbr>Has<wbr>Not<wbr>Started<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
+						<li class="tsd-signature tsd-kind-icon">timer<wbr>Already<wbr>Started<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L342">utils.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L442">utils.ts:442</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates and returns a new <a href="_utils_.timererror.html">TimerError</a> instance for when the timer has not yet started.</p>
+									<p>Creates and returns a new <a href="#">TimerError</a> instance for when the timer has already started.</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;timer&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="timerisalreadypaused" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>IsAlready<wbr>Paused</h3>
+					<a name="timernotpaused" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Not<wbr>Paused</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">timer<wbr>IsAlready<wbr>Paused<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
+						<li class="tsd-signature tsd-kind-icon">timer<wbr>Not<wbr>Paused<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L347">utils.ts:347</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L447">utils.ts:447</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates and returns a new <a href="_utils_.timererror.html">TimerError</a> instance for when the timer is already paused.</p>
+									<p>Creates and returns a new <a href="#">TimerError</a> instance for when the timer is not paused.</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;timer&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="timerisnotpaused" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>IsNot<wbr>Paused</h3>
+					<a name="timernotstarted" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> timer<wbr>Not<wbr>Started</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">timer<wbr>IsNot<wbr>Paused<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
+						<li class="tsd-signature tsd-kind-icon">timer<wbr>Not<wbr>Started<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L352">utils.ts:352</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L452">utils.ts:452</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates and returns a new <a href="_utils_.timererror.html">TimerError</a> instance for when the timer is not paused.</p>
+									<p>Creates and returns a new <a href="#">TimerError</a> instance for when the timer has not yet started.</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;timer&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_utils_.timererror.html" class="tsd-signature-type">TimerError</a></h4>
 						</li>
 					</ul>
@@ -333,21 +357,24 @@
 								<a href="_utils_.timererror.html#___tostringtag" class="tsd-kind-icon">__@to<wbr>String<wbr>Tag</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_utils_.timererror.html#timerhasalreadystarted" class="tsd-kind-icon">timer<wbr>Has<wbr>Already<wbr>Started</a>
+								<a href="_utils_.timererror.html#timeralreadypaused" class="tsd-kind-icon">timer<wbr>Already<wbr>Paused</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_utils_.timererror.html#timerhasnotstarted" class="tsd-kind-icon">timer<wbr>Has<wbr>Not<wbr>Started</a>
+								<a href="_utils_.timererror.html#timeralreadystarted" class="tsd-kind-icon">timer<wbr>Already<wbr>Started</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_utils_.timererror.html#timerisalreadypaused" class="tsd-kind-icon">timer<wbr>IsAlready<wbr>Paused</a>
+								<a href="_utils_.timererror.html#timernotpaused" class="tsd-kind-icon">timer<wbr>Not<wbr>Paused</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_utils_.timererror.html#timerisnotpaused" class="tsd-kind-icon">timer<wbr>IsNot<wbr>Paused</a>
+								<a href="_utils_.timererror.html#timernotstarted" class="tsd-kind-icon">timer<wbr>Not<wbr>Started</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a>
 					</li>
@@ -419,7 +446,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

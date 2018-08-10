@@ -70,13 +70,15 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This interface describes objects used to configure the overrides of a specific locale. This type represent the files
-						located on <code>/locales</code>.</p>
+						<p>Objects of this class represent the configurations of translation files.</p>
 					</div>
+					<p>After a translation has been <a href="../classes/_localization_.locale.html#set">set</a>, these configurations will be available
+						at <a href="../classes/_localization_.locale.html#settings">Locale.settings</a> to be used by interested objects (such as
+					<a href="../classes/_index_.timewriter.html">time writers</a>).</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
+				<h3><a name="hierarchy" style="color: #000; text-decoration: none">Hierarchy</a></h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">LocaleSettings</span>
@@ -84,13 +86,14 @@
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_localization_.localesettings.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_localization_.localesettings.html#defaulttimeunit" class="tsd-kind-icon">default<wbr>Time<wbr>Unit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_localization_.localesettings.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_localization_.localesettings.html#writeroptions" class="tsd-kind-icon">writer<wbr>Options</a></li>
 							</ul>
@@ -106,28 +109,52 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="_index_.basetimeunit.html" class="tsd-signature-type">BaseTimeUnit</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L172">localization.ts:172</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L204">localization.ts:204</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>These options allow for default linguistic configuration for the time units of the locale.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Since v1.1.0 - In favor of <code>defaultTimeUnit</code> (will be removed in v2).</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="defaulttimeunit" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Time<wbr>Unit</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Time<wbr>Unit<span class="tsd-signature-symbol">:</span> <a href="_index_.basetimeunit.html" class="tsd-signature-type">BaseTimeUnit</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L212">localization.ts:212</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An object able to override the default linguistic parsing of time units.</p>
+						</div>
+						<p>It may be used to set a <a href="_index_.basetimeunit.html#customplural">custom plural function</a> or prevent time units
+						from being <a href="_index_.basetimeunit.html#pluralize">pluralized</a> by default.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="timeunits" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> time<wbr>Units</h3>
-					<div class="tsd-signature tsd-kind-icon">time<wbr>Units<span class="tsd-signature-symbol">:</span> <a href="_index_.timeunitdatabase.html" class="tsd-signature-type">TimeUnitDatabase</a><span class="tsd-signature-symbol">&lt;</span><a href="_localization_.localizedtimeunit.html" class="tsd-signature-type">LocalizedTimeUnit</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">time<wbr>Units<span class="tsd-signature-symbol">:</span> <a href="_index_.timeunitdatabase.html" class="tsd-signature-type">TimeUnitDatabase</a><span class="tsd-signature-symbol">&lt;</span><a href="_index_.basetimeunit.html" class="tsd-signature-type">BaseTimeUnit</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L175">localization.ts:175</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L220">localization.ts:220</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Using this property, each time unit can be individually translated.</p>
+							<p>Database of time unit translations.</p>
 						</div>
+						<p>Gives the ability to set <a href="_index_.basetimeunit.html#readablename">readable names</a> and
+						<a href="_index_.basetimeunit.html#customplural">plurals</a> of translations.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -136,13 +163,16 @@
 					<div class="tsd-signature tsd-kind-icon">writer<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/localization.ts#L178">localization.ts:178</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/localization.ts#L229">localization.ts:229</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>General configurations applying to the language.</p>
+							<p>Configurations assigned to <a href="../classes/_index_.timewriter.html">time writers</a>.</p>
 						</div>
+						<p>Contains linguistic and mathematical properties applied to all
+							<a href="../classes/_index_.timewriter.html#countdown">countdown</a> and <a href="../classes/_index_.timewriter.html#write">write</a>
+						calls (unless overriden by the object or method).</p>
 					</div>
 				</section>
 			</section>
@@ -179,6 +209,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_localization_.localesettings.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_localization_.localesettings.html#defaulttimeunit" class="tsd-kind-icon">default<wbr>Time<wbr>Unit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_localization_.localesettings.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
@@ -261,7 +294,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>

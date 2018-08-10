@@ -67,14 +67,27 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This module contains utilities such as timers and stopwatches.</p>
-						<p>These objects are capable of counting between arbitrary start and stop points in time. The results are all based on the <a href="../classes/_index_.time.html">Time</a> class of the main module.</p>
-						<p>The exported function <a href="_utils_.html#getprocesstime">getProcessTime</a> is equivalent to NodeJS v10.7 <a href="https://nodejs.org/api/process.html#process_process_hrtime_bigint"><code>process.hrtime.bigint</code></a> and is used by all objects of this module.</p>
+						<p>This module contains runtime time counting utilities, i.e. objects that are able to measure the duration of operations during execution.</p>
+						<p>Such objects are capable of counting between arbitrary <strong>start</strong> and <strong>stop</strong> points in time. The results are all based on <a href="../classes/_index.time.html">time objects</a>.</p>
+						<p>Employ one of the following snippets to use it in your project:</p>
+						<ul>
+							<li>EcmaScript 6 or equivalent:<pre><code class="lang-javascript">  <span class="hljs-keyword">import</span> { BasicTimer, StopWatch, Timer } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
+</code></pre>
+							</li>
+							<li>Older EcmaScripts:<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> localization = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>).utils;
+  <span class="hljs-comment">// -or</span>
+  <span class="hljs-keyword">var</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount/utils"</span>);
+</code></pre>
+							</li>
+						</ul>
+						<blockquote>
+							<p>💡 The exported function <a href="#getprocesstime"><code>getProcessTime</code></a> is equivalent to Node&#39;s <a href="https://nodejs.org/api/process.html#process_process_hrtime_bigint"><code>process.hrtime.bigint</code></a>, except it returns the big decimal from <a href="https://mikemcl.github.io/decimal.js">decimal.js</a> instead of the library used by Node.</p>
+						</blockquote>
 					</div>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
+				<h2><a name="index" style="color: #000; text-decoration: none">Index</a></h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
@@ -87,6 +100,12 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a></li>
@@ -96,18 +115,61 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="stopwatchdetail" class="tsd-anchor"></a>
+					<h3>Stop<wbr>Watch<wbr>Detail</h3>
+					<div class="tsd-signature tsd-kind-icon">Stop<wbr>Watch<wbr>Detail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L129">utils.ts:129</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This type of function is used by <a href="../classes/_utils_.stopwatch.html">stopwatches</a> to return additional information
+							to the callers of <a href="../classes/_utils_.stopwatch.html#stop">stop</a></p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>partialTimes<span class="tsd-signature-symbol">: </span><a href="../classes/_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">[]</span>, error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>partialTimes: <a href="../classes/_index_.time.html" class="tsd-signature-type">Time</a><span class="tsd-signature-symbol">[]</span></h5>
+											</li>
+											<li>
+												<h5>error: <span class="tsd-signature-type">number</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="getprocesstime" class="tsd-anchor"></a>
 					<h3>get<wbr>Process<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Process<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Process<wbr>Time<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Decimal</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/af56c50/src/utils.ts#L16">utils.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/6e8bcc8/src/utils.ts#L17">utils.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -115,8 +177,8 @@
 									<p>Gets the number of nanoseconds that represent the current time according to <code>process</code>.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-							<p>  Current time, in nanoseconds.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Decimal</span></h4>
+							<p>  <a href="https://www.npmjs.com/package/decimal.js">Big decimal</a> representation of the current time, in nanoseconds.</p>
 						</li>
 					</ul>
 				</section>
@@ -152,6 +214,9 @@
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_utils_.timererror.html" class="tsd-kind-icon">Timer<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a>
@@ -224,7 +289,7 @@
 	
 <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
 <hr />
-<p>Copyright 2017-2018 Pedro José Batista.</p>
+<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
 
 </div>
 <div class="overlay"></div>
