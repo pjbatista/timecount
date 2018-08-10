@@ -28,7 +28,7 @@ Despite the big changes of v1.0.0, some core mechanics and type definitions were
 
 ### 1.1.0
 
-> Publish date: 2018-08-03
+> Publish date: 2018-08-10
 
 - **Added `TimeWriter.countdown`**;
 - Added bundled version for browsers;
