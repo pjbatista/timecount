@@ -9,12 +9,12 @@ import { Time } from "../src";
 type Test = () => void;
 
 function randomTimeout() {
-    return Math.round(Math.random() * 50 + 1);
+    return Math.round(Math.random() * 100 + 1);
 }
 
-const lowerCoefficient = 0.5;
+const lowerCoefficient = 0.1;
 const milisecondFactor = 1000000;
-const upperLimit = 5000000;
+const upperLimit = 100000000;
 
 export class TestHelper {
 

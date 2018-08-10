@@ -31,6 +31,7 @@ Despite the big changes of v1.0.0, some core mechanics and type definitions were
 > Publish date: 2018-08-03
 
 - **Added `TimeWriter.countdown`**;
+- Added bundled version for browsers;
 - Fixed several time unit inconsistencies, like typos and coefficients (making v1.1.0 _very slightly_ incompatible with 1.0.0);
 - Deprecated types, specially in `TimeWriterSettings`;
 - Changed the entire mathematical foundation to [decimal.js](https://mikemcl.github.io/decimal.js);

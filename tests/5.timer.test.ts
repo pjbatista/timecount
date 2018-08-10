@@ -58,7 +58,7 @@ describe("StopWatch", () => {
                 timer.resume();
             })
             .addTest(() => {
-                expect(timer.stop()).to.satisfy(helper.timeAssertionDouble, helper.timeAssertionFail);
+                expect(timer.stop()).to.satisfy(helper.timeAssertionTriple, helper.timeAssertionFail);
             })
             .run();
     });

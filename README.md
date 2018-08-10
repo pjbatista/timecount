@@ -45,7 +45,7 @@ This module can be installed with the node package manager of your choice:
 
 Or download a release ready to be used on browsers:
 
-- Latest Release: [timecount-1.1.0](https://github.com/pjbatista/timecount/releases/link-to-be-obtained)
+- Latest Release: [timecount-1.1.0](https://github.com/pjbatista/timecount/releases/download/v1.1.0/timecount-v1.1.0.zip)
 - All releases: [https://github.com/pjbatista/timecount/releases](https://github.com/pjbatista/timecount/releases)
 
 ---

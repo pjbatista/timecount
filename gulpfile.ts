@@ -8,6 +8,7 @@ import tslintPlugin = require("gulp-tslint");
 import typedoc = require("gulp-typedoc");
 import typescript = require("gulp-typescript");
 import uglify = require("gulp-uglify");
+import zip = require("gulp-zip");
 import merge2 = require("merge2");
 import path = require("path");
 import rimraf = require("rimraf");
@@ -68,7 +69,7 @@ gulp.task("build:docs", () => {
     return gulp.src("./src/**/*.ts").pipe(typedoc(tsConfig.typedocOptions));
 });
 
-gulp.task("bundle", (callback: any) => runSequence(["bundle:full", "bundle:minify"], callback));
+gulp.task("bundle", (callback: any) => runSequence(["bundle:full", "bundle:minify"], "bundle:zip", callback));
 
 gulp.task("bundle:full", () => {
 
@@ -112,6 +113,14 @@ gulp.task("bundle:minify", () => {
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(uglify())
         .pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest("./build"));
+});
+
+gulp.task("bundle:zip", () => {
+    const version = require("./package.json").version;
+
+    return gulp.src("./build/timecount.*")
+        .pipe(zip(`timecount-v${version}.zip`))
         .pipe(gulp.dest("./build"));
 });
 
