@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>TimeWriter | timecount API</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for timecount API">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -82,77 +82,85 @@
 						<li>Options given as a parameter to a method.</li>
 					</ul>
 					<hr>
-					<h3 id="examples">Examples</h3>
-					<h4 id="writting-time-using-different-units">Writting time using different units</h4>
+					<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+						<h3>Examples</h3>
+					</a>
+					<a href="#writing-time-using-different-units" id="writing-time-using-different-units" style="color: inherit; text-decoration: none;">
+						<h4>Writing time using different units</h4>
+					</a>
 					<p>First, import and initialize the appropriate objects:</p>
 					<ul>
 						<li><p>EcmaScript 6:</p>
-							<pre><code class="lang-javascript">  <span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+							<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount&quot;</span>;
 
-  <span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> Time(<span class="hljs-number">1000</span>);
-  <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
+<span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> Time(<span class="hljs-number">1000</span>);
+<span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
 </code></pre>
 						</li>
 						<li><p>Older EcmaScripts:</p>
-							<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
+							<pre><code class="language-javascript"><span class="hljs-keyword">var</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;timecount&quot;</span>);
 
-  <span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> timecount.Time(<span class="hljs-number">1000</span>);
-  <span class="hljs-keyword">var</span> timeWriter = <span class="hljs-keyword">new</span> timecount.TimeWriter();
+<span class="hljs-keyword">var</span> time = <span class="hljs-keyword">new</span> timecount.Time(<span class="hljs-number">1000</span>);
+<span class="hljs-keyword">var</span> timeWriter = <span class="hljs-keyword">new</span> timecount.TimeWriter();
 </code></pre>
 						</li>
 					</ul>
 					<p>Next, use the hypothetical <code>log</code> function to receive time outputs:</p>
-					<pre><code class="lang-javascript">
+					<pre><code class="language-javascript">
 </code></pre>
-					<h4 id="1-writing-multiple-time-values">1. Writing multiple time values</h4>
-					<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+					<a href="#1-writing-multiple-time-values" id="1-writing-multiple-time-values" style="color: inherit; text-decoration: none;">
+						<h4>1. Writing multiple time values</h4>
+					</a>
+					<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Time, TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount&quot;</span>;
 
 <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter();
 
 <span class="hljs-comment">// Writes the value of 90 minutes using hours:</span>
-<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-number">90</span>, <span class="hljs-string">"minute"</span>, <span class="hljs-string">"hour"</span>));
+<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-number">90</span>, <span class="hljs-string">&quot;minute&quot;</span>, <span class="hljs-string">&quot;hour&quot;</span>));
 <span class="hljs-comment">// Result: 1.5 h</span>
 
 <span class="hljs-comment">// Writes the value of 90 minutes:</span>
-<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-number">90</span>, <span class="hljs-string">"minute"</span>));
+<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-number">90</span>, <span class="hljs-string">&quot;minute&quot;</span>));
 <span class="hljs-comment">// Result: 90 min</span>
 
 <span class="hljs-comment">// Writes the value of a trillion nanoseconds in minutes:</span>
-<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-keyword">new</span> Time(<span class="hljs-number">1000000000000</span>), <span class="hljs-string">"minute"</span>);
+<span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-keyword">new</span> Time(<span class="hljs-number">1000000000000</span>), <span class="hljs-string">&quot;minute&quot;</span>);
 <span class="hljs-comment">// Result: 16.666666666666668 min</span>
 
 <span class="hljs-comment">// By default, timecount will use nanoseconds for input and output:</span>
 <span class="hljs-built_in">console</span>.log(timerWriter.write(<span class="hljs-number">1000000000000</span>));
 <span class="hljs-comment">// Result: 1000000000000 ns</span>
 </code></pre>
-					<h4 id="2-customizing-the-time-output">2. Customizing the time output</h4>
+					<a href="#2-customizing-the-time-output" id="2-customizing-the-time-output" style="color: inherit; text-decoration: none;">
+						<h4>2. Customizing the time output</h4>
+					</a>
 					<p>There are three places where the output of a time writer (<a href="../interfaces/_index_.timewritersettings.html">TimeWriterSettings</a>) can be configured, each one overriding the previous:</p>
 					<ol>
 						<li><a href="_localization_.locale.html">Locale</a>, which is used for translations;</li>
 						<li>The object itself (<a href="_index_.timewriter.html#settings">TimeWriter.settings</a>);</li>
 						<li>Parameter <code>options</code> of the <a href="#write">write</a> method.</li>
 					</ol>
-					<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">"timecount"</span>);
+					<pre><code class="language-typescript"><span class="hljs-keyword">const</span> timecount = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;timecount&quot;</span>);
 
-<span class="hljs-keyword">const</span> tw = <span class="hljs-keyword">new</span> TimeWriter({ verbose: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> tw = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>);
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;second&quot;</span>);
 <span class="hljs-comment">// Result: 10 seconds</span>
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>, { spaceTimeUnit: <span class="hljs-literal">false</span>, verbose: <span class="hljs-literal">false</span> });
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;second&quot;</span>, { <span class="hljs-attr">spaceTimeUnit</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">verbose</span>: <span class="hljs-literal">false</span> });
 <span class="hljs-comment">// Result: 10s</span>
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"day"</span>);
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;day&quot;</span>);
 <span class="hljs-comment">// Result: 10 days</span>
 
-Locale.set(<span class="hljs-string">"es"</span>);
+Locale.set(<span class="hljs-string">&quot;es&quot;</span>);
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"day"</span>);
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;day&quot;</span>);
 <span class="hljs-comment">// Result: 10 días</span>
 
 tw.settings.verbose = <span class="hljs-literal">false</span>;
 
-tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"</span>);
+tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">&quot;second&quot;</span>);
 <span class="hljs-comment">// Result: 10 s</span>
 </code></pre>
 				</div>
@@ -203,7 +211,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1836">index.ts:1836</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1836">src/index.ts:1836</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -214,11 +222,11 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> settings: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> settings: <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a><span class="tsd-signature-symbol"> = {}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>  Configurations pertaining to this instance, overriding those of the
-												<a href="_localization_.locale.html#writerOptions">locale</a>. May be overriden via parameter of <a href="#write">write</a> or
+												<a href="_localization_.locale.html#writerOptions">locale</a>. May be overridden via parameter of <a href="#write">write</a> or
 											<a href="#countdown">countdown</a>.</p>
 										</div>
 									</div>
@@ -237,13 +245,13 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_index_.timewritersettings.html" class="tsd-signature-type">TimeWriterSettings</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1846">index.ts:1846</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1846">src/index.ts:1846</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>  Configurations pertaining to this instance, overriding those of the
-								<a href="_localization_.locale.html#writerOptions">locale</a>. May be overriden via parameter of <a href="#write">write</a> or
+								<a href="_localization_.locale.html#writerOptions">locale</a>. May be overridden via parameter of <a href="#write">write</a> or
 							<a href="#countdown">countdown</a>.</p>
 						</div>
 					</div>
@@ -266,7 +274,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1868">index.ts:1868</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1868">src/index.ts:1868</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -301,7 +309,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1884">index.ts:1884</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1884">src/index.ts:1884</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -333,7 +341,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1900">index.ts:1900</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1900">src/index.ts:1900</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -365,7 +373,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1919">index.ts:1919</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1919">src/index.ts:1919</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -404,7 +412,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1939">index.ts:1939</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1939">src/index.ts:1939</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -443,7 +451,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L1959">index.ts:1959</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L1959">src/index.ts:1959</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -499,7 +507,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2028">index.ts:2028</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2028">src/index.ts:2028</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -532,7 +540,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2047">index.ts:2047</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2047">src/index.ts:2047</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -572,7 +580,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2066">index.ts:2066</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2066">src/index.ts:2066</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,7 +620,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2085">index.ts:2085</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2085">src/index.ts:2085</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -652,7 +660,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2104">index.ts:2104</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2104">src/index.ts:2104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -692,7 +700,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2127">index.ts:2127</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2127">src/index.ts:2127</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -740,7 +748,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2151">index.ts:2151</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2151">src/index.ts:2151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -788,7 +796,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2175">index.ts:2175</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2175">src/index.ts:2175</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -836,7 +844,7 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/index.ts#L2199">index.ts:2199</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/index.ts#L2199">src/index.ts:2199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -891,28 +899,28 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_index_.html">"index"</a>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_localization_.html">"localization"</a>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_localization_.html">&quot;localization&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_utils_.html">"utils"</a>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_utils_.html">&quot;utils&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="../enums/_index_.roundingmode.html" class="tsd-kind-icon">Rounding<wbr>Mode</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_index_.time.html" class="tsd-kind-icon">Time</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_index_.timewriter.html" class="tsd-kind-icon">Time<wbr>Writer</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
@@ -931,52 +939,52 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.basetimeunit.html" class="tsd-kind-icon">Base<wbr>Time<wbr>Unit</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.namedtimeunit.html" class="tsd-kind-icon">Named<wbr>Time<wbr>Unit</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.nanosecondbasedtime.html" class="tsd-kind-icon">Nanosecond<wbr>Based<wbr>Time</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.timeunit.html" class="tsd-kind-icon">Time<wbr>Unit</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_index_.timeunitdatabase.html" class="tsd-kind-icon">Time<wbr>Unit<wbr>Database</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.timewritersettings.html" class="tsd-kind-icon">Time<wbr>Writer<wbr>Settings</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_index_.html#numericnotation" class="tsd-kind-icon">Numeric<wbr>Notation</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_index_.html#numericwriter" class="tsd-kind-icon">Numeric<wbr>Writer</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timeunitparameter" class="tsd-kind-icon">Time<wbr>Unit<wbr>Parameter</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timeunitsource" class="tsd-kind-icon">Time<wbr>Unit<wbr>Source</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timevaluesource" class="tsd-kind-icon">Time<wbr>Value<wbr>Source</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timeunits" class="tsd-kind-icon">time<wbr>Units</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_index_.html#writeroman" class="tsd-kind-icon">write<wbr>Roman</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_index_.html#writeromanfractions" class="tsd-kind-icon">write<wbr>Roman<wbr>Fractions</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timesegments" class="tsd-kind-icon">Time<wbr>Segments</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+					<li class=" tsd-kind-object-literal tsd-parent-kind-module">
 						<a href="../modules/_index_.html#timeunits-1" class="tsd-kind-icon">Time<wbr>Units</a>
 					</li>
 				</ul>
@@ -989,69 +997,31 @@ tw.write(<span class="hljs-number">10</span>, <span class="hljs-string">"second"
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
 				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 		</div>
 	</div>
 </footer>
 <div class="container tsd-generator">
-	
-<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
-<hr />
-<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
-
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>StopWatch | timecount API</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for timecount API">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -79,82 +79,83 @@
 					<p>See <a href="_utils_.basictimer.html">BasicTimer</a> and <a href="_utils_.timer.html">Timer</a> for simpler timer implentations (less
 					overhead).</p>
 					<hr>
-					<h3 id="examples">Examples</h3>
+					<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+						<h3>Examples</h3>
+					</a>
 					<ol>
 						<li><p>Using a single StopWatch to perform consecutive countings</p>
-							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { StopWatch } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
+							<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { StopWatch } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount/utils&quot;</span>;
 
- <span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch();
+<span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch();
 
- <span class="hljs-keyword">while</span> (thereAreThingsToDo) {
-     stopwatch.start();
+<span class="hljs-keyword">while</span> (thereAreThingsToDo) {
+    stopwatch.start();
 
-     doTheThings();
+    doTheThings();
 
-     stopwatch.stop().to(<span class="hljs-string">"second"</span>);
-     <span class="hljs-comment">// 1.2021 s</span>
- }
+    stopwatch.stop().to(<span class="hljs-string">&quot;second&quot;</span>);
+    <span class="hljs-comment">// 1.2021 s</span>
+}
 </code></pre>
 						</li>
 						<li><p>Using a TimeWriter to write StopWatch results</p>
-							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
+							<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount&quot;</span>;
 
- <span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch();
- <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch();
+<span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
 
- stopwatch.start();
+stopwatch.start();
 
- doSomething();
+doSomething();
 
- <span class="hljs-keyword">const</span> time = timer.stop();
+<span class="hljs-keyword">const</span> time = timer.stop();
 
- timeWriter.write(time, <span class="hljs-string">"milisecond"</span>);
- <span class="hljs-comment">// 10156.663207 miliseconds</span>
+timeWriter.write(time, <span class="hljs-string">&quot;millisecond&quot;</span>);
+<span class="hljs-comment">// 10156.663207 milliseconds</span>
 
- timeWriter.write(time, <span class="hljs-string">"second"</span>);
- <span class="hljs-comment">// 10.156663207 seconds</span>
+timeWriter.write(time, <span class="hljs-string">&quot;second&quot;</span>);
+<span class="hljs-comment">// 10.156663207 seconds</span>
 
- timeWriter.write(time, <span class="hljs-string">"minute"</span>);
- <span class="hljs-comment">// 0.169277720116666668 minute</span>
+timeWriter.write(time, <span class="hljs-string">&quot;minute&quot;</span>);
+<span class="hljs-comment">// 0.169277720116666668 minute</span>
 </code></pre>
 						</li>
 						<li><p>Pausing and resuming the stopwatch</p>
-							<pre><code class="lang-javascript"> <span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch(<span class="hljs-literal">true</span>);
+							<pre><code class="language-javascript"><span class="hljs-keyword">const</span> stopwatch = <span class="hljs-keyword">new</span> StopWatch(<span class="hljs-literal">true</span>);
 
- thingsYouWantMeasured(); <span class="hljs-comment">// Let's say this takes 5 seconds</span>
+thingsYouWantMeasured(); <span class="hljs-comment">// Let&#x27;s say this takes 5 seconds</span>
 
- stopwatch.pause();
+stopwatch.pause();
 
- thingsYouDontWantMeasured(); <span class="hljs-comment">// And this another 5 seconds</span>
+thingsYouDontWantMeasured(); <span class="hljs-comment">// And this another 5 seconds</span>
 
- stopwatch.stop().to(<span class="hljs-string">"second"</span>);
- <span class="hljs-comment">// 5 s (paused time is not counted)</span>
-
+stopwatch.stop().to(<span class="hljs-string">&quot;second&quot;</span>);
+<span class="hljs-comment">// 5 s (paused time is not counted)</span>
 </code></pre>
 						</li>
 						<li><p>Creating time categories according to the stopwatch laps</p>
-							<pre><code class="lang-javascript"> <span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount"</span>;
- <span class="hljs-keyword">import</span> { StopWatch } <span class="hljs-keyword">from</span> <span class="hljs-string">"timecount/utils"</span>;
+							<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { TimeWriter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount&quot;</span>;
+<span class="hljs-keyword">import</span> { StopWatch } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;timecount/utils&quot;</span>;
 
- <span class="hljs-keyword">const</span> stopWatch = <span class="hljs-keyword">new</span> StopWatch(<span class="hljs-literal">true</span>);
- <span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">const</span> stopWatch = <span class="hljs-keyword">new</span> StopWatch(<span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> timeWriter = <span class="hljs-keyword">new</span> TimeWriter({ <span class="hljs-attr">verbose</span>: <span class="hljs-literal">true</span> });
 
- doCategory1();
+doCategory1();
 
- <span class="hljs-string">"Category 1: "</span> + timeWriter.write(stopWatch.endLap(), <span class="hljs-string">"second"</span>);
- <span class="hljs-comment">// Category 1: 1.454 seconds</span>
+<span class="hljs-string">&quot;Category 1: &quot;</span> + timeWriter.write(stopWatch.endLap(), <span class="hljs-string">&quot;second&quot;</span>);
+<span class="hljs-comment">// Category 1: 1.454 seconds</span>
 
- doCategory2();
+doCategory2();
 
- <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Category 2 - "</span>, timeWriter.write(stopWatch.endLap(), <span class="hljs-string">"second"</span>));
- <span class="hljs-comment">// Category 2: 3.092017 seconds</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Category 2 - &quot;</span>, timeWriter.write(stopWatch.endLap(), <span class="hljs-string">&quot;second&quot;</span>));
+<span class="hljs-comment">// Category 2: 3.092017 seconds</span>
 
- stopWatch.pause()
+stopWatch.pause()
 
- unimportantThing();
+unimportantThing();
 
- <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"TOTAL - "</span>, timeWriter.write(stopWatch.stop(), <span class="hljs-string">"second"</span>));
- <span class="hljs-comment">// Result: Category 1 - 4.589632 seconds</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;TOTAL - &quot;</span>, timeWriter.write(stopWatch.stop(), <span class="hljs-string">&quot;second&quot;</span>));
+<span class="hljs-comment">// Result: Category 1 - 4.589632 seconds</span>
 </code></pre>
 						</li>
 					</ol>
@@ -238,7 +239,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L52">utils.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L52">src/utils.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,7 +250,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> autoStart: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> autoStart: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>  Determines whether the timer will immediately start; default is false.</p>
@@ -267,10 +268,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="_lappartialtimes" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _lap<wbr>Partial<wbr>Times</h3>
-					<div class="tsd-signature tsd-kind-icon">_lap<wbr>Partial<wbr>Times<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">_lap<wbr>Partial<wbr>Times<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L293">utils.ts:293</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L293">src/utils.ts:293</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -285,7 +286,7 @@
 					<div class="tsd-signature tsd-kind-icon">_lap<wbr>Start<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L296">utils.ts:296</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L296">src/utils.ts:296</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -301,7 +302,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#_pausestarttime">_pauseStartTime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L148">utils.ts:148</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L148">src/utils.ts:148</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -313,11 +314,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="_pausetimesum" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _pause<wbr>Time<wbr>Sum</h3>
-					<div class="tsd-signature tsd-kind-icon">_pause<wbr>Time<wbr>Sum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span><span class="tsd-signature-symbol"> =&nbsp;new Decimal(0)</span></div>
+					<div class="tsd-signature tsd-kind-icon">_pause<wbr>Time<wbr>Sum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Decimal</span><span class="tsd-signature-symbol"> = new Decimal(0)</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#_pausetimesum">_pauseTimeSum</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L151">utils.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L151">src/utils.ts:151</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -333,7 +334,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#_starttime">_startTime</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L38">utils.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L38">src/utils.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -355,7 +356,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L299">utils.ts:299</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L299">src/utils.ts:299</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -377,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L313">utils.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L313">src/utils.ts:313</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -405,7 +406,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#elapsedpausetime">elapsedPauseTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L154">utils.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L154">src/utils.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -429,7 +430,7 @@
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#elapsedtime">elapsedTime</a></p>
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#elapsedtime">elapsedTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L173">utils.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L173">src/utils.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -453,7 +454,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#ispaused">isPaused</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L193">utils.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L193">src/utils.ts:193</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -477,7 +478,7 @@
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#isrunning">isRunning</a></p>
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#isrunning">isRunning</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L200">utils.ts:200</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L200">src/utils.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -500,7 +501,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L316">utils.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L316">src/utils.ts:316</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -522,7 +523,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L323">utils.ts:323</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L323">src/utils.ts:323</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -549,7 +550,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L329">utils.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L329">src/utils.ts:329</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -573,7 +574,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#timererrortype">timerErrorType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L340">utils.ts:340</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L340">src/utils.ts:340</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -596,7 +597,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#totalpausetime">totalPauseTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L164">utils.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L164">src/utils.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -621,7 +622,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L343">utils.ts:343</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L343">src/utils.ts:343</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -643,7 +644,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L356">utils.ts:356</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L356">src/utils.ts:356</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -675,7 +676,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#getelapsedtime">getElapsedTime</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L108">utils.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L108">src/utils.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -698,7 +699,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#getisrunning">getIsRunning</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L120">utils.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L120">src/utils.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,7 +722,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#pause">pause</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L211">utils.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L211">src/utils.ts:211</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -752,7 +753,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#resume">resume</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L233">utils.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L233">src/utils.ts:233</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -782,7 +783,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_utils_.basictimer.html">BasicTimer</a>.<a href="_utils_.basictimer.html#start">start</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L388">utils.ts:388</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L388">src/utils.ts:388</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -813,7 +814,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_utils_.timer.html">Timer</a>.<a href="_utils_.timer.html#stop">stop</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/762860f/src/utils.ts#L407">utils.ts:407</a></li>
+									<li>Defined in <a href="https://github.com/pjbatista/timecount/blob/d316eac/src/utils.ts#L407">src/utils.ts:407</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -852,25 +853,25 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_index_.html">"index"</a>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_localization_.html">"localization"</a>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_localization_.html">&quot;localization&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_utils_.html">"utils"</a>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_utils_.html">&quot;utils&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_utils_.basictimer.html" class="tsd-kind-icon">Basic<wbr>Timer</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_utils_.stopwatch.html" class="tsd-kind-icon">Stop<wbr>Watch</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
@@ -952,16 +953,16 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_utils_.timer.html" class="tsd-kind-icon">Timer</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_utils_.timererror.html" class="tsd-kind-icon">Timer<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_utils_.html#stopwatchdetail" class="tsd-kind-icon">Stop<wbr>Watch<wbr>Detail</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_utils_.html#getprocesstime" class="tsd-kind-icon">get<wbr>Process<wbr>Time</a>
 					</li>
 				</ul>
@@ -974,69 +975,36 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
 				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
 </footer>
 <div class="container tsd-generator">
-	
-<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
-<hr />
-<p>Copyright &copy; 2017-2018 - Pedro José Batista.</p>
-
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

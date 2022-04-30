@@ -1,10 +1,10 @@
 ```javascript
 import { TimeSegments } from "timecount";
 
-timeWriter.countdown(Time.from(2.10066102, "second"), "second", "milisecond", "microsecond");
+timeWriter.countdown(Time.from(2.10066102, "second"), "second", "millisecond", "microsecond");
 // 2 s, 100 ms, 661.20 µs
 
-timeWriter.countdown(Time.from(2.10066102, "second"), { segmentSeparator: "; " }, "second", "milisecond", "microsecond");
+timeWriter.countdown(Time.from(2.10066102, "second"), { segmentSeparator: "; " }, "second", "millisecond", "microsecond");
 // 2 s; 100 ms; 661.20 µs
 
 timeWriter.countdown(Time.from(2.10066102, "second"), TimeSegments.baseTen);

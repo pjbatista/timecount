@@ -7,6 +7,7 @@ Versions are listed from most recent to oldest and dates are formatted according
 ## Summary
 
 - [Versions 1.1.*](#versions-11)
+    - [1.1.1](#111)
     - [1.1.0](#110)
 - [Versions 1.0.*](#versions-10)
     - [1.0.0](#100)
@@ -16,6 +17,7 @@ Versions are listed from most recent to oldest and dates are formatted according
     - [0.1.1](#011)
     - [0.1.0](#010)
 - [Versions 0.0.*](#versions-00)
+    - [0.0.4](#004)
     - [0.0.3](#003)
     - [0.0.2](#002)
     - [0.0.1](#001)
@@ -26,6 +28,15 @@ Versions are listed from most recent to oldest and dates are formatted according
 
 Despite the big changes of v1.0.0, some core mechanics and type definitions were still far from what I desired. This version aims to fix this.
 
+### 1.1.1
+
+> Publish date: 2022-04-30
+
+- Fixed an almost three-year issue [#1](https://github.com/pjbatista/timecount/issues/1);
+- Fixed typos in a multiple of files;
+- Updated dependencies;
+- This version is a fix-only for the soon to be deprecated v1... v2 will provide codebase built from the ground-up, with feature-rich enhancements.
+
 ### 1.1.0
 
 > Publish date: 2018-08-10
@@ -35,7 +46,7 @@ Despite the big changes of v1.0.0, some core mechanics and type definitions were
 - Fixed several time unit inconsistencies, like typos and coefficients (making v1.1.0 _very slightly_ incompatible with 1.0.0);
 - Deprecated types, specially in `TimeWriterSettings`;
 - Changed the entire mathematical foundation to [decimal.js](https://mikemcl.github.io/decimal.js);
-- Removed the necessity for a harcoded time unit `name` property;
+- Removed the necessity for a hardcoded time unit `name` property;
 - Added the ability to use variations of a time unit string (case-insensitive and plurals);
 - Once again, made various improvements to the documentation;
 - Changed doc-comments to be more IDE-friendly and included more markdown examples;

@@ -28,8 +28,8 @@
 
     const time = timer.stop();
 
-    timeWriter.write(time, "milisecond");
-    // 10156.663207 miliseconds
+    timeWriter.write(time, "millisecond");
+    // 10156.663207 milliseconds
 
     timeWriter.write(time, "second");
     // 10.156663207 seconds

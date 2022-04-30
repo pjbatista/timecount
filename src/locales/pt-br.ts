@@ -38,7 +38,7 @@ const translation: LocaleSettings = {
         mebisecond: { readableName: "mebissegundo" },
         megasecond: { readableName: "megassegundo" },
         microsecond: { readableName: "microssegundo" },
-        milisecond: { readableName: "milissegundo" },
+        millisecond: { readableName: "milissegundo" },
         millenium: { readableName: "milênio" },
         minute: { readableName: "minuto" },
         month: { readableName: "mês", customPlural: "meses" },

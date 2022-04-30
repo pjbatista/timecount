@@ -61,7 +61,7 @@ describe("Time", () => {
         time = Time.from("1", "attosecond");
         expect(time.value).to.equal(0.000000001);
 
-        time = Time.from("1e+0", "milisecond");
+        time = Time.from("1e+0", "millisecond");
         expect(time.value).to.equal(1000000);
 
         time = Time.from(new Decimal(0.3), "nanosecond");
@@ -195,7 +195,7 @@ describe("Time", () => {
         expect(time.value).to.equal(908.0706050403011);
         expect(time.bigValue.comparedTo("908.0706050403011")).to.equal(0);
 
-        time = Time.from(0.9080706050403011, "milisecond");
+        time = Time.from(0.9080706050403011, "millisecond");
         expect(time.value).to.equal(908070.6050403011);
         expect(time.bigValue.comparedTo("908070.6050403011")).to.equal(0);
 
@@ -465,8 +465,8 @@ describe("Time", () => {
         expect(time.to("microsecond")).to.equal(0.0010102030405060708);
         expect(time.toBig("microsecond").comparedTo("0.001010203040506070809")).to.equal(0);
 
-        expect(time.to("milisecond")).to.equal(0.0000010102030405060707);
-        expect(time.toBig("milisecond").comparedTo("0.000001010203040506070809")).to.equal(0);
+        expect(time.to("millisecond")).to.equal(0.0000010102030405060707);
+        expect(time.toBig("millisecond").comparedTo("0.000001010203040506070809")).to.equal(0);
 
         expect(time.to("millenium")).to.equal(3.2012059989382714e-20);
         expect(time.toBig("millenium").comparedTo("3.201205998938271379948228206577111756547337017846336997312034444898227179861984135856973766034184797e-20")).to.equal(0);
