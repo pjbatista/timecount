@@ -277,7 +277,7 @@ describe("TimeWriter :: configurations", () => {
 
     it("should use the `defaultTimeUnit` from the instance", () => {
 
-        timeWriter.settings.defaultTimeUnit = "milisecond";
+        timeWriter.settings.defaultTimeUnit = "millisecond";
 
         result = timeWriter.write(1.000666000666);
         expect(result).to.equal("1.00067 ms");
@@ -453,7 +453,7 @@ describe("TimeWriter :: configurations", () => {
         timeWriter.settings.verbose = true;
 
         result = timeWriter.write(1.000666000666);
-        expect(result).to.equal("1.00067 miliseconds");
+        expect(result).to.equal("1.00067 milliseconds");
 
         result = timeWriter.write(1.000666000666, "siderealMinute");
         expect(result).to.equal("approximately 1.00067 sidereal minutes");
@@ -462,10 +462,10 @@ describe("TimeWriter :: configurations", () => {
         expect(result).to.equal("approximately 0.99727 minute");
 
         result = timeWriter.write(Infinity);
-        expect(result).to.equal("infinite miliseconds");
+        expect(result).to.equal("infinite milliseconds");
 
         result = timeWriter.write(NaN);
-        expect(result).to.equal("invalid number of miliseconds");
+        expect(result).to.equal("invalid number of milliseconds");
     });
 
     it("should use the `termApproximately` from the instance", () => {
@@ -473,7 +473,7 @@ describe("TimeWriter :: configurations", () => {
         timeWriter.settings.termApproximately = "more or less";
 
         result = timeWriter.write(1.000666000666);
-        expect(result).to.equal("1.00067 miliseconds");
+        expect(result).to.equal("1.00067 milliseconds");
 
         result = timeWriter.write(1.000666000666, "siderealMinute");
         expect(result).to.equal("more or less 1.00067 sidereal minutes");
@@ -482,10 +482,10 @@ describe("TimeWriter :: configurations", () => {
         expect(result).to.equal("more or less 0.99727 minute");
 
         result = timeWriter.write(Time.from(Infinity, "second").approximate());
-        expect(result).to.equal("more or less infinite miliseconds");
+        expect(result).to.equal("more or less infinite milliseconds");
 
         result = timeWriter.write(Time.from(NaN, "second").approximate());
-        expect(result).to.equal("more or less invalid number of miliseconds");
+        expect(result).to.equal("more or less invalid number of milliseconds");
     });
 
     it("should use the `termInfinite` from the instance", () => {
@@ -496,10 +496,10 @@ describe("TimeWriter :: configurations", () => {
         expect(result).to.equal("endless minutes");
 
         result = timeWriter.write(Time.from(Infinity, "second").approximate());
-        expect(result).to.equal("more or less endless miliseconds");
+        expect(result).to.equal("more or less endless milliseconds");
 
         result = timeWriter.write(Time.from(NaN, "second").approximate());
-        expect(result).to.equal("more or less invalid number of miliseconds");
+        expect(result).to.equal("more or less invalid number of milliseconds");
     });
 
     it("should use the `termNaN` from the instance", () => {
@@ -510,10 +510,10 @@ describe("TimeWriter :: configurations", () => {
         expect(result).to.equal("not-a-number minutes");
 
         result = timeWriter.write(Time.from(Infinity, "second").approximate());
-        expect(result).to.equal("more or less endless miliseconds");
+        expect(result).to.equal("more or less endless milliseconds");
 
         result = timeWriter.write(Time.from(NaN, "second").approximate());
-        expect(result).to.equal("more or less not-a-number miliseconds");
+        expect(result).to.equal("more or less not-a-number milliseconds");
     });
 
     it("should use the `thousandsSeparator` from the instance", () => {
@@ -521,10 +521,10 @@ describe("TimeWriter :: configurations", () => {
         timeWriter.settings.thousandsSeparator = ",";
 
         result = timeWriter.write(1.000666000666);
-        expect(result).to.equal("1.00067 miliseconds");
+        expect(result).to.equal("1.00067 milliseconds");
 
         result = timeWriter.write(1000);
-        expect(result).to.equal("1,000.00000 miliseconds");
+        expect(result).to.equal("1,000.00000 milliseconds");
 
         result = timeWriter.write(1e10, "draconicMonth");
         expect(result).to.equal("more or less 10,000,000,000.00000 draconic months");
@@ -535,10 +535,10 @@ describe("TimeWriter :: configurations", () => {
         timeWriter.settings.timeUnitSeparator = "&";
 
         result = timeWriter.write(1.000666000666);
-        expect(result).to.equal("1.00067&miliseconds");
+        expect(result).to.equal("1.00067&milliseconds");
 
         result = timeWriter.write(1000);
-        expect(result).to.equal("1,000.00000&miliseconds");
+        expect(result).to.equal("1,000.00000&milliseconds");
 
         result = timeWriter.write(1e10, "draconicMonth");
         expect(result).to.equal("more or less 10,000,000,000.00000&draconic months");
@@ -578,7 +578,7 @@ describe("TimeWriter :: configurations", () => {
         result = timeWriter.write(new Decimal(10.6), { defaultTimeUnit: "eclipticYear" });
         expect(result).to.equal("≈10.6 ecliptic years");
 
-        result = timeWriter.write(Time.from(10.6, "second").approximate(), { defaultTimeUnit: "milisecond" });
+        result = timeWriter.write(Time.from(10.6, "second").approximate(), { defaultTimeUnit: "millisecond" });
         expect(result).to.equal("≈10600 ms");
     });
 

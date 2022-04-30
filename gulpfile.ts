@@ -12,10 +12,11 @@ import zip = require("gulp-zip");
 import merge2 = require("merge2");
 import path = require("path");
 import rimraf = require("rimraf");
-import runSequence = require("run-sequence");
 import buffer = require("vinyl-buffer");
 import source = require("vinyl-source-stream");
 
+// tslint:disable-next-line:no-var-requires
+const runSequence = require("gulp4-run-sequence");
 // tslint:disable-next-line:no-var-requires
 const tsify = require("tsify");
 const tslint = tslintPlugin.default;

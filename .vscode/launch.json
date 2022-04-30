@@ -1,0 +1,29 @@
+/*!
+ * Copyright (c) 2017-2021 Pedro José Batista, licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Node Debugger (JavaScript)",
+            "skipFiles": ["<node_internals>/**"],
+            "program": "${file}"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Node Debugger (TypeScript)",
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+            "args": ["${file}", "--transpile-only"],
+            "cwd": "${workspaceFolder}/src",
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": ["<node_internals>/**", "node_modules/**"],
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceFolder}/src/tsconfig.json"
+            }
+        }
+    ]
+}

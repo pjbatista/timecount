@@ -1,10 +1,18 @@
 **Measures, converts and writes time using different units. Includes timers and stopwatches with nanosecond precision.**
 
+## Coming soon (version 2)
+
+- 🏗 Built from scratch
+- 👀 Simpler codebase
+- 📚 Improved documentation
+- ⏳ **101 units of time**
+- ⚡ Much faster than v1
+
 ## Features
 
 - Encapsulated [time objects](#time-object)
 - **71 time units** available for conversion (from the [Planck time](https://pjbatista.github.io/timecount/interfaces/_index_.timeunitdatabase.html#plancktime) to the [yobisecond](https://pjbatista.github.io/timecount/interfaces/_index_.timeunitdatabase.html#yobisecond))
-- [Write](#writting-time) and [countdown](#countdown) times using symbols or verbose
+- [Write](#writing-time) and [countdown](#countdown) times using symbols or verbose
 - [Internationalization](#translations)
 - [Timers](#timers) and [stopwatches](#stopwatches) with **nanosecond precision** (and the minimum possible overhead)
 
@@ -14,8 +22,8 @@
 - [Upgrading](#upgrading)
 - [Usage](#usage)
     - [Time object](#time-object)
-    - [Writting time](#writting-time)
-    - [Countdown](#writting-time)
+    - [Writing time](#writing-time)
+    - [Countdown](#writing-time)
     - [Translations](#translations)
     - [Timers](#timers)
     - [StopWatches](#stopwatches)
@@ -27,6 +35,7 @@
 This module can be installed with the node package manager of your choice:
 
 1. **Using [NPM](https://www.npmjs.com/):**
+
     ```bash
     # As a dependency:
     npm install timecount --save
@@ -34,7 +43,9 @@ This module can be installed with the node package manager of your choice:
     # As a development dependency:
     npm install timecount --save-dev
     ```
+
 2. **Using [Yarn](https://yarnpkg.com/):**
+
     ```bash
     # As a dependency:
     yarn add timecount
@@ -45,7 +56,7 @@ This module can be installed with the node package manager of your choice:
 
 Or download a release ready to be used on browsers:
 
-- Latest Release: [timecount-1.1.0](https://github.com/pjbatista/timecount/releases/download/v1.1.0/timecount-v1.1.0.zip)
+- Latest Release: [timecount-1.1.1](https://github.com/pjbatista/timecount/releases/download/v1.1.1/timecount-v1.1.1.zip)
 - All releases: [https://github.com/pjbatista/timecount/releases](https://github.com/pjbatista/timecount/releases)
 
 ---
@@ -58,7 +69,8 @@ Old versions of timecount (<= 0.1.3) are now **obsolete**.
 
 The code is much less cluttered now, which means less overhead, which means more precise timers and stopwatches. Here is a simple example on how to upgrade:
 
-1. EcmaScript 6:
+1. EcmaScript 6
+
     ```javascript
     // --- OLD ---
     import { Timer } from "timecount";
@@ -78,7 +90,9 @@ The code is much less cluttered now, which means less overhead, which means more
     const time = timer.stop();
     console.log(time.to("second"));
     ```
+
 2. Older EcmaScripts:
+
     ```javascript
     // --- OLD ---
     var timecount = require("timecount");
@@ -105,7 +119,7 @@ Please consult the [Full Upgrading Documentation](https://github.com/pjbatista/t
 
 ## Usage
 
-Navigate: <code>[Time object](#time-object) | [Writting time](#writting-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
+Navigate: <code>[Time object](#time-object) | [Writing time](#writing-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
 
 ---
 
@@ -116,12 +130,15 @@ Time in timecount is internally based on nanoseconds, in order to better accomod
 After installing, it will be readily available to be imported:
 
 - EcmaScript 6:
+
     ```javascript
     import { Time, TimeWriter } from "timecount";
     import { Locale } from "timecount/localization";
     import { BasicTimer, StopWatch, Timer } from "timecount/utils";
     ```
+
 - Older EcmaScripts:
+
     ```javascript
     var timecount = require("timecount");
 
@@ -134,7 +151,7 @@ After installing, it will be readily available to be imported:
 
 ### Time object
 
-<code>[**Usage**](#usage) | &#xbb;Time object&#xab; | [Writting time](#writting-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
+<code>[**Usage**](#usage) | &#xbb;Time object&#xab; | [Writing time](#writing-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
 
 ---
 
@@ -199,9 +216,9 @@ time.subtract(new Time(1)); // 0.7 ns
 
 [Back to usage](#usage) | [Back to top](#features)
 
-### Writting time
+### Writing time
 
-<code>[**Usage**](#usage) | [Time object](#time-object) | &#xbb;Writting time&#xab; | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
+<code>[**Usage**](#usage) | [Time object](#time-object) | &#xbb;Writing time&#xab; | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
 
 [Time writers](https://pjbatista.github.io/timecount/classes/_index_.timewriter.html) are able to synthesize strings describing time values using SI symbols, human-readable names, [translations](#internationalization), different numeric notations and [much more](https://pjbatista.github.io/timecount/interfaces/_index_.timewritersettings.html).
 
@@ -217,7 +234,7 @@ const time = new Time(1000000000);
 
 timeWriter.write(time);               // "1000000000 ns"
 timeWriter.write(time, "second");     // "1 s"
-timeWriter.write(time, "milisecond"); // "1000 ms"
+timeWriter.write(time, "millisecond"); // "1000 ms"
 ```
 
 It can also convert/write time values directly:
@@ -238,8 +255,8 @@ And there also many ways to configure it:
 ```javascript
 let timeWriter = new TimeWriter({ verbose: true });
 
-timeWriter.write(10, "second", "milisecond");
-// "10000 miliseconds"
+timeWriter.write(10, "second", "millisecond");
+// "10000 milliseconds"
 
 timeWriter.write("10", "second", "kibisecond", { numericNotation: "scientific" });
 // "1.024e+7 kibiseconds"
@@ -290,11 +307,11 @@ timeWriter.write(new Time(1000000000), "siderealSecond");  // "≈1.002737915528
 
 ### Countdown
 
-<code>[**Usage**](#usage) | [Time object](#time-object) | [Writting time](#writting-time) | &#xbb;Countdown&#xab; | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
+<code>[**Usage**](#usage) | [Time object](#time-object) | [Writing time](#writing-time) | &#xbb;Countdown&#xab; | [Translations](#translations) | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
 
 ---
 
-The [countdown](https://pjbatista.github.io/timecount/classes/_index_.timewriter.html#countdown) method of time writers expands upon their [writting abilities](#writting-time), creating an interface to represent a time segmenting its remaining fractions in various orders of magnitude (time units).
+The [countdown](https://pjbatista.github.io/timecount/classes/_index_.timewriter.html#countdown) method of time writers expands upon their [writing abilities](#writing-time), creating an interface to represent a time segmenting its remaining fractions in various orders of magnitude (time units).
 
 This helps the expression of a more comprehensible information, i.e. help a human user understand a time length using common time unit divisions:
 
@@ -308,7 +325,7 @@ timeWriter.countdown(time, { verbose: true });
 
 ```
 
-By default, the segments are: `"year", "month", "day", "hour", "minute", "second", "milisecond"` or the constant [TimeSegments.common](https://pjbatista.github.io/timecount/modules/_index_.html#timesegments).
+By default, the segments are: `"year", "month", "day", "hour", "minute", "second", "millisecond"` or the constant [TimeSegments.common](https://pjbatista.github.io/timecount/modules/_index_.html#timesegments).
 
 ```javascript
 // There are a few constants aimed at common operations
@@ -346,7 +363,7 @@ Also, [there are some configurations specific to countdowns](https://pjbatista.g
 
 ### Translations
 
-<code>[**Usage**](#usage) | [Time object](#time-object) | [Writting time](#writting-time) | [Countdown](#countdown) | &#xbb;Translations&#xab; | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
+<code>[**Usage**](#usage) | [Time object](#time-object) | [Writing time](#writing-time) | [Countdown](#countdown) | &#xbb;Translations&#xab; | [Timers](#timers) | [Stopwatches](#stopwatches)</code>
 
 ---
 
@@ -401,7 +418,7 @@ timeWriter.write(Infinity, "tropicalYear");
 
 ### Timers
 
-<code>[**Usage**](#usage) | [Time object](#time-object) | [Writting time](#writting-time) | [Countdown](#countdown) | [Translations](#translations) | &#xbb;Timers&#xab; | [Stopwatches](#stopwatches)</code>
+<code>[**Usage**](#usage) | [Time object](#time-object) | [Writing time](#writing-time) | [Countdown](#countdown) | [Translations](#translations) | &#xbb;Timers&#xab; | [Stopwatches](#stopwatches)</code>
 
 ---
 
@@ -414,11 +431,11 @@ const timer = new BasicTimer();
 
 timer.start();
 
-// [...] Operation that costs 100 miliseconds
+// [...] Operation that costs 100 milliseconds
 
 const totalTime = timer.stop();
 
-totalTime.to("milisecond");
+totalTime.to("millisecond");
 // 101.0200193704
 ```
 
@@ -455,7 +472,7 @@ For more examples, consult the [API Documentation: timer examples](https://pjbat
 
 ### StopWatches
 
-<code>[**Usage**](#usage) | [Time object](#time-object) | [Writting time](#writting-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | &#xbb;Stopwatches&#xab;</code>
+<code>[**Usage**](#usage) | [Time object](#time-object) | [Writing time](#writing-time) | [Countdown](#countdown) | [Translations](#translations) | [Timers](#timers) | &#xbb;Stopwatches&#xab;</code>
 
 ---
 
@@ -473,14 +490,14 @@ for (const iterationObject of iterator) {
 
     const iterationTime = stopwatch.endLap();
 
-    iterationTime.to("milisecond");
+    iterationTime.to("millisecond");
     // 1.234058872109
 }
 
 // Considering a total of 8 "laps":
 const totalProcessingTime = stopwatch.stop();
 
-totalProcessingTime.to("milisecond");
+totalProcessingTime.to("millisecond");
 // 10.09183728197809584
 ```
 

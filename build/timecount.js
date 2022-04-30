@@ -1,16 +1,15 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
-/*! decimal.js v10.0.1 https://github.com/MikeMcl/decimal.js/LICENCE */
 ;(function (globalScope) {
   'use strict';
 
 
   /*
-   *  decimal.js v10.0.1
+   *  decimal.js v10.3.1
    *  An arbitrary-precision Decimal type for JavaScript.
    *  https://github.com/MikeMcl/decimal.js
-   *  Copyright (c) 2017 Michael Mclaughlin <M8ch88l@gmail.com>
+   *  Copyright (c) 2021 Michael Mclaughlin <M8ch88l@gmail.com>
    *  MIT Licence
    */
 
@@ -109,6 +108,7 @@
     invalidArgument = decimalError + 'Invalid argument: ',
     precisionLimitExceeded = decimalError + 'Precision limit exceeded',
     cryptoUnavailable = decimalError + 'crypto unavailable',
+    tag = '[object Decimal]',
 
     mathfloor = Math.floor,
     mathpow = Math.pow,
@@ -126,7 +126,7 @@
     PI_PRECISION = PI.length - 1,
 
     // Decimal.prototype object
-    P = { name: '[object Decimal]' };
+    P = { toStringTag: tag };
 
 
   // Decimal prototype methods
@@ -135,6 +135,7 @@
   /*
    *  absoluteValue             abs
    *  ceil
+   *  clampedTo                 clamp
    *  comparedTo                cmp
    *  cosine                    cos
    *  cubeRoot                  cbrt
@@ -213,6 +214,27 @@
    */
   P.ceil = function () {
     return finalise(new this.constructor(this), this.e + 1, 2);
+  };
+
+
+  /*
+   * Return a new Decimal whose value is the value of this Decimal clamped to the range
+   * delineated by `min` and `max`.
+   *
+   * min {number|string|Decimal}
+   * max {number|string|Decimal}
+   *
+   */
+  P.clampedTo = P.clamp = function (min, max) {
+    var k,
+      x = this,
+      Ctor = x.constructor;
+    min = new Ctor(min);
+    max = new Ctor(max);
+    if (!min.s || !max.s) return new Ctor(NaN);
+    if (min.gt(max)) throw Error(invalidArgument + max);
+    k = x.cmp(min);
+    return k < 0 ? min : x.cmp(max) > 0 ? max : new Ctor(x);
   };
 
 
@@ -321,7 +343,7 @@
     external = false;
 
     // Initial estimate.
-    s = x.s * Math.pow(x.s * x, 1 / 3);
+    s = x.s * mathpow(x.s * x, 1 / 3);
 
      // Math.cbrt underflow/overflow?
      // Pass x to Math.pow as integer, then adjust the exponent of the result.
@@ -331,7 +353,7 @@
 
       // Adjust n exponent so it is a multiple of 3 away from x exponent.
       if (s = (e - n.length + 1) % 3) n += (s == 1 || s == -2 ? '0' : '00');
-      s = Math.pow(n, 1 / 3);
+      s = mathpow(n, 1 / 3);
 
       // Rarely, e may be one less than the result exponent value.
       e = mathfloor((e + 1) / 3) - (e % 3 == (e < 0 ? -1 : 2));
@@ -550,7 +572,7 @@
     // TODO? Estimation reused from cosine() and may not be optimal here.
     if (len < 32) {
       k = Math.ceil(len / 3);
-      n = Math.pow(4, -k).toString();
+      n = (1 / tinyPow(4, k)).toString();
     } else {
       k = 16;
       n = '2.3283064365386962890625e-10';
@@ -630,8 +652,7 @@
       k = 1.4 * Math.sqrt(len);
       k = k > 16 ? 16 : k | 0;
 
-      x = x.times(Math.pow(5, -k));
-
+      x = x.times(1 / tinyPow(5, k));
       x = taylorSeries(Ctor, 2, x, x, true);
 
       // Reverse argument reduction
@@ -1733,7 +1754,7 @@
       e = mathfloor((e + 1) / 2) - (e < 0 || e % 2);
 
       if (s == 1 / 0) {
-        n = '1e' + e;
+        n = '5e' + e;
       } else {
         n = s.toExponential();
         n = n.slice(0, n.indexOf('e') + 1) + e;
@@ -2115,7 +2136,6 @@
   };
 
 
-
   /*
    * Returns a new Decimal whose value is the nearest multiple of `y` in the direction of rounding
    * mode `rm`, or `Decimal.rounding` if `rm` is omitted, to the value of this Decimal.
@@ -2451,18 +2471,6 @@
   };
 
 
-  /*
-  // Add aliases to match BigDecimal method names.
-  // P.add = P.plus;
-  P.subtract = P.minus;
-  P.multiply = P.times;
-  P.divide = P.div;
-  P.remainder = P.mod;
-  P.compareTo = P.cmp;
-  P.negate = P.neg;
-   */
-
-
   // Helper functions for Decimal.prototype (P) and/or Decimal methods, and their callers.
 
 
@@ -2634,16 +2642,18 @@
    *
    */
   function cosine(Ctor, x) {
-    var k, y,
-      len = x.d.length;
+    var k, len, y;
+
+    if (x.isZero()) return x;
 
     // Argument reduction: cos(4x) = 8*(cos^4(x) - cos^2(x)) + 1
     // i.e. cos(x) = 8*(cos^4(x/4) - cos^2(x/4)) + 1
 
     // Estimate the optimum number of times to use the argument reduction.
+    len = x.d.length;
     if (len < 32) {
       k = Math.ceil(len / 3);
-      y = Math.pow(4, -k).toString();
+      y = (1 / tinyPow(4, k)).toString();
     } else {
       k = 16;
       y = '2.3283064365386962890625e-10';
@@ -3592,7 +3602,10 @@
   function parseOther(x, str) {
     var base, Ctor, divisor, i, isFloat, len, p, xd, xe;
 
-    if (str === 'Infinity' || str === 'NaN') {
+    if (str.indexOf('_') > -1) {
+      str = str.replace(/(\d)_(?=\d)/g, '$1');
+      if (isDecimal.test(str)) return parseDecimal(x, str);
+    } else if (str === 'Infinity' || str === 'NaN') {
       if (!+str) x.s = NaN;
       x.e = NaN;
       x.d = null;
@@ -3654,7 +3667,7 @@
     if (isFloat) x = divide(x, divisor, len * 4);
 
     // Multiply by the binary exponent part if present.
-    if (p) x = x.times(Math.abs(p) < 54 ? Math.pow(2, p) : Decimal.pow(2, p));
+    if (p) x = x.times(Math.abs(p) < 54 ? mathpow(2, p) : Decimal.pow(2, p));
     external = true;
 
     return x;
@@ -3670,7 +3683,9 @@
     var k,
       len = x.d.length;
 
-    if (len < 3) return taylorSeries(Ctor, 2, x, x);
+    if (len < 3) {
+      return x.isZero() ? x : taylorSeries(Ctor, 2, x, x);
+    }
 
     // Argument reduction: sin(5x) = 16*sin^5(x) - 20*sin^3(x) + 5*sin(x)
     // i.e. sin(x) = 16*sin^5(x/5) - 20*sin^3(x/5) + 5*sin(x/5)
@@ -3680,8 +3695,7 @@
     k = 1.4 * Math.sqrt(len);
     k = k > 16 ? 16 : k | 0;
 
-    // Max k before Math.pow precision loss is 22
-    x = x.times(Math.pow(5, -k));
+    x = x.times(1 / tinyPow(5, k));
     x = taylorSeries(Ctor, 2, x, x);
 
     // Reverse argument reduction
@@ -3731,6 +3745,14 @@
     t.d.length = k + 1;
 
     return t;
+  }
+
+
+  // Exponent e must be positive and non-zero.
+  function tinyPow(b, e) {
+    var n = b;
+    while (--e) n *= b;
+    return n;
   }
 
 
@@ -3929,6 +3951,7 @@
    *  atan2
    *  cbrt
    *  ceil
+   *  clamp
    *  clone
    *  config
    *  cos
@@ -3954,6 +3977,7 @@
    *  sinh
    *  sqrt
    *  sub
+   *  sum
    *  tan
    *  tanh
    *  trunc
@@ -4148,6 +4172,19 @@
 
 
   /*
+   * Return a new Decimal whose value is `x` clamped to the range delineated by `min` and `max`.
+   *
+   * x {number|string|Decimal}
+   * min {number|string|Decimal}
+   * max {number|string|Decimal}
+   *
+   */
+  function clamp(x, min, max) {
+    return new this(x).clamp(min, max);
+  }
+
+
+  /*
    * Configure global settings for a Decimal constructor.
    *
    * `obj` is an object with one or more of the following properties,
@@ -4260,10 +4297,29 @@
       x.constructor = Decimal;
 
       // Duplicate.
-      if (v instanceof Decimal) {
+      if (isDecimalInstance(v)) {
         x.s = v.s;
-        x.e = v.e;
-        x.d = (v = v.d) ? v.slice() : v;
+
+        if (external) {
+          if (!v.d || v.e > Decimal.maxE) {
+
+            // Infinity.
+            x.e = NaN;
+            x.d = null;
+          } else if (v.e < Decimal.minE) {
+
+            // Zero.
+            x.e = 0;
+            x.d = [0];
+          } else {
+            x.e = v.e;
+            x.d = v.d.slice();
+          }
+        } else {
+          x.e = v.e;
+          x.d = v.d ? v.d.slice() : v.d;
+        }
+
         return;
       }
 
@@ -4287,8 +4343,23 @@
         // Fast path for small integers.
         if (v === ~~v && v < 1e7) {
           for (e = 0, i = v; i >= 10; i /= 10) e++;
-          x.e = e;
-          x.d = [v];
+
+          if (external) {
+            if (e > Decimal.maxE) {
+              x.e = NaN;
+              x.d = null;
+            } else if (e < Decimal.minE) {
+              x.e = 0;
+              x.d = [0];
+            } else {
+              x.e = e;
+              x.d = [v];
+            }
+          } else {
+            x.e = e;
+            x.d = [v];
+          }
+
           return;
 
         // Infinity, NaN.
@@ -4306,10 +4377,12 @@
       }
 
       // Minus sign?
-      if (v.charCodeAt(0) === 45) {
+      if ((i = v.charCodeAt(0)) === 45) {
         v = v.slice(1);
         x.s = -1;
       } else {
+        // Plus sign?
+        if (i === 43) v = v.slice(1);
         x.s = 1;
       }
 
@@ -4344,6 +4417,7 @@
     Decimal.atan2 = atan2;
     Decimal.cbrt = cbrt;          // ES6
     Decimal.ceil = ceil;
+    Decimal.clamp = clamp;
     Decimal.cos = cos;
     Decimal.cosh = cosh;          // ES6
     Decimal.div = div;
@@ -4366,6 +4440,7 @@
     Decimal.sinh = sinh;          // ES6
     Decimal.sqrt = sqrt;
     Decimal.sub = sub;
+    Decimal.sum = sum;
     Decimal.tan = tan;
     Decimal.tanh = tanh;          // ES6
     Decimal.trunc = trunc;        // ES6
@@ -4426,6 +4501,8 @@
    *
    * hypot(a, b, ...) = sqrt(a^2 + b^2 + ...)
    *
+   * arguments {number|string|Decimal}
+   *
    */
   function hypot() {
     var i, n,
@@ -4458,7 +4535,7 @@
    *
    */
   function isDecimalInstance(obj) {
-    return obj instanceof Decimal || obj && obj.name === '[object Decimal]' || false;
+    return obj instanceof Decimal || obj && obj.toStringTag === tag || false;
   }
 
 
@@ -4700,6 +4777,8 @@
    *  -0    if x is -0,
    *   NaN  otherwise
    *
+   * x {number|string|Decimal}
+   *
    */
   function sign(x) {
     x = new this(x);
@@ -4757,6 +4836,28 @@
 
 
   /*
+   * Return a new Decimal whose value is the sum of the arguments, rounded to `precision`
+   * significant digits using rounding mode `rounding`.
+   *
+   * Only the result is rounded, not the intermediate calculations.
+   *
+   * arguments {number|string|Decimal}
+   *
+   */
+  function sum() {
+    var i = 0,
+      args = arguments,
+      x = new this(args[i]);
+
+    external = false;
+    for (; x.s && ++i < args.length;) x = x.plus(args[i]);
+    external = true;
+
+    return finalise(x, this.precision, this.rounding);
+  }
+
+
+  /*
    * Return a new Decimal whose value is the tangent of `x`, rounded to `precision` significant
    * digits using rounding mode `rounding`.
    *
@@ -4793,7 +4894,7 @@
 
   // Create and configure initial Decimal constructor.
   Decimal = clone(DEFAULTS);
-
+  Decimal.prototype.constructor = Decimal;
   Decimal['default'] = Decimal.Decimal = Decimal;
 
   // Create the internal constants from their string values.
@@ -4812,6 +4913,11 @@
 
   // Node and other environments that support module.exports.
   } else if (typeof module != 'undefined' && module.exports) {
+    if (typeof Symbol == 'function' && typeof Symbol.iterator == 'symbol') {
+      P[Symbol['for']('nodejs.util.inspect.custom')] = P.toString;
+      P[Symbol.toStringTag] = 'Decimal';
+    }
+
     module.exports = Decimal;
 
   // Browser.
@@ -4831,9 +4937,9 @@
 })(this);
 
 },{}],3:[function(require,module,exports){
-(function (process){
-// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
-// backported and transplited with Babel, with backwards-compat fixes
+(function (process){(function (){
+// 'path' module extracted from Node.js v8.11.1 (only the posix part)
+// transplited with Babel
 
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -4856,286 +4962,513 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
+'use strict';
 
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
+function assertPath(path) {
+  if (typeof path !== 'string') {
+    throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
   }
-
-  return parts;
 }
 
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+  var res = '';
+  var lastSegmentLength = 0;
+  var lastSlash = -1;
+  var dots = 0;
+  var code;
+  for (var i = 0; i <= path.length; ++i) {
+    if (i < path.length)
+      code = path.charCodeAt(i);
+    else if (code === 47 /*/*/)
       break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  if (path.length === 0) return '.';
-  var code = path.charCodeAt(0);
-  var hasRoot = code === 47 /*/*/;
-  var end = -1;
-  var matchedSlash = true;
-  for (var i = path.length - 1; i >= 1; --i) {
-    code = path.charCodeAt(i);
+    else
+      code = 47 /*/*/;
     if (code === 47 /*/*/) {
-        if (!matchedSlash) {
-          end = i;
-          break;
+      if (lastSlash === i - 1 || dots === 1) {
+        // NOOP
+      } else if (lastSlash !== i - 1 && dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+          if (res.length > 2) {
+            var lastSlashIndex = res.lastIndexOf('/');
+            if (lastSlashIndex !== res.length - 1) {
+              if (lastSlashIndex === -1) {
+                res = '';
+                lastSegmentLength = 0;
+              } else {
+                res = res.slice(0, lastSlashIndex);
+                lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
+              }
+              lastSlash = i;
+              dots = 0;
+              continue;
+            }
+          } else if (res.length === 2 || res.length === 1) {
+            res = '';
+            lastSegmentLength = 0;
+            lastSlash = i;
+            dots = 0;
+            continue;
+          }
+        }
+        if (allowAboveRoot) {
+          if (res.length > 0)
+            res += '/..';
+          else
+            res = '..';
+          lastSegmentLength = 2;
         }
       } else {
-      // We saw the first non-path separator
-      matchedSlash = false;
+        if (res.length > 0)
+          res += '/' + path.slice(lastSlash + 1, i);
+        else
+          res = path.slice(lastSlash + 1, i);
+        lastSegmentLength = i - lastSlash - 1;
+      }
+      lastSlash = i;
+      dots = 0;
+    } else if (code === 46 /*.*/ && dots !== -1) {
+      ++dots;
+    } else {
+      dots = -1;
     }
   }
-
-  if (end === -1) return hasRoot ? '/' : '.';
-  if (hasRoot && end === 1) {
-    // return '//';
-    // Backwards-compat fix:
-    return '/';
-  }
-  return path.slice(0, end);
-};
-
-function basename(path) {
-  if (typeof path !== 'string') path = path + '';
-
-  var start = 0;
-  var end = -1;
-  var matchedSlash = true;
-  var i;
-
-  for (i = path.length - 1; i >= 0; --i) {
-    if (path.charCodeAt(i) === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          start = i + 1;
-          break;
-        }
-      } else if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // path component
-      matchedSlash = false;
-      end = i + 1;
-    }
-  }
-
-  if (end === -1) return '';
-  return path.slice(start, end);
+  return res;
 }
 
-// Uses a mixed approach for backwards-compatibility, as ext behavior changed
-// in new Node.js versions, so only basename() above is backported here
-exports.basename = function (path, ext) {
-  var f = basename(path);
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
+function _format(sep, pathObject) {
+  var dir = pathObject.dir || pathObject.root;
+  var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+  if (!dir) {
+    return base;
   }
-  return f;
-};
+  if (dir === pathObject.root) {
+    return dir + base;
+  }
+  return dir + sep + base;
+}
 
-exports.extname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  var startDot = -1;
-  var startPart = 0;
-  var end = -1;
-  var matchedSlash = true;
-  // Track the state of characters (if any) we see before our first dot and
-  // after any path separator we find
-  var preDotState = 0;
-  for (var i = path.length - 1; i >= 0; --i) {
-    var code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          startPart = i + 1;
-          break;
-        }
+var posix = {
+  // path.resolve([from ...], to)
+  resolve: function resolve() {
+    var resolvedPath = '';
+    var resolvedAbsolute = false;
+    var cwd;
+
+    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      var path;
+      if (i >= 0)
+        path = arguments[i];
+      else {
+        if (cwd === undefined)
+          cwd = process.cwd();
+        path = cwd;
+      }
+
+      assertPath(path);
+
+      // Skip empty entries
+      if (path.length === 0) {
         continue;
       }
-    if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // extension
-      matchedSlash = false;
-      end = i + 1;
-    }
-    if (code === 46 /*.*/) {
-        // If this is our first dot, mark it as the start of our extension
-        if (startDot === -1)
-          startDot = i;
-        else if (preDotState !== 1)
-          preDotState = 1;
-    } else if (startDot !== -1) {
-      // We saw a non-dot and non-path separator before our dot, so we should
-      // have a good chance at having a non-empty extension
-      preDotState = -1;
-    }
-  }
 
-  if (startDot === -1 || end === -1 ||
-      // We saw a non-dot character immediately before the dot
-      preDotState === 0 ||
-      // The (right-most) trimmed path component is exactly '..'
-      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-    return '';
-  }
-  return path.slice(startDot, end);
+      resolvedPath = path + '/' + resolvedPath;
+      resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    }
+
+    // At this point the path should be resolved to a full absolute path, but
+    // handle relative paths to be safe (might happen when process.cwd() fails)
+
+    // Normalize the path
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
+
+    if (resolvedAbsolute) {
+      if (resolvedPath.length > 0)
+        return '/' + resolvedPath;
+      else
+        return '/';
+    } else if (resolvedPath.length > 0) {
+      return resolvedPath;
+    } else {
+      return '.';
+    }
+  },
+
+  normalize: function normalize(path) {
+    assertPath(path);
+
+    if (path.length === 0) return '.';
+
+    var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
+    var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
+
+    // Normalize the path
+    path = normalizeStringPosix(path, !isAbsolute);
+
+    if (path.length === 0 && !isAbsolute) path = '.';
+    if (path.length > 0 && trailingSeparator) path += '/';
+
+    if (isAbsolute) return '/' + path;
+    return path;
+  },
+
+  isAbsolute: function isAbsolute(path) {
+    assertPath(path);
+    return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+  },
+
+  join: function join() {
+    if (arguments.length === 0)
+      return '.';
+    var joined;
+    for (var i = 0; i < arguments.length; ++i) {
+      var arg = arguments[i];
+      assertPath(arg);
+      if (arg.length > 0) {
+        if (joined === undefined)
+          joined = arg;
+        else
+          joined += '/' + arg;
+      }
+    }
+    if (joined === undefined)
+      return '.';
+    return posix.normalize(joined);
+  },
+
+  relative: function relative(from, to) {
+    assertPath(from);
+    assertPath(to);
+
+    if (from === to) return '';
+
+    from = posix.resolve(from);
+    to = posix.resolve(to);
+
+    if (from === to) return '';
+
+    // Trim any leading backslashes
+    var fromStart = 1;
+    for (; fromStart < from.length; ++fromStart) {
+      if (from.charCodeAt(fromStart) !== 47 /*/*/)
+        break;
+    }
+    var fromEnd = from.length;
+    var fromLen = fromEnd - fromStart;
+
+    // Trim any leading backslashes
+    var toStart = 1;
+    for (; toStart < to.length; ++toStart) {
+      if (to.charCodeAt(toStart) !== 47 /*/*/)
+        break;
+    }
+    var toEnd = to.length;
+    var toLen = toEnd - toStart;
+
+    // Compare paths to find the longest common path from root
+    var length = fromLen < toLen ? fromLen : toLen;
+    var lastCommonSep = -1;
+    var i = 0;
+    for (; i <= length; ++i) {
+      if (i === length) {
+        if (toLen > length) {
+          if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+            // We get here if `from` is the exact base path for `to`.
+            // For example: from='/foo/bar'; to='/foo/bar/baz'
+            return to.slice(toStart + i + 1);
+          } else if (i === 0) {
+            // We get here if `from` is the root
+            // For example: from='/'; to='/foo'
+            return to.slice(toStart + i);
+          }
+        } else if (fromLen > length) {
+          if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+            // We get here if `to` is the exact base path for `from`.
+            // For example: from='/foo/bar/baz'; to='/foo/bar'
+            lastCommonSep = i;
+          } else if (i === 0) {
+            // We get here if `to` is the root.
+            // For example: from='/foo'; to='/'
+            lastCommonSep = 0;
+          }
+        }
+        break;
+      }
+      var fromCode = from.charCodeAt(fromStart + i);
+      var toCode = to.charCodeAt(toStart + i);
+      if (fromCode !== toCode)
+        break;
+      else if (fromCode === 47 /*/*/)
+        lastCommonSep = i;
+    }
+
+    var out = '';
+    // Generate the relative path based on the path difference between `to`
+    // and `from`
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+      if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+        if (out.length === 0)
+          out += '..';
+        else
+          out += '/..';
+      }
+    }
+
+    // Lastly, append the rest of the destination (`to`) path that comes after
+    // the common path parts
+    if (out.length > 0)
+      return out + to.slice(toStart + lastCommonSep);
+    else {
+      toStart += lastCommonSep;
+      if (to.charCodeAt(toStart) === 47 /*/*/)
+        ++toStart;
+      return to.slice(toStart);
+    }
+  },
+
+  _makeLong: function _makeLong(path) {
+    return path;
+  },
+
+  dirname: function dirname(path) {
+    assertPath(path);
+    if (path.length === 0) return '.';
+    var code = path.charCodeAt(0);
+    var hasRoot = code === 47 /*/*/;
+    var end = -1;
+    var matchedSlash = true;
+    for (var i = path.length - 1; i >= 1; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          if (!matchedSlash) {
+            end = i;
+            break;
+          }
+        } else {
+        // We saw the first non-path separator
+        matchedSlash = false;
+      }
+    }
+
+    if (end === -1) return hasRoot ? '/' : '.';
+    if (hasRoot && end === 1) return '//';
+    return path.slice(0, end);
+  },
+
+  basename: function basename(path, ext) {
+    if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
+    assertPath(path);
+
+    var start = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i;
+
+    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+      if (ext.length === path.length && ext === path) return '';
+      var extIdx = ext.length - 1;
+      var firstNonSlashEnd = -1;
+      for (i = path.length - 1; i >= 0; --i) {
+        var code = path.charCodeAt(i);
+        if (code === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else {
+          if (firstNonSlashEnd === -1) {
+            // We saw the first non-path separator, remember this index in case
+            // we need it if the extension ends up not matching
+            matchedSlash = false;
+            firstNonSlashEnd = i + 1;
+          }
+          if (extIdx >= 0) {
+            // Try to match the explicit extension
+            if (code === ext.charCodeAt(extIdx)) {
+              if (--extIdx === -1) {
+                // We matched the extension, so mark this as the end of our path
+                // component
+                end = i;
+              }
+            } else {
+              // Extension does not match, so our result is the entire path
+              // component
+              extIdx = -1;
+              end = firstNonSlashEnd;
+            }
+          }
+        }
+      }
+
+      if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
+      return path.slice(start, end);
+    } else {
+      for (i = path.length - 1; i >= 0; --i) {
+        if (path.charCodeAt(i) === 47 /*/*/) {
+            // If we reached a path separator that was not part of a set of path
+            // separators at the end of the string, stop now
+            if (!matchedSlash) {
+              start = i + 1;
+              break;
+            }
+          } else if (end === -1) {
+          // We saw the first non-path separator, mark this as the end of our
+          // path component
+          matchedSlash = false;
+          end = i + 1;
+        }
+      }
+
+      if (end === -1) return '';
+      return path.slice(start, end);
+    }
+  },
+
+  extname: function extname(path) {
+    assertPath(path);
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+    for (var i = path.length - 1; i >= 0; --i) {
+      var code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1)
+            startDot = i;
+          else if (preDotState !== 1)
+            preDotState = 1;
+      } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+        // We saw a non-dot character immediately before the dot
+        preDotState === 0 ||
+        // The (right-most) trimmed path component is exactly '..'
+        preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      return '';
+    }
+    return path.slice(startDot, end);
+  },
+
+  format: function format(pathObject) {
+    if (pathObject === null || typeof pathObject !== 'object') {
+      throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+    }
+    return _format('/', pathObject);
+  },
+
+  parse: function parse(path) {
+    assertPath(path);
+
+    var ret = { root: '', dir: '', base: '', ext: '', name: '' };
+    if (path.length === 0) return ret;
+    var code = path.charCodeAt(0);
+    var isAbsolute = code === 47 /*/*/;
+    var start;
+    if (isAbsolute) {
+      ret.root = '/';
+      start = 1;
+    } else {
+      start = 0;
+    }
+    var startDot = -1;
+    var startPart = 0;
+    var end = -1;
+    var matchedSlash = true;
+    var i = path.length - 1;
+
+    // Track the state of characters (if any) we see before our first dot and
+    // after any path separator we find
+    var preDotState = 0;
+
+    // Get non-dir info
+    for (; i >= start; --i) {
+      code = path.charCodeAt(i);
+      if (code === 47 /*/*/) {
+          // If we reached a path separator that was not part of a set of path
+          // separators at the end of the string, stop now
+          if (!matchedSlash) {
+            startPart = i + 1;
+            break;
+          }
+          continue;
+        }
+      if (end === -1) {
+        // We saw the first non-path separator, mark this as the end of our
+        // extension
+        matchedSlash = false;
+        end = i + 1;
+      }
+      if (code === 46 /*.*/) {
+          // If this is our first dot, mark it as the start of our extension
+          if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+        } else if (startDot !== -1) {
+        // We saw a non-dot and non-path separator before our dot, so we should
+        // have a good chance at having a non-empty extension
+        preDotState = -1;
+      }
+    }
+
+    if (startDot === -1 || end === -1 ||
+    // We saw a non-dot character immediately before the dot
+    preDotState === 0 ||
+    // The (right-most) trimmed path component is exactly '..'
+    preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+      if (end !== -1) {
+        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
+      }
+    } else {
+      if (startPart === 0 && isAbsolute) {
+        ret.name = path.slice(1, startDot);
+        ret.base = path.slice(1, end);
+      } else {
+        ret.name = path.slice(startPart, startDot);
+        ret.base = path.slice(startPart, end);
+      }
+      ret.ext = path.slice(startDot, end);
+    }
+
+    if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
+
+    return ret;
+  },
+
+  sep: '/',
+  delimiter: ':',
+  win32: null,
+  posix: null
 };
 
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
+posix.posix = posix;
 
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
+module.exports = posix;
 
-}).call(this,require('_process'))
+}).call(this)}).call(this,require('_process'))
 
 },{"_process":4}],4:[function(require,module,exports){
 // shim for using process in browser
@@ -5326,6 +5659,7 @@ process.umask = function() { return 0; };
 },{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TimeWriter = exports.Time = exports.RoundingMode = exports.timeUnits = exports.TimeUnits = exports.TimeSegments = exports.writeRomanFractions = exports.writeRoman = exports.utils = exports.localization = void 0;
 /*! ****************************************************************************
 Copyright (c) 2017-2018 Pedro José Batista
 MIT License
@@ -5433,7 +5767,7 @@ var defaultSettings = {
 };
 // Gets the decimal separator from a locale string
 var localeDecimalSeparator = (function () {
-    var value = 1.1;
+    var value = new decimal_js_1.Decimal("1.1");
     var separator = value.toLocaleString().substring(1, 2);
     return separator;
 })();
@@ -5538,7 +5872,7 @@ exports.writeRomanFractions = writeRomanFractions;
 exports.TimeSegments = {
     /** All base ten [SI](https://en.wikipedia.org/wiki/International_System_of_Units) time units. */
     baseTen: ["yottasecond", "zettasecond", "exasecond", "petasecond", "terasecond", "gigasecond", "megasecond",
-        "kilosecond", "second", "milisecond", "microsecond", "nanosecond", "picosecond", "femtosecond", "attosecond",
+        "kilosecond", "second", "millisecond", "microsecond", "nanosecond", "picosecond", "femtosecond", "attosecond",
         "zeptosecond", "yoctosecond"],
     /** All base two binary time units. */
     binary: ["yobisecond", "zebisecond", "exbisecond", "pebisecond", "tebisecond", "gibisecond", "mebisecond",
@@ -5590,7 +5924,7 @@ exports.TimeUnits = {
     mebisecond: { factor: new decimal_js_1.Decimal("1.048576e+15"), symbol: "Mis" },
     megasecond: { factor: new decimal_js_1.Decimal("1e+15"), symbol: "Ms" },
     microsecond: { factor: new decimal_js_1.Decimal("1e+3"), symbol: "µs" },
-    milisecond: { factor: new decimal_js_1.Decimal("1e+6"), symbol: "ms" },
+    millisecond: { factor: new decimal_js_1.Decimal("1e+6"), symbol: "ms" },
     millenium: { factor: new decimal_js_1.Decimal("3.1556952e+19"), customPlural: "millennia" },
     minute: { factor: new decimal_js_1.Decimal("6e+10"), symbol: "min" },
     month: { factor: new decimal_js_1.Decimal("2.628e+15"), symbol: "m" },
@@ -5685,7 +6019,7 @@ var Time = /** @class */ (function () {
             value = value._nanoseconds;
         }
         if (typeof (value) !== "string" && typeof (value) !== "number" && !(value instanceof decimal_js_1.Decimal)) {
-            throw new Error("Invalid argument " + value);
+            throw new Error("Invalid argument ".concat(value));
         }
         if (!(value instanceof decimal_js_1.Decimal)) {
             value = new decimal_js_1.Decimal(value);
@@ -5699,7 +6033,7 @@ var Time = /** @class */ (function () {
          * nanoseconds.
          */
         get: function () { return this._nanoseconds; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Time.prototype, "isApproximated", {
@@ -5708,7 +6042,7 @@ var Time = /** @class */ (function () {
          * operations with that this time is involved.
          */
         get: function () { return this._approximated; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Time.prototype, "nanoseconds", {
@@ -5718,7 +6052,7 @@ var Time = /** @class */ (function () {
          * @deprecated Since v1.1.0 - In favor of `bigValue` and `value` (will be removed in v2).
          */
         get: function () { return parseFloat(this._nanoseconds.toString()); },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Time.prototype, "value", {
@@ -5726,13 +6060,13 @@ var Time = /** @class */ (function () {
          * Gets the numeric representation of the time length, in nanoseconds.
          */
         get: function () { return parseFloat(this._nanoseconds.toString()); },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // Actual `from` implementation
     Time.from = function (value, timeUnit) {
         if (typeof (value) !== "string" && typeof (value) !== "number" && !(value instanceof decimal_js_1.Decimal)) {
-            throw new Error("Invalid argument " + value);
+            throw new Error("Invalid argument ".concat(value));
         }
         if (!(value instanceof decimal_js_1.Decimal)) {
             value = new decimal_js_1.Decimal(value);
@@ -5817,7 +6151,7 @@ var Time = /** @class */ (function () {
      *   Numeric representation of the time length plus the symbol "ns".
      */
     Time.prototype.toString = function () {
-        return "" + (this._approximated ? "≈" : "") + this._nanoseconds.toString() + " ns";
+        return "".concat(this._approximated ? "≈" : "").concat(this._nanoseconds.toString(), " ns");
     };
     return Time;
 }());
@@ -5843,7 +6177,7 @@ var TimeWriter = /** @class */ (function () {
      *
      * @param settings
      *   Configurations pertaining to this instance, overriding those of the
-     *   [locale](_localization_.locale.html#writerOptions). May be overriden via parameter of [write](#write) or
+     *   [locale](_localization_.locale.html#writerOptions). May be overridden via parameter of [write](#write) or
      *   [countdown](#countdown).
      */
     function TimeWriter(settings) {
@@ -5912,7 +6246,7 @@ var TimeWriter = /** @class */ (function () {
         return this._writeTime(time, options, toTimeUnit);
     };
     //#endregion
-    // Gets the options overriden in the correct order
+    // Gets the options overridden in the correct order
     TimeWriter.prototype._combineOptions = function (options) {
         options = merge(defaultSettings, localization_1.Locale.settings.writerOptions, this.settings, options);
         // Deprecated properties will be removed on next major release, but for now, parse them
@@ -5949,7 +6283,7 @@ var TimeWriter = /** @class */ (function () {
                     : Time.from(integer, previousTimeUnit);
                 // Adding the current segment
                 result.push(this.write(parsedTime, previousTimeUnit, options));
-                // Preventing `write` from writting the approximation symbol / name
+                // Preventing `write` from writing the approximation symbol / name
                 if (parsedTime.isApproximated || previousTimeUnit.approximated) {
                     this._shouldApproximate = false;
                 }
@@ -6074,9 +6408,10 @@ var TimeWriter = /** @class */ (function () {
 exports.TimeWriter = TimeWriter;
 //#endregion
 },{"./localization":6,"./utils":7,"decimal.js":2}],6:[function(require,module,exports){
-(function (__dirname){
+(function (__dirname){(function (){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Locale = void 0;
 /*! ****************************************************************************
 Copyright (c) 2017-2018 Pedro José Batista
 MIT License
@@ -6109,13 +6444,13 @@ var Locale = /** @class */ (function () {
          * @deprecated Since v1.1.0 - In favor of `get` (will be removed in v2).
          */
         get: function () { return Locale._currentIdentifier; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Locale, "settings", {
         /** Gets the configuration for the current locale which represents the translation file currently loaded. */
         get: function () { return Locale._settings; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -6184,7 +6519,7 @@ var Locale = /** @class */ (function () {
         }
         var pathToLocaleFile = Locale._availableFiles[localeIdentifier];
         Locale._currentIdentifier = localeIdentifier;
-        var settings = require("./locales/" + pathToLocaleFile).default;
+        var settings = require("./locales/".concat(pathToLocaleFile)).default;
         Locale._settings = settings;
         // Parsing deprecated properties
         settings.defaultTimeUnit = settings.defaultTimeUnit || settings.defaultOptions;
@@ -6216,7 +6551,7 @@ var Locale = /** @class */ (function () {
             // Separating regionless languages and regionalizations
             var language = localeParser[1];
             var region = localeParser[2];
-            var identifier = language + "-" + (region.length === 2 ? region : "");
+            var identifier = "".concat(language, "-").concat(region.length === 2 ? region : "");
             if (!availableLanguages.hasOwnProperty(language)) {
                 availableLanguages[language] = identifier;
             }
@@ -6232,22 +6567,28 @@ var Locale = /** @class */ (function () {
     return Locale;
 }());
 exports.Locale = Locale;
-}).call(this,"/src")
+}).call(this)}).call(this,"/src")
 
 },{"fs":1,"path":3}],7:[function(require,module,exports){
-(function (process){
+(function (process){(function (){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TimerError = exports.StopWatch = exports.Timer = exports.BasicTimer = exports.getProcessTime = void 0;
 /*! ****************************************************************************
 Copyright (c) 2017-2018 Pedro José Batista
 MIT License
@@ -6299,13 +6640,13 @@ var BasicTimer = /** @class */ (function () {
         get: function () {
             return this.getElapsedTime();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BasicTimer.prototype, "isRunning", {
         /** Gets whether the timer is currently running (it was [started](#start) and not yet [stopped](#stop)). */
         get: function () { return !!this._startTime; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BasicTimer.prototype, "timerErrorType", {
@@ -6314,7 +6655,7 @@ var BasicTimer = /** @class */ (function () {
          * [timer errors](_utils_.timererror.html) in order to represent the specified name.
          */
         get: function () { return "timer"; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -6396,7 +6737,7 @@ var Timer = /** @class */ (function (_super) {
             }
             return new _1.Time(getProcessTime().minus(this._pauseStartTime));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Timer.prototype, "totalPauseTime", {
@@ -6404,7 +6745,7 @@ var Timer = /** @class */ (function (_super) {
         get: function () {
             return this.elapsedPauseTime.add(this._pauseTimeSum);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Timer.prototype, "elapsedTime", {
@@ -6427,13 +6768,13 @@ var Timer = /** @class */ (function (_super) {
                 .subtract(this._pauseStartTime)
                 .subtract(this._pauseTimeSum);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Timer.prototype, "isPaused", {
         /** Gets whether the timer is paused. */
         get: function () { return !!this._pauseStartTime; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Timer.prototype, "isRunning", {
@@ -6443,7 +6784,7 @@ var Timer = /** @class */ (function (_super) {
          * This property is **not influenced by [pauses](#pause)**, i.e. it will return true even when paused.
          */
         get: function () { return _super.prototype.getIsRunning.call(this); },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -6538,7 +6879,7 @@ var StopWatch = /** @class */ (function (_super) {
             }
             return new _1.Time(getProcessTime().minus(this._lapStartTime).minus(this._pauseStartTime || 0));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StopWatch.prototype, "currentLapStartTime", {
@@ -6548,13 +6889,13 @@ var StopWatch = /** @class */ (function (_super) {
          * @deprecated Since v1.1.0 - Unnecessary property (will be removed in v2).
          */
         get: function () { return new _1.Time(this._lapStartTime || 0); },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StopWatch.prototype, "lapCount", {
         /** Gets the number of laps currently stored at the stopwatch. */
         get: function () { return this.partialTimes.length + 1; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StopWatch.prototype, "lapPartials", {
@@ -6564,7 +6905,7 @@ var StopWatch = /** @class */ (function (_super) {
          * @deprecated Since v1.1.0 - In favor of `partialTimes` (will be removed in v2).
          */
         get: function () { return this._lapPartialTimes.map(function (value) { return new _1.Time(value); }); },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StopWatch.prototype, "partialTimes", {
@@ -6579,13 +6920,13 @@ var StopWatch = /** @class */ (function (_super) {
             }
             return partialTimes;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(StopWatch.prototype, "timerErrorType", {
         /** Gets the name used on stopwatch errors. */
         get: function () { return "stopwatch"; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /** Alias to [endLap](#endlap). */
@@ -6676,33 +7017,33 @@ var TimerError = /** @class */ (function (_super) {
     /** Creates and returns a new [TimerError](#) instance for when the timer is already paused. */
     TimerError.timerAlreadyPaused = function (type) {
         if (type === void 0) { type = "timer"; }
-        return new TimerError("The " + type + " is already paused");
+        return new TimerError("The ".concat(type, " is already paused"));
     };
     /** Creates and returns a new [TimerError](#) instance for when the timer has already started. */
     TimerError.timerAlreadyStarted = function (type) {
         if (type === void 0) { type = "timer"; }
-        return new TimerError("The " + type + " has already started");
+        return new TimerError("The ".concat(type, " has already started"));
     };
     /** Creates and returns a new [TimerError](#) instance for when the timer is not paused. */
     TimerError.timerNotPaused = function (type) {
         if (type === void 0) { type = "timer"; }
-        return new TimerError("The " + type + " is not paused");
+        return new TimerError("The ".concat(type, " is not paused"));
     };
     /** Creates and returns a new [TimerError](#) instance for when the timer has not yet started. */
     TimerError.timerNotStarted = function (type) {
         if (type === void 0) { type = "timer"; }
-        return new TimerError("The " + type + " has not yet started");
+        return new TimerError("The ".concat(type, " has not yet started"));
     };
     Object.defineProperty(TimerError.prototype, Symbol.toStringTag, {
         /** Gets a string representation of the [TimerError](#) class, used by the built-in `Object.prototype.toString`. */
         get: function () { return "TimerError"; },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return TimerError;
 }(Error));
 exports.TimerError = TimerError;
-}).call(this,require('_process'))
+}).call(this)}).call(this,require('_process'))
 
 },{".":5,"_process":4,"decimal.js":2}]},{},[5])
 

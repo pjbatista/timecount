@@ -27,10 +27,13 @@ This doesn't mean one should not `tslint:disable` a certain rule for a certain l
 ## Environment Setup
 
 1. Download or clone the repository:
+
     ```bash
     git clone https://github.com/pjbatista/timecount.git
     ```
+
 2. Enter the directory and install the package, making timecount available for development and testing:
+
     ```bash
     cd timecount
     npm install
@@ -89,7 +92,7 @@ export default {
 
 A complete translation example is available at [`src/locales/example.ts`](https://github.com/pjbatista/timecount/blob/master/src/locales/example.ts).
 
-> 💡 Don't forget to consult the [API Documentation](https://pjbatista.github.io/timecount) while translating since timecount localization contains ways to customize the writting of numeric values and time units.
+> 💡 Don't forget to consult the [API Documentation](https://pjbatista.github.io/timecount) while translating since timecount localization contains ways to customize the writing of numeric values and time units.
 
 ### Step 2: Testing
 
@@ -106,7 +109,7 @@ The union of mocha and chai allows a concise and clean unit testing. There are a
 - Test files must be located within [`tests`](https://github.com/pjbatista/timecount/tree/master/tests)
 - Each class should have its own test file
 - The preferred assertion style is [expect](http://www.chaijs.com/guide/styles/#expect)
-- Understable name for test tasks
+- Understandable name for test tasks
 
 All tests are located within the `tests` directory and each `.test.ts` file contains the assertions of a single class (when configurations are involved, separate assertion groups might be created).
 

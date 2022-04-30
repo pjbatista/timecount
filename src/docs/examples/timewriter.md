@@ -1,6 +1,6 @@
 ### Examples
 
-#### Writting time using different units
+#### Writing time using different units
 
 First, import and initialize the appropriate objects:
 

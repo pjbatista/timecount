@@ -126,7 +126,7 @@ const defaultSettings: TimeWriterSettings = {
 
 // Gets the decimal separator from a locale string
 const localeDecimalSeparator = (() => {
-    const value = 1.1;
+    const value = new Decimal("1.1");
     const separator = value.toLocaleString().substring(1, 2);
     return separator;
 })();
@@ -253,7 +253,7 @@ export const TimeSegments = {
 
     /** All base ten [SI](https://en.wikipedia.org/wiki/International_System_of_Units) time units. */
     baseTen: ["yottasecond", "zettasecond", "exasecond", "petasecond", "terasecond", "gigasecond", "megasecond",
-        "kilosecond", "second", "milisecond", "microsecond", "nanosecond", "picosecond", "femtosecond", "attosecond",
+        "kilosecond", "second", "millisecond", "microsecond", "nanosecond", "picosecond", "femtosecond", "attosecond",
         "zeptosecond", "yoctosecond"],
 
     /** All base two binary time units. */
@@ -310,7 +310,7 @@ export const TimeUnits: TimeUnitDatabase<TimeUnit> = {
     mebisecond: { factor: new Decimal("1.048576e+15"), symbol: "Mis" },
     megasecond: { factor: new Decimal("1e+15"), symbol: "Ms" },
     microsecond: { factor: new Decimal("1e+3"), symbol: "µs" },
-    milisecond: { factor: new Decimal("1e+6"), symbol: "ms" },
+    millisecond: { factor: new Decimal("1e+6"), symbol: "ms" },
     millenium: { factor: new Decimal("3.1556952e+19"), customPlural: "millennia" },
     minute: { factor: new Decimal("6e+10"), symbol: "min" },
     month: { factor: new Decimal("2.628e+15"), symbol: "m" },
@@ -1328,7 +1328,7 @@ export interface TimeUnitDatabase<T extends BaseTimeUnit = BaseTimeUnit> {
     readonly microsecond: T;
 
     /**
-     * A **milisecond** is a SI unit of time equal to _0.001 second_ or `1000000 nanoseconds`.
+     * A **millisecond** is a SI unit of time equal to _0.001 second_ or `1000000 nanoseconds`.
      *
      * The prefix _mili_ means 10⁻³.
      *
@@ -1336,7 +1336,7 @@ export interface TimeUnitDatabase<T extends BaseTimeUnit = BaseTimeUnit> {
      *
      * [Back to top](#)
      */
-    readonly milisecond: T;
+    readonly millisecond: T;
 
     /**
      * A **millennium** (plural _millennia_) is a period equal to _1000 years_ or `31536000000000000000 nanoseconds`,
@@ -1840,7 +1840,7 @@ export class TimeWriter {
      *
      * @param settings
      *   Configurations pertaining to this instance, overriding those of the
-     *   [locale](_localization_.locale.html#writerOptions). May be overriden via parameter of [write](#write) or
+     *   [locale](_localization_.locale.html#writerOptions). May be overridden via parameter of [write](#write) or
      *   [countdown](#countdown).
      */
     public constructor(public settings: TimeWriterSettings = {}) { }
@@ -1987,7 +1987,7 @@ export class TimeWriter {
         const filtered = args.filter(e => !(e instanceof Array));
 
         // Replaces arrays by their elements on args
-        arrayArgs.forEach(array => { filtered.push.apply(filtered, array); });
+        arrayArgs.forEach(array => { filtered.push.apply(filtered, array as any); });
         args = filtered;
 
         for (const argument of args) {
@@ -2229,7 +2229,7 @@ export class TimeWriter {
     }
     //#endregion
 
-    // Gets the options overriden in the correct order
+    // Gets the options overridden in the correct order
     private _combineOptions(options: TimeWriterSettings | undefined) {
 
         options = merge(defaultSettings, Locale.settings.writerOptions, this.settings, options);
@@ -2283,7 +2283,7 @@ export class TimeWriter {
                 // Adding the current segment
                 result.push(this.write(parsedTime, previousTimeUnit, options));
 
-                // Preventing `write` from writting the approximation symbol / name
+                // Preventing `write` from writing the approximation symbol / name
                 if (parsedTime.isApproximated || previousTimeUnit.approximated) {
                     this._shouldApproximate = false;
                 }
@@ -2338,9 +2338,9 @@ export class TimeWriter {
         }
 
         if (options.numericNotation === "scientific") {
-            stringValue = value.toExponential.apply(value, parameters);
+            stringValue = value.toExponential.apply(value, parameters as any);
         } else {
-            stringValue = value.toFixed.apply(value, parameters);
+            stringValue = value.toFixed.apply(value, parameters as any);
         }
 
         // Parsing the thousands separator only for decimals and values >= 1000
@@ -2486,7 +2486,7 @@ export interface TimeWriterSettings {
     fractionDigits?: number;
 
     /**
-     * When this property is set to true, it will prevent the time writer from writting any form of time unit, be it
+     * When this property is set to true, it will prevent the time writer from writing any form of time unit, be it
      * plural, symbol or verbose. It will also prevent the output of the [time unit separator](#timeunitseparator).
      *
      * Default is `false`.
@@ -2525,7 +2525,7 @@ export interface TimeWriterSettings {
     numericNotation?: NumericNotation;
 
     /**
-     * This can be set to a function that will replace all other forms of numeric writting, ignoring the
+     * This can be set to a function that will replace all other forms of numeric writing, ignoring the
      * [numeric notation](#numericnotation) and other mathematical properties.
      *
      * This function may receive two parameters: a number and an optional
@@ -2584,7 +2584,7 @@ export interface TimeWriterSettings {
     significantDigits?: number;
 
     /**
-     * When writting time values or units which based on approximations, this symbol will be added before the number to
+     * When writing time values or units which based on approximations, this symbol will be added before the number to
      * demonstrate the approximation, when [verbose](#verbose) is disabled. Otherwise, its [term](#termapproximately) is
      * used instead.
      *
@@ -2597,7 +2597,7 @@ export interface TimeWriterSettings {
     symbolApproximately?: string;
 
     /**
-     * When writting time values that represent an _Infinity_, this symbol will be used to express it, when
+     * When writing time values that represent an _Infinity_, this symbol will be used to express it, when
      * [verbose](#verbose) is disabled. Otherwise, its [term](#terminfinite) is used instead.
      *
      * Default: `"∞"`.
@@ -2609,7 +2609,7 @@ export interface TimeWriterSettings {
     symbolInfinite?: string;
 
     /**
-     * When writting time values that represent a _NaN_ (not a number), this symbol will be used to express it, when
+     * When writing time values that represent a _NaN_ (not a number), this symbol will be used to express it, when
      * [verbose](#verbose) is disabled. Otherwise, its [term](#termnan) is used instead.
      *
      * Default: `"NaN"`.
@@ -2621,7 +2621,7 @@ export interface TimeWriterSettings {
     symbolNaN?: string;
 
     /**
-     * When writting time values or units which based on approximations, this string will be added before the number to
+     * When writing time values or units which based on approximations, this string will be added before the number to
      * demonstrate the approximation, when [verbose](#verbose) is enabled. Otherwise, its [symbol](#symbolapproximately)
      * is used instead.
      *
@@ -2634,7 +2634,7 @@ export interface TimeWriterSettings {
     termApproximately?: string;
 
     /**
-     * When writting time values that represent an _Infinity_, this string will be used to express it, when
+     * When writing time values that represent an _Infinity_, this string will be used to express it, when
      * [verbose](#verbose) is enabled. Otherwise, its [symbol](#symbolinfinite) is used instead.
      *
      * Default for English (US): `"infinite"`.
@@ -2646,7 +2646,7 @@ export interface TimeWriterSettings {
     termInfinite?: string;
 
     /**
-     * When writting time values that represent a _NaN_ (not a number), this string will be used to express it, when
+     * When writing time values that represent a _NaN_ (not a number), this string will be used to express it, when
      * [verbose](#verbose) is enabled. Otherwise, its [symbol](#symbolnan) is used instead.
      *
      * ---

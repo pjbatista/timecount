@@ -13,7 +13,7 @@ function randomTimeout() {
 }
 
 const lowerCoefficient = 0.1;
-const milisecondFactor = 1000000;
+const millisecondFactor = 1000000;
 const upperLimit = 100000000;
 
 export class TestHelper {
@@ -25,20 +25,20 @@ export class TestHelper {
 
     public get timeAssertion() {
         return (time: Time) =>
-            time.bigValue.greaterThanOrEqualTo(this._timeout * milisecondFactor * lowerCoefficient) &&
-            time.bigValue.lessThanOrEqualTo(this._timeout * milisecondFactor + upperLimit);
+            time.bigValue.greaterThanOrEqualTo(this._timeout * millisecondFactor * lowerCoefficient) &&
+            time.bigValue.lessThanOrEqualTo(this._timeout * millisecondFactor + upperLimit);
     }
 
     public get timeAssertionDouble() {
         return (time: Time) =>
-            time.bigValue.greaterThanOrEqualTo(this._timeout * milisecondFactor * lowerCoefficient / 2) &&
-            time.bigValue.lessThanOrEqualTo(this._timeout * milisecondFactor * 2 + upperLimit * 2);
+            time.bigValue.greaterThanOrEqualTo(this._timeout * millisecondFactor * lowerCoefficient / 2) &&
+            time.bigValue.lessThanOrEqualTo(this._timeout * millisecondFactor * 2 + upperLimit * 2);
     }
 
     public get timeAssertionTriple() {
         return (time: Time) =>
-            time.bigValue.greaterThanOrEqualTo(this._timeout * milisecondFactor * lowerCoefficient / 3) &&
-            time.bigValue.lessThanOrEqualTo(this._timeout * milisecondFactor * 3 + upperLimit * 3);
+            time.bigValue.greaterThanOrEqualTo(this._timeout * millisecondFactor * lowerCoefficient / 3) &&
+            time.bigValue.lessThanOrEqualTo(this._timeout * millisecondFactor * 3 + upperLimit * 3);
     }
 
     public get timeAssertionFail() {

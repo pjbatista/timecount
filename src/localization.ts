@@ -224,7 +224,7 @@ export interface LocaleSettings {
      *
      * Contains linguistic and mathematical properties applied to all
      * [countdown](../classes/_index_.timewriter.html#countdown) and [write](../classes/_index_.timewriter.html#write)
-     * calls (unless overriden by the object or method).
+     * calls (unless overridden by the object or method).
      */
     writerOptions?: TimeWriterSettings;
 }
